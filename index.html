@@ -40,7 +40,10 @@
                     <p class="press-quote">„Mode ist mehr als Kleidung – sie ist Ausdruck von Haltung und Identität."</p>
                     <div class="press-media">
                         <a href="images/FAZ_Issue1-23_Titelstory_KerstinGeffert.pdf" class="pdf-link" download>PDF herunterladen</a>
-                        <img src="images/220905_Cyte_10_Issue_Layout_ss_hh-53.jpg" alt="Kerstin Geffert – FAZ Magazin Titelstory" loading="lazy">
+                        <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-53.webp">
+                            <img src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-53_cover.webp" alt="Kerstin Geffert – FAZ Magazin Titelstory" loading="lazy" decoding="async" width="1200" height="675">
+                            <span class="zoom-hint">Klick zum Vergrößern</span>
+                        </div>
                     </div>
                 </article>
 
@@ -54,7 +57,10 @@
                     <p class="press-quote">„Mit ihrer einzigartigen Mischung aus Eleganz und Streetstyle definiert sie die Mode neu."</p>
                     <div class="press-media">
                         <a href="images/20250712_Magazin_Seiten_34-35.pdf" class="pdf-link" download>PDF herunterladen</a>
-                        <img src="images/220905_Cyte_10_Issue_Layout_ss_hh-54.jpg" alt="Kerstin Geffert – Lifestyle Magazin" loading="lazy">
+                        <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-54.webp">
+                            <img src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-54_cover.webp" alt="Kerstin Geffert – Lifestyle Magazin" loading="lazy" decoding="async" width="1200" height="675">
+                            <span class="zoom-hint">Klick zum Vergrößern</span>
+                        </div>
                     </div>
                 </article>
 
@@ -68,7 +74,10 @@
                     <p class="press-quote">„Ihr Gespür für Trends und Nachhaltigkeit inspiriert eine ganze Generation."</p>
                     <div class="press-media">
                         <a href="images/20250712_Magazin_Seiten_36-37.pdf" class="pdf-link" download>PDF herunterladen</a>
-                        <img src="images/220905_Cyte_10_Issue_Layout_ss_hh-55.jpg" alt="Kerstin Geffert – Nachhaltige Mode" loading="lazy">
+                        <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-55.webp">
+                            <img src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-55_cover.webp" alt="Kerstin Geffert – Nachhaltige Mode" loading="lazy" decoding="async" width="1200" height="675">
+                            <span class="zoom-hint">Klick zum Vergrößern</span>
+                        </div>
                     </div>
                 </article>
             </section>
@@ -115,6 +124,23 @@
         </aside>
     </main>
 
+    <!-- Lightbox Overlay -->
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Bildvorschau">
+        <button class="lightbox-close" aria-label="Schließen">&times;</button>
+        <div class="lightbox-content">
+            <img id="lightbox-img" src="" alt="">
+            <a id="lightbox-link" href="" target="_blank" class="lightbox-open-tab" title="In neuem Tab öffnen">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+            </a>
+        </div>
+        <button class="lightbox-nav lightbox-prev" aria-label="Vorheriges Bild">&#8249;</button>
+        <button class="lightbox-nav lightbox-next" aria-label="Nächstes Bild">&#8250;</button>
+    </div>
+
     <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-content">
@@ -127,5 +153,90 @@
             </nav>
         </div>
     </footer>
+
+    <!-- Lightbox JavaScript -->
+    <script>
+    (function() {
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxLink = document.getElementById('lightbox-link');
+        const closeBtn = lightbox.querySelector('.lightbox-close');
+        const prevBtn = lightbox.querySelector('.lightbox-prev');
+        const nextBtn = lightbox.querySelector('.lightbox-next');
+
+        // Sammle alle Bilder mit data-full Attribut
+        const imageItems = Array.from(document.querySelectorAll('[data-full]'));
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            const item = imageItems[index];
+            const fullSrc = item.dataset.full;
+            const alt = item.querySelector('img')?.alt || '';
+
+            lightboxImg.src = fullSrc;
+            lightboxImg.alt = alt;
+            lightboxLink.href = fullSrc;
+
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Navigation Buttons ein-/ausblenden
+            prevBtn.style.display = imageItems.length > 1 ? 'block' : 'none';
+            nextBtn.style.display = imageItems.length > 1 ? 'block' : 'none';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+            lightboxImg.src = '';
+        }
+
+        function showNext() {
+            currentIndex = (currentIndex + 1) % imageItems.length;
+            openLightbox(currentIndex);
+        }
+
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + imageItems.length) % imageItems.length;
+            openLightbox(currentIndex);
+        }
+
+        // Event Listener für Bildklicks
+        imageItems.forEach((item, index) => {
+            item.style.cursor = 'pointer';
+            item.addEventListener('click', () => openLightbox(index));
+        });
+
+        // Schließen-Button
+        closeBtn.addEventListener('click', closeLightbox);
+
+        // Navigation
+        prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+        nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
+
+        // Klick auf Hintergrund schließt Lightbox
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        // Tastatur-Navigation
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+
+            switch (e.key) {
+                case 'Escape':
+                    closeLightbox();
+                    break;
+                case 'ArrowRight':
+                    showNext();
+                    break;
+                case 'ArrowLeft':
+                    showPrev();
+                    break;
+            }
+        });
+    })();
+    </script>
 </body>
 </html>
