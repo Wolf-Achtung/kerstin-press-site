@@ -15,10 +15,13 @@
         <h1 class="site-title">Kerstin Geffert</h1>
         <p class="site-subtitle">Press &amp; Media Gallery</p>
         <nav class="site-nav" aria-label="Navigation">
-            <a href="#presse">Presse</a>
-            <a href="#videos">Videos</a>
-            <a href="#ueber">Über</a>
-            <a href="#kontakt">Kontakt</a>
+            <ul>
+                <li><a href="#presse">Presse</a></li>
+                <li><a href="#videos">Videos</a></li>
+                <li><a href="#" id="nav-archiv">Archiv</a></li>
+                <li><a href="#" id="nav-ueber">Über</a></li>
+                <li><a href="#" id="nav-kontakt">Kontakt</a></li>
+            </ul>
         </nav>
     </header>
 
@@ -30,7 +33,7 @@
                 <h2 class="section-title">Presseberichte</h2>
 
                 <!-- FAZ Artikel -->
-                <article class="press-article">
+                <article class="press-article" data-date="2023-01-01">
                     <div class="press-header">
                         <span class="press-medium">FAZ Magazin</span>
                         <h3 class="press-title">Titelstory: Kerstin Geffert</h3>
@@ -40,14 +43,14 @@
                     <div class="press-media">
                         <a href="images/FAZ_Issue1-23_Titelstory_KerstinGeffert.pdf" class="pdf-link" download>PDF herunterladen</a>
                         <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-53.webp">
-                            <img src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-53_cover.webp" alt="Kerstin Geffert – FAZ Magazin Titelstory" loading="lazy" decoding="async" width="1200" height="675">
+                            <img src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-53.webp" loading="lazy" decoding="async" width="1200" height="675" alt="FAZ Titelstory: Kerstin Geffert">
                             <span class="zoom-hint">Klick zum Vergrößern</span>
                         </div>
                     </div>
                 </article>
 
                 <!-- Magazin Artikel 1 -->
-                <article class="press-article">
+                <article class="press-article" data-date="2025-07-12">
                     <div class="press-header">
                         <span class="press-medium">Lifestyle Magazin</span>
                         <h3 class="press-title">Stil-Inspiration: Kreative Looks</h3>
@@ -57,14 +60,14 @@
                     <div class="press-media">
                         <a href="images/20250712_Magazin_Seiten_34-35.pdf" class="pdf-link" download>PDF herunterladen</a>
                         <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-54.webp">
-                            <img src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-54_cover.webp" alt="Kerstin Geffert – Lifestyle Magazin" loading="lazy" decoding="async" width="1200" height="675">
+                            <img src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-54.webp" loading="lazy" decoding="async" width="1200" height="675" alt="Stil-Inspiration: Kreative Looks">
                             <span class="zoom-hint">Klick zum Vergrößern</span>
                         </div>
                     </div>
                 </article>
 
                 <!-- Magazin Artikel 2 -->
-                <article class="press-article">
+                <article class="press-article" data-date="2025-07-12">
                     <div class="press-header">
                         <span class="press-medium">Lifestyle Magazin</span>
                         <h3 class="press-title">Nachhaltige Mode mit Persönlichkeit</h3>
@@ -74,7 +77,7 @@
                     <div class="press-media">
                         <a href="images/20250712_Magazin_Seiten_36-37.pdf" class="pdf-link" download>PDF herunterladen</a>
                         <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-55.webp">
-                            <img src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-55_cover.webp" alt="Kerstin Geffert – Nachhaltige Mode" loading="lazy" decoding="async" width="1200" height="675">
+                            <img src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-55.webp" loading="lazy" decoding="async" width="1200" height="675" alt="Nachhaltige Mode mit Persönlichkeit">
                             <span class="zoom-hint">Klick zum Vergrößern</span>
                         </div>
                     </div>
@@ -83,45 +86,60 @@
 
             <!-- Video-Sektion -->
             <section id="videos" class="section">
-                <h2 class="section-title">Videos & Interviews</h2>
+                <h2 class="section-title">Videos &amp; Interviews</h2>
                 <div class="video-grid">
                     <div class="video-item">
                         <div class="video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Interview mit Fashion-TV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                    title="Interview mit Fashion-TV"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
                         </div>
                         <p class="video-caption">Interview mit Fashion-TV (3:30 min)</p>
                     </div>
                     <div class="video-item">
                         <div class="video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/9bZkp7q19f0" title="Runway Event Rückblick" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/9bZkp7q19f0"
+                                    title="Runway Rückblick"
+                                    frameborder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen></iframe>
                         </div>
                         <p class="video-caption">Rückblick auf das letzte Runway Event (2:45 min)</p>
                     </div>
                 </div>
             </section>
         </div>
-
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <section id="ueber" class="sidebar-section">
-                <h3>Über Kerstin</h3>
-                <p>Kerstin Geffert begeistert mit kreativen Looks und nachhaltigen Kooperationen. Mode ist Ausdruck von Persönlichkeit und Haltung.</p>
-            </section>
-
-            <section class="sidebar-section ai-feature">
-                <h3>KI-Feature</h3>
-                <p>Erhalte eine Zusammenfassung aller Presseberichte zu einem Stichwort.</p>
-                <input type="text" id="ai-input" placeholder="Stichwort eingeben" disabled>
-                <button id="ai-button" disabled>Zusammenfassung</button>
-                <span class="feature-note">Demnächst verfügbar</span>
-            </section>
-
-            <section id="kontakt" class="sidebar-section">
-                <h3>Kontakt</h3>
-                <p>Bei Kooperations- oder Presseanfragen sende eine E-Mail an <a href="mailto:info@example.com">info@example.com</a>.</p>
-            </section>
-        </aside>
     </main>
+
+    <!-- Modale Overlays -->
+    <div class="modal" id="modal-ueber" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" data-modal-close>&times;</button>
+            <h2>Über Kerstin</h2>
+            <p>Kerstin Geffert begeistert mit kreativen Looks und nachhaltigen Kooperationen. Mode ist Ausdruck von Persönlichkeit und Haltung.</p>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-kontakt" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" data-modal-close>&times;</button>
+            <h2>Kontakt &amp; Kooperationen</h2>
+            <p>Bei Kooperations- oder Presseanfragen sende bitte eine E-Mail an
+                <a href="mailto:info@example.com">info@example.com</a>.
+            </p>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-archiv" aria-hidden="true">
+        <div class="modal-content">
+            <button class="modal-close" data-modal-close>&times;</button>
+            <h2>Presse-Archiv</h2>
+            <input type="search" id="archiv-search" placeholder="Stichwort, Medium oder Jahr eingeben">
+            <ul id="archiv-list"></ul>
+        </div>
+    </div>
 
     <!-- Lightbox Overlay -->
     <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Bildvorschau">
@@ -129,6 +147,7 @@
         <div class="lightbox-content">
             <img id="lightbox-img" src="" alt="">
             <a id="lightbox-link" href="" target="_blank" class="lightbox-open-tab" title="In neuem Tab öffnen">
+                <!-- Icon für "In neuem Tab öffnen" -->
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
                     <polyline points="15 3 21 3 21 9"></polyline>
@@ -143,7 +162,7 @@
     <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-content">
-            <p class="copyright">&copy; 2025 Kerstin Geffert / Silk Relations – Berlin</p>
+            <p class="copyright">&copy; 2025 Kerstin Geffert – Berlin</p>
             <nav class="footer-nav">
                 <ul>
                     <li><a href="#">Impressum</a></li>
@@ -153,7 +172,7 @@
         </div>
     </footer>
 
-    <!-- Lightbox JavaScript -->
+    <!-- Lightbox + Archiv/Modals JavaScript -->
     <script>
     (function() {
         const lightbox = document.getElementById('lightbox');
@@ -201,7 +220,7 @@
             openLightbox(currentIndex);
         }
 
-        // Event Listener für Bildklicks
+        // Klick-Events für alle Bilder
         imageItems.forEach((item, index) => {
             item.style.cursor = 'pointer';
             item.addEventListener('click', () => openLightbox(index));
@@ -235,6 +254,128 @@
                     break;
             }
         });
+    })();
+
+    // Sortiere Presseartikel chronologisch (neueste zuerst) anhand data-date
+    (function () {
+        const section = document.querySelector('#presse');
+        if (!section) return;
+        const articles = Array.from(section.querySelectorAll('.press-article'));
+        if (articles.length < 2) return;
+
+        articles.sort((a, b) => {
+            const da = new Date(a.getAttribute('data-date') || '');
+            const db = new Date(b.getAttribute('data-date') || '');
+            return db - da; // neueste zuerst
+        });
+
+        articles.forEach((a) => section.appendChild(a));
+    })();
+
+    // Modale Fenster (Über, Kontakt, Archiv)
+    (function () {
+        const body = document.body;
+
+        function bindModal(triggerId, modalId) {
+            const trigger = document.getElementById(triggerId);
+            const modal = document.getElementById(modalId);
+            if (!trigger || !modal) return;
+
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.classList.add('open');
+                modal.setAttribute('aria-hidden', 'false');
+                body.style.overflow = 'hidden';
+            });
+        }
+
+        function closeAll() {
+            document.querySelectorAll('.modal.open').forEach((m) => {
+                m.classList.remove('open');
+                m.setAttribute('aria-hidden', 'true');
+            });
+            body.style.overflow = '';
+        }
+
+        document.addEventListener('click', (e) => {
+            const target = e.target;
+            if (target.matches('[data-modal-close]')) {
+                e.preventDefault();
+                closeAll();
+            }
+            if (target.classList && target.classList.contains('modal')) {
+                closeAll();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeAll();
+        });
+
+        bindModal('nav-ueber', 'modal-ueber');
+        bindModal('nav-kontakt', 'modal-kontakt');
+        bindModal('nav-archiv', 'modal-archiv');
+    })();
+
+    // Archiv-Suche über vorhandene Presseartikel
+    (function () {
+        const searchInput = document.getElementById('archiv-search');
+        const list = document.getElementById('archiv-list');
+        const articles = Array.from(document.querySelectorAll('.press-article'));
+        if (!searchInput || !list || articles.length === 0) return;
+
+        const dataset = articles.map((article) => {
+            const title = article.querySelector('.press-title')?.textContent || '';
+            const medium = article.querySelector('.press-medium')?.textContent || '';
+            const date = article.querySelector('.press-date')?.textContent || '';
+            const iso = article.getAttribute('data-date') || '';
+            return { title, medium, date, iso, el: article };
+        });
+
+        function render(items) {
+            list.innerHTML = '';
+            if (!items.length) {
+                const li = document.createElement('li');
+                li.textContent = 'Keine Treffer.';
+                list.appendChild(li);
+                return;
+            }
+            items.forEach((item) => {
+                const li = document.createElement('li');
+                const datePart = item.date || item.iso;
+                li.innerHTML = `<strong>${item.title}</strong><br><span>${item.medium} · ${datePart}</span>`;
+                li.addEventListener('click', () => {
+                    const modal = document.getElementById('modal-archiv');
+                    if (modal) {
+                        modal.classList.remove('open');
+                        modal.setAttribute('aria-hidden', 'true');
+                    }
+                    document.body.style.overflow = '';
+                    item.el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+                list.appendChild(li);
+            });
+        }
+
+        function filter() {
+            const q = (searchInput.value || '').toLowerCase().trim();
+            if (!q) {
+                render(dataset);
+                return;
+            }
+            const result = dataset.filter((item) => {
+                return (
+                    item.title.toLowerCase().includes(q) ||
+                    item.medium.toLowerCase().includes(q) ||
+                    item.date.toLowerCase().includes(q) ||
+                    item.iso.toLowerCase().includes(q)
+                );
+            });
+            render(result);
+        }
+
+        searchInput.addEventListener('input', filter);
+        render(dataset);
     })();
     </script>
 </body>
