@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Influencer Press Kit</title>
+    <title>Kerstin Geffert – Pressemappe</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
     <header class="site-header">
-        <h1 class="site-title">Kerstin Geffert</h1>
+        <h1 class="site-title">KERSTIN GEFFERT</h1>
         <nav class="site-nav">
             <ul>
                 <li><a href="#presse">Presse</a></li>
@@ -23,74 +23,102 @@
         </nav>
     </header>
 
-    <!-- Removed hero section for a minimal intro -->
-
     <!-- Main Content and Sidebar -->
     <main class="container">
         <div class="main-content">
-            <section id="presse">
-                <h3>Presseberichte</h3>
-                <!-- Presseartikel Beispiel -->
+            <!-- Pressesektion -->
+            <section id="presse" class="section">
+                <h2 class="section-title">Presseberichte</h2>
+
+                <!-- FAZ Artikel -->
                 <article class="press-article">
-                    <h4>"Neue Kollektion setzt Trends" – Vogue Germany</h4>
-                    <p class="press-date">Erschienen am 11. November 2025</p>
-                    <p class="press-quote">„Mit ihrer einzigartigen Mischung aus Eleganz und Streetstyle definiert sie die Mode neu.“</p>
+                    <div class="press-header">
+                        <span class="press-medium">FAZ Magazin</span>
+                        <h3 class="press-title">Titelstory: Kerstin Geffert</h3>
+                    </div>
+                    <p class="press-date">Ausgabe 1/2023</p>
+                    <p class="press-quote">„Mode ist mehr als Kleidung – sie ist Ausdruck von Haltung und Identität."</p>
                     <div class="press-media">
-                        <a href="sample.pdf" class="pdf-link" download>PDF herunterladen</a>
-                        <img src="https://via.placeholder.com/800x450?text=Artikelbild" alt="Beispielbild des Artikels">
+                        <a href="images/FAZ_Issue1-23_Titelstory_KerstinGeffert.pdf" class="pdf-link" download>PDF herunterladen</a>
+                        <img src="images/220905_Cyte_10_Issue_Layout_ss_hh-53.jpg" alt="Kerstin Geffert – FAZ Magazin Titelstory" loading="lazy">
                     </div>
                 </article>
-                <!-- Zweiter Artikel als Vorlage -->
+
+                <!-- Magazin Artikel 1 -->
                 <article class="press-article">
-                    <h4>"Die Stil-Ikone aus Berlin" – Berliner Zeitung</h4>
-                    <p class="press-date">Erschienen am 29. Oktober 2025</p>
-                    <p class="press-quote">„Ihr Gespür für Trends und Nachhaltigkeit inspiriert eine ganze Generation.“</p>
+                    <div class="press-header">
+                        <span class="press-medium">Lifestyle Magazin</span>
+                        <h3 class="press-title">Stil-Inspiration: Kreative Looks</h3>
+                    </div>
+                    <p class="press-date">12. Juli 2025</p>
+                    <p class="press-quote">„Mit ihrer einzigartigen Mischung aus Eleganz und Streetstyle definiert sie die Mode neu."</p>
                     <div class="press-media">
-                        <a href="sample2.pdf" class="pdf-link" download>PDF herunterladen</a>
-                        <img src="https://via.placeholder.com/800x450?text=Artikelbild" alt="Beispielbild des Artikels">
+                        <a href="images/20250712_Magazin_Seiten_34-35.pdf" class="pdf-link" download>PDF herunterladen</a>
+                        <img src="images/220905_Cyte_10_Issue_Layout_ss_hh-54.jpg" alt="Kerstin Geffert – Lifestyle Magazin" loading="lazy">
+                    </div>
+                </article>
+
+                <!-- Magazin Artikel 2 -->
+                <article class="press-article">
+                    <div class="press-header">
+                        <span class="press-medium">Lifestyle Magazin</span>
+                        <h3 class="press-title">Nachhaltige Mode mit Persönlichkeit</h3>
+                    </div>
+                    <p class="press-date">12. Juli 2025</p>
+                    <p class="press-quote">„Ihr Gespür für Trends und Nachhaltigkeit inspiriert eine ganze Generation."</p>
+                    <div class="press-media">
+                        <a href="images/20250712_Magazin_Seiten_36-37.pdf" class="pdf-link" download>PDF herunterladen</a>
+                        <img src="images/220905_Cyte_10_Issue_Layout_ss_hh-55.jpg" alt="Kerstin Geffert – Nachhaltige Mode" loading="lazy">
                     </div>
                 </article>
             </section>
 
-            <section id="videos">
-                <h3>Videos & Interviews</h3>
+            <!-- Video-Sektion -->
+            <section id="videos" class="section">
+                <h2 class="section-title">Videos & Interviews</h2>
                 <div class="video-grid">
-                    <!-- Beispielvideo -->
                     <div class="video-item">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-                        <p class="video-caption">Interview mit Fashion‑TV (3:30 min)</p>
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Interview mit Fashion-TV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p class="video-caption">Interview mit Fashion-TV (3:30 min)</p>
                     </div>
-                    <!-- Zweites Beispielvideo -->
                     <div class="video-item">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/9bZkp7q19f0" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
-                        <p class="video-caption">Rückblick auf das letzte Runway Event (2:45 min)</p>
+                        <div class="video-wrapper">
+                            <iframe src="https://www.youtube.com/embed/9bZkp7q19f0" title="Runway Event Rückblick" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p class="video-caption">Rückblick auf das letzte Runway Event (2:45 min)</p>
                     </div>
                 </div>
             </section>
         </div>
+
         <!-- Sidebar -->
         <aside class="sidebar">
-            <section id="ueber">
+            <section id="ueber" class="sidebar-section">
                 <h3>Über Kerstin</h3>
-                <p>Kerstin Geffert begeistert mit kreativen Looks und nachhaltigen Kooperationen. Mode ist für sie Ausdruck von Persönlichkeit und Haltung.</p>
+                <p>Kerstin Geffert begeistert mit kreativen Looks und nachhaltigen Kooperationen. Mode ist Ausdruck von Persönlichkeit und Haltung.</p>
             </section>
-            <section class="ai-feature">
-                <h3>KI‑Feature</h3>
-                <p>Teste unser experimentelles KI‑Tool: Gib einen Suchbegriff ein und erhalte eine kurze Zusammenfassung aller relevanten Presseberichte. (Demnächst verfügbar)</p>
+
+            <section class="sidebar-section ai-feature">
+                <h3>KI-Feature</h3>
+                <p>Erhalte eine Zusammenfassung aller Presseberichte zu einem Stichwort.</p>
                 <input type="text" id="ai-input" placeholder="Stichwort eingeben" disabled>
-                <button id="ai-button" disabled>Zusammenfassung erhalten</button>
+                <button id="ai-button" disabled>Zusammenfassung</button>
+                <span class="feature-note">Demnächst verfügbar</span>
             </section>
-            <section id="kontakt">
-                <h3>Kontakt & Kooperationen</h3>
-                <p>Bei Kooperations‑ oder Presseinquiries sende bitte eine E‑Mail an <a href="mailto:info@example.com">info@example.com</a>.</p>
+
+            <section id="kontakt" class="sidebar-section">
+                <h3>Kontakt</h3>
+                <p>Bei Kooperations- oder Presseanfragen sende eine E-Mail an <a href="mailto:info@example.com">info@example.com</a>.</p>
             </section>
         </aside>
     </main>
 
     <!-- Footer -->
     <footer class="site-footer">
-        <div class="container">
-            <p>&copy; 2025 Kerstin Geffert / Silk Relations – Berlin</p>
+        <div class="footer-content">
+            <p class="copyright">&copy; 2025 Kerstin Geffert / Silk Relations – Berlin</p>
             <nav class="footer-nav">
                 <ul>
                     <li><a href="#">Impressum</a></li>
@@ -99,6 +127,5 @@
             </nav>
         </div>
     </footer>
-
 </body>
 </html>
