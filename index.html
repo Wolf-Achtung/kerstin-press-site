@@ -22,15 +22,15 @@
         </nav>
     </header>
 
-    <!-- Main Content and Sidebar -->
-    <main class="container">
-        <div class="main-content">
+    <!-- Main Layout: 2/3 + 1/3 -->
+    <main class="page-layout">
+        <div class="layout-main">
             <!-- Pressesektion -->
             <section id="presse" class="section">
                 <h2 class="section-title">Presseberichte</h2>
 
                 <!-- FAZ Artikel -->
-                <article class="press-article">
+                <article class="press-article" data-date="2023-01">
                     <div class="press-header">
                         <span class="press-medium">FAZ Magazin</span>
                         <h3 class="press-title">Titelstory: Kerstin Geffert</h3>
@@ -38,16 +38,16 @@
                     <p class="press-date">Ausgabe 1/2023</p>
                     <p class="press-quote">„Mode ist mehr als Kleidung – sie ist Ausdruck von Haltung und Identität."</p>
                     <div class="press-media">
-                        <a href="images/FAZ_Issue1-23_Titelstory_KerstinGeffert.pdf" class="pdf-link" download>PDF herunterladen</a>
-                        <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-53.webp">
+                        <button type="button" class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-53.webp">
                             <img src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-53_cover.webp" alt="Kerstin Geffert – FAZ Magazin Titelstory" loading="lazy" decoding="async" width="1200" height="675">
                             <span class="zoom-hint">Klick zum Vergrößern</span>
-                        </div>
+                        </button>
+                        <a href="images/FAZ_Issue1-23_Titelstory_KerstinGeffert.pdf" class="pdf-link" download>PDF herunterladen</a>
                     </div>
                 </article>
 
                 <!-- Magazin Artikel 1 -->
-                <article class="press-article">
+                <article class="press-article" data-date="2025-07-12">
                     <div class="press-header">
                         <span class="press-medium">Lifestyle Magazin</span>
                         <h3 class="press-title">Stil-Inspiration: Kreative Looks</h3>
@@ -55,16 +55,16 @@
                     <p class="press-date">12. Juli 2025</p>
                     <p class="press-quote">„Mit ihrer einzigartigen Mischung aus Eleganz und Streetstyle definiert sie die Mode neu."</p>
                     <div class="press-media">
-                        <a href="images/20250712_Magazin_Seiten_34-35.pdf" class="pdf-link" download>PDF herunterladen</a>
-                        <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-54.webp">
+                        <button type="button" class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-54.webp">
                             <img src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-54_cover.webp" alt="Kerstin Geffert – Lifestyle Magazin" loading="lazy" decoding="async" width="1200" height="675">
                             <span class="zoom-hint">Klick zum Vergrößern</span>
-                        </div>
+                        </button>
+                        <a href="images/20250712_Magazin_Seiten_34-35.pdf" class="pdf-link" download>PDF herunterladen</a>
                     </div>
                 </article>
 
                 <!-- Magazin Artikel 2 -->
-                <article class="press-article">
+                <article class="press-article" data-date="2025-07-12">
                     <div class="press-header">
                         <span class="press-medium">Lifestyle Magazin</span>
                         <h3 class="press-title">Nachhaltige Mode mit Persönlichkeit</h3>
@@ -72,18 +72,18 @@
                     <p class="press-date">12. Juli 2025</p>
                     <p class="press-quote">„Ihr Gespür für Trends und Nachhaltigkeit inspiriert eine ganze Generation."</p>
                     <div class="press-media">
-                        <a href="images/20250712_Magazin_Seiten_36-37.pdf" class="pdf-link" download>PDF herunterladen</a>
-                        <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-55.webp">
+                        <button type="button" class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-55.webp">
                             <img src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-55_cover.webp" alt="Kerstin Geffert – Nachhaltige Mode" loading="lazy" decoding="async" width="1200" height="675">
                             <span class="zoom-hint">Klick zum Vergrößern</span>
-                        </div>
+                        </button>
+                        <a href="images/20250712_Magazin_Seiten_36-37.pdf" class="pdf-link" download>PDF herunterladen</a>
                     </div>
                 </article>
             </section>
 
             <!-- Video-Sektion -->
             <section id="videos" class="section">
-                <h2 class="section-title">Videos & Interviews</h2>
+                <h2 class="section-title">Videos &amp; Interviews</h2>
                 <div class="video-grid">
                     <div class="video-item">
                         <div class="video-wrapper">
@@ -101,27 +101,38 @@
             </section>
         </div>
 
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <section id="ueber" class="sidebar-section">
-                <h3>Über Kerstin</h3>
+        <!-- Sidebar (1/3) -->
+        <aside class="layout-side">
+            <section id="ueber">
+                <h3>Über</h3>
                 <p>Kerstin Geffert begeistert mit kreativen Looks und nachhaltigen Kooperationen. Mode ist Ausdruck von Persönlichkeit und Haltung.</p>
             </section>
 
-            <section class="sidebar-section ai-feature">
-                <h3>KI-Feature</h3>
-                <p>Erhalte eine Zusammenfassung aller Presseberichte zu einem Stichwort.</p>
-                <input type="text" id="ai-input" placeholder="Stichwort eingeben" disabled>
-                <button id="ai-button" disabled>Zusammenfassung</button>
-                <span class="feature-note">Demnächst verfügbar</span>
+            <section id="kontakt">
+                <h3>Kontakt</h3>
+                <p>E-Mail: <a href="mailto:info@example.com">info@example.com</a></p>
             </section>
 
-            <section id="kontakt" class="sidebar-section">
-                <h3>Kontakt</h3>
-                <p>Bei Kooperations- oder Presseanfragen sende eine E-Mail an <a href="mailto:info@example.com">info@example.com</a>.</p>
+            <section>
+                <h3>Archiv</h3>
+                <p><a href="#" id="nav-archiv-side">Archiv öffnen</a></p>
             </section>
         </aside>
     </main>
+
+    <!-- Archiv Modal -->
+    <div id="archiv-modal" class="modal" role="dialog" aria-modal="true" aria-label="Pressearchiv">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Pressearchiv</h2>
+                <button class="modal-close" aria-label="Schließen">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="archiv-search" placeholder="Suche nach Titel, Medium, Datum..." autocomplete="off">
+                <ul id="archiv-results" class="archiv-list"></ul>
+            </div>
+        </div>
+    </div>
 
     <!-- Lightbox Overlay -->
     <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Bildvorschau">
@@ -143,19 +154,20 @@
     <!-- Footer -->
     <footer class="site-footer">
         <div class="footer-content">
-            <p class="copyright">&copy; 2025 Kerstin Geffert / Silk Relations – Berlin</p>
+            <p class="copyright">&copy; 2025 Kerstin Geffert – Berlin</p>
             <nav class="footer-nav">
-                <ul>
-                    <li><a href="#">Impressum</a></li>
-                    <li><a href="#">Datenschutz</a></li>
-                </ul>
+                <a href="#">Impressum</a>
+                <a href="#">Datenschutz</a>
             </nav>
         </div>
     </footer>
 
-    <!-- Lightbox JavaScript -->
+    <!-- JavaScript -->
     <script>
     (function() {
+        // ========================================
+        // LIGHTBOX
+        // ========================================
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxLink = document.getElementById('lightbox-link');
@@ -163,8 +175,7 @@
         const prevBtn = lightbox.querySelector('.lightbox-prev');
         const nextBtn = lightbox.querySelector('.lightbox-next');
 
-        // Sammle alle Bilder mit data-full Attribut
-        const imageItems = Array.from(document.querySelectorAll('[data-full]'));
+        const imageItems = Array.from(document.querySelectorAll('.press-image-wrapper[data-full]'));
         let currentIndex = 0;
 
         function openLightbox(index) {
@@ -180,7 +191,6 @@
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
 
-            // Navigation Buttons ein-/ausblenden
             prevBtn.style.display = imageItems.length > 1 ? 'block' : 'none';
             nextBtn.style.display = imageItems.length > 1 ? 'block' : 'none';
         }
@@ -201,38 +211,119 @@
             openLightbox(currentIndex);
         }
 
-        // Event Listener für Bildklicks
         imageItems.forEach((item, index) => {
-            item.style.cursor = 'pointer';
-            item.addEventListener('click', () => openLightbox(index));
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                openLightbox(index);
+            });
         });
 
-        // Schließen-Button
         closeBtn.addEventListener('click', closeLightbox);
-
-        // Navigation
         prevBtn.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
         nextBtn.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
 
-        // Klick auf Hintergrund schließt Lightbox
         lightbox.addEventListener('click', (e) => {
             if (e.target === lightbox) closeLightbox();
         });
 
-        // Tastatur-Navigation
         document.addEventListener('keydown', (e) => {
             if (!lightbox.classList.contains('active')) return;
-
             switch (e.key) {
-                case 'Escape':
-                    closeLightbox();
-                    break;
-                case 'ArrowRight':
-                    showNext();
-                    break;
-                case 'ArrowLeft':
-                    showPrev();
-                    break;
+                case 'Escape': closeLightbox(); break;
+                case 'ArrowRight': showNext(); break;
+                case 'ArrowLeft': showPrev(); break;
+            }
+        });
+
+        // ========================================
+        // ARCHIV MODAL
+        // ========================================
+        const archivModal = document.getElementById('archiv-modal');
+        const archivSearch = document.getElementById('archiv-search');
+        const archivResults = document.getElementById('archiv-results');
+        const archivTriggers = document.querySelectorAll('#nav-archiv-side, [data-archiv-trigger]');
+        const archivCloseBtn = archivModal.querySelector('.modal-close');
+
+        const articles = Array.from(document.querySelectorAll('.press-article'));
+
+        function openArchiv() {
+            archivModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            archivSearch.value = '';
+            renderArchivList(articles);
+            archivSearch.focus();
+        }
+
+        function closeArchiv() {
+            archivModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function renderArchivList(items) {
+            archivResults.innerHTML = '';
+            items.forEach(article => {
+                const title = article.querySelector('.press-title')?.textContent || '';
+                const medium = article.querySelector('.press-medium')?.textContent || '';
+                const date = article.querySelector('.press-date')?.textContent || '';
+
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <strong>${title}</strong>
+                    <span>${medium} – ${date}</span>
+                `;
+                li.addEventListener('click', () => {
+                    closeArchiv();
+                    article.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    article.classList.add('highlight');
+                    setTimeout(() => article.classList.remove('highlight'), 2000);
+                });
+                archivResults.appendChild(li);
+            });
+
+            if (items.length === 0) {
+                archivResults.innerHTML = '<li class="no-results">Keine Ergebnisse gefunden</li>';
+            }
+        }
+
+        function filterArchiv(query) {
+            const q = query.toLowerCase().trim();
+            if (!q) {
+                renderArchivList(articles);
+                return;
+            }
+
+            const filtered = articles.filter(article => {
+                const title = article.querySelector('.press-title')?.textContent.toLowerCase() || '';
+                const medium = article.querySelector('.press-medium')?.textContent.toLowerCase() || '';
+                const date = article.dataset.date || '';
+                const dateText = article.querySelector('.press-date')?.textContent.toLowerCase() || '';
+
+                return title.includes(q) || medium.includes(q) || date.includes(q) || dateText.includes(q);
+            });
+
+            renderArchivList(filtered);
+        }
+
+        archivTriggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                openArchiv();
+            });
+        });
+
+        archivCloseBtn.addEventListener('click', closeArchiv);
+
+        archivModal.addEventListener('click', (e) => {
+            if (e.target === archivModal) closeArchiv();
+        });
+
+        archivSearch.addEventListener('input', (e) => {
+            filterArchiv(e.target.value);
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && archivModal.classList.contains('active')) {
+                closeArchiv();
             }
         });
     })();
