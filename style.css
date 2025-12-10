@@ -8,13 +8,13 @@
    ======================================== */
 
 :root {
-    --bg-page: #e8e8e8;      /* Gesamt-Hintergrund (etwas dunkler) */
-    --bg-surface: #f0f0f0;   /* Flächen (Cards, Sections) */
+    --bg-page: #e0e0e0;      /* Gesamt-Hintergrund (dunkler) */
+    --bg-surface: #ececec;   /* Content-Fläche (etwas heller) */
     --bg-header: #ffffff;    /* Header weiß */
     --bg-modal: #ffffff;     /* Modal weiß */
     --text-primary: #111;
     --text-secondary: #666;
-    --border-color: #ddd;
+    --border-color: #d0d0d0;
 }
 
 /* ========================================
@@ -122,8 +122,10 @@ button {
     align-items: flex-start;
     width: 92%;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 2rem 0;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--bg-surface);
+    border-radius: 12px;
 }
 
 .layout-main {
@@ -136,9 +138,8 @@ button {
 }
 
 .layout-side section {
-    background-color: var(--bg-surface);
-    padding: 1.25rem;
-    border-radius: 8px;
+    background-color: transparent;
+    padding: 0;
     margin-bottom: 1.5rem;
 }
 
@@ -175,11 +176,9 @@ button {
    ======================================== */
 
 .section {
-    background-color: var(--bg-surface);
-    padding: 2rem;
-    margin-bottom: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 2.5rem;
 }
 
 .section:last-child {
@@ -338,10 +337,8 @@ button {
 }
 
 .video-item {
-    background-color: var(--bg-surface);
-    padding: 1rem;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
+    background-color: transparent;
+    padding: 0;
 }
 
 .video-wrapper {
@@ -602,7 +599,7 @@ button {
     background-color: var(--bg-surface);
     border-top: 1px solid var(--border-color);
     padding: 1.5rem 0;
-    margin-top: 2rem;
+    margin-top: 0;
 }
 
 .footer-content {
@@ -743,6 +740,8 @@ button {
 @media (max-width: 900px) {
     .page-layout {
         grid-template-columns: 1fr;
+        margin: 1rem auto;
+        padding: 1.5rem;
     }
 
     .layout-side {
@@ -785,11 +784,7 @@ button {
 
     .page-layout {
         width: 95%;
-        padding: 1rem 0;
-    }
-
-    .section {
-        padding: 1.5rem;
+        padding: 1rem;
     }
 
     .section-title {
