@@ -173,26 +173,6 @@
         </div>
       </section>
     </div>
-
-    <!-- SIDEBAR -->
-    <aside class="layout-side">
-      <section>
-        <h3>Über Kerstin</h3>
-        <p>Mode ist Ausdruck von Persönlichkeit und Haltung. Kerstin Geffert begeistert mit kreativen Looks und nachhaltigen Kooperationen.</p>
-      </section>
-      <section>
-        <h3>Kontakt</h3>
-        <p>Bei Kooperations- oder Presseanfragen: <a href="mailto:info@example.com">info@example.com</a></p>
-      </section>
-      <section>
-        <h3>Schnellzugriff</h3>
-        <p>
-          <a href="#presse">Presseberichte</a><br />
-          <a href="#videos">Videos</a><br />
-          <a href="#" id="sidebar-archiv">Archiv durchsuchen</a>
-        </p>
-      </section>
-    </aside>
   </main>
 
   <!-- MODALS: ÜBER / KONTAKT / ARCHIV -->
@@ -410,14 +390,6 @@
 
       if (archiv)
         archiv.addEventListener('click', (e) => {
-          e.preventDefault();
-          openModal('modal-archiv');
-        });
-
-      // Sidebar Archiv Link
-      const sidebarArchiv = document.getElementById('sidebar-archiv');
-      if (sidebarArchiv)
-        sidebarArchiv.addEventListener('click', (e) => {
           e.preventDefault();
           openModal('modal-archiv');
         });
