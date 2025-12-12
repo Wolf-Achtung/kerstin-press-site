@@ -70,29 +70,30 @@ button {
 
 /* ========================================
    SPRACHUMSCHALTUNG (DE/EN)
+   Robust: Body hat IMMER entweder lang-de ODER lang-en
    ======================================== */
 
-/* Standard: Deutsch anzeigen, Englisch verstecken */
-.lang-en {
-    display: none;
+/*
+ * WICHTIG: Body MUSS class="lang-de" haben als Default im HTML!
+ * JavaScript wechselt zwischen lang-de und lang-en.
+ * So ist immer genau eine Sprache sichtbar.
+ */
+
+/* === DEUTSCH-MODUS (body.lang-de) === */
+body.lang-de .lang-en {
+    display: none !important;
 }
 
-.lang-de {
+body.lang-de .lang-de {
     display: block;
 }
 
-/* Inline-Elemente */
-span.lang-de,
-a.lang-de {
+body.lang-de span.lang-de,
+body.lang-de a.lang-de {
     display: inline;
 }
 
-span.lang-en,
-a.lang-en {
-    display: none;
-}
-
-/* Bei body.lang-en: Englisch anzeigen, Deutsch verstecken */
+/* === ENGLISCH-MODUS (body.lang-en) === */
 body.lang-en .lang-de {
     display: none !important;
 }
@@ -103,6 +104,21 @@ body.lang-en .lang-en {
 
 body.lang-en span.lang-en,
 body.lang-en a.lang-en {
+    display: inline;
+}
+
+/* === FALLBACK: Falls Body keine Sprachklasse hat === */
+/* (sollte nie passieren, aber sicher ist sicher) */
+body:not(.lang-de):not(.lang-en) .lang-en {
+    display: none;
+}
+
+body:not(.lang-de):not(.lang-en) .lang-de {
+    display: block;
+}
+
+body:not(.lang-de):not(.lang-en) span.lang-de,
+body:not(.lang-de):not(.lang-en) a.lang-de {
     display: inline;
 }
 
