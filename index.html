@@ -12,7 +12,7 @@
     rel="stylesheet"
   />
 </head>
-<body>
+<body class="lang-de">
   <!-- HEADER -->
   <header class="site-header">
     <div class="header-content">
@@ -344,8 +344,19 @@
       const langButtons = document.querySelectorAll('[data-lang]');
 
       function setLanguage(lang) {
-        // Body-Klasse setzen
-        document.body.classList.toggle('lang-en', lang === 'en');
+        // Nur gültige Sprachen akzeptieren
+        if (lang !== 'de' && lang !== 'en') {
+          lang = 'de'; // Fallback auf Deutsch
+        }
+
+        // Body-Klassen korrekt setzen (nie beide gleichzeitig!)
+        if (lang === 'en') {
+          document.body.classList.remove('lang-de');
+          document.body.classList.add('lang-en');
+        } else {
+          document.body.classList.remove('lang-en');
+          document.body.classList.add('lang-de');
+        }
 
         // Aktiven Button markieren
         langButtons.forEach(btn => {
@@ -367,11 +378,12 @@
         });
       });
 
-      // Gespeicherte Sprache laden
+      // Gespeicherte Sprache laden (mit Validierung)
       const savedLang = localStorage.getItem('preferred-lang');
-      if (savedLang) {
-        setLanguage(savedLang);
+      if (savedLang === 'en') {
+        setLanguage('en');
       }
+      // Sonst bleibt Default (lang-de aus HTML)
     })();
 
     // =============================================
