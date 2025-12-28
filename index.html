@@ -55,7 +55,7 @@
   <!-- MAIN: 2/3 – 1/3 GRID -->
   <main class="page-layout">
     <!-- Linke Spalte (2/3) -->
-    <div class="column column-left">
+    <div class="column column-left" id="content-left">
 
       <!-- Kachel 1: Großes Querformat -->
       <article class="tile tile-image tile-landscape" data-date="2023-01-01">
@@ -137,7 +137,7 @@
     </div>
 
     <!-- Rechte Spalte (1/3) -->
-    <div class="column column-right">
+    <div class="column column-right" id="content-right">
 
       <!-- Kachel 2: Schmales Hochformat -->
       <article class="tile tile-image tile-portrait" data-date="2025-07-12">
@@ -645,5 +645,8 @@
       });
     })();
   </script>
+
+  <!-- Content Loader: Lädt Inhalte aus Google Sheet -->
+  <script src="js/content-loader.js"></script>
 </body>
 </html>
