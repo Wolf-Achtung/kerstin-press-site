@@ -48,16 +48,51 @@ Die Tabelle hat diese Spalten:
 
 ---
 
-## Bilder hochladen
+## Bilder hochladen (mit dem iPhone)
 
-### Mit dem iPhone:
+### Schritt 1: Artikel scannen
 
-1. **Artikel scannen**: Öffne die "Notizen"-App → Neuer Scan → Foto machen
-2. **In Google Drive hochladen**: Speichere das Bild in Google Drive
-3. **Link holen**:
-   - In Google Drive: Tippe auf das Bild → "Teilen" → "Link kopieren"
-   - Stelle sicher, dass "Jeder mit dem Link" ausgewählt ist
-4. **Link in Tabelle einfügen**: Füge den Link in die Spalte "bild_url" ein
+1. Öffne die **Notizen-App** auf deinem iPhone
+2. Erstelle eine neue Notiz
+3. Tippe auf das **Kamera-Symbol** → **Dokumente scannen**
+4. Halte die Kamera über den Artikel – er wird automatisch erkannt
+5. Tippe auf **Sichern**
+
+*Tipp: Du kannst auch einfach ein Foto mit der normalen Kamera-App machen.*
+
+---
+
+### Schritt 2: In Google Drive hochladen
+
+1. Öffne die **Google Drive App**
+2. Tippe auf das **+** (unten rechts)
+3. Wähle **Hochladen** → **Fotos und Videos**
+4. Wähle dein gescanntes Bild aus
+5. Warte bis der Upload fertig ist
+
+*Tipp: Erstelle einen Ordner "Website-Bilder" für bessere Übersicht.*
+
+---
+
+### Schritt 3: Bild freigeben
+
+1. Tippe auf das hochgeladene Bild
+2. Tippe auf die **drei Punkte** (⋮) oben rechts
+3. Wähle **Teilen** oder **Zugriff verwalten**
+4. Tippe auf **Allgemeiner Zugriff**
+5. Wähle **"Jeder mit dem Link"** → **Betrachter**
+6. Tippe auf **Fertig**
+
+---
+
+### Schritt 4: Link kopieren und einfügen
+
+1. Tippe nochmal auf die **drei Punkte** (⋮)
+2. Wähle **Link kopieren**
+3. Öffne deine **Google Tabelle**
+4. Füge den Link in die Spalte **bild_url** ein
+
+**Fertig!** Der Link wird automatisch erkannt und das Bild erscheint auf der Website.
 
 ---
 
