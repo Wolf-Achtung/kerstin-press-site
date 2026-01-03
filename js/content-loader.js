@@ -11,7 +11,7 @@
   // ============================================
   const CONFIG = {
     // Google Sheet ID (aus der URL kopieren)
-    SHEET_ID: 'HIER_SHEET_ID_EINTRAGEN',
+    SHEET_ID: '1hvZRgfUx078ZxTCAadpwyBDgM5LSzlYsrs7yv4E9szU',
 
     // Sheet-Name (Tab-Name unten im Sheet)
     SHEET_NAME: 'Tabellenblatt1',
