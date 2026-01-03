@@ -11,9 +11,7 @@
   // ============================================
   const CONFIG = {
     // Google Sheet ID (aus der URL kopieren)
-    // URL: https://docs.google.com/spreadsheets/d/XXXXX.../edit
-    // Ersetze die X mit deiner ID:
-    SHEET_ID: 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX',
+    SHEET_ID: '1hvZRgfUx078ZxTCAadpwyBDgM5LSzlYsrs7yv4E9szU',
 
     // Sheet-Name (Tab-Name unten im Sheet)
     SHEET_NAME: 'Tabellenblatt1',
