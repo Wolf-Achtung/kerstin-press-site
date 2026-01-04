@@ -281,19 +281,10 @@
   }
 
   function formatDate(dateStr) {
+    // Einfach den Text so zurückgeben wie er ist (Freitext erlaubt)
+    // Beispiele: "Ausgabe 1/2023", "Sommer 2022", "März 2024", "12. Juli 2025"
     if (!dateStr) return '';
-
-    try {
-      const date = new Date(dateStr);
-      if (isNaN(date.getTime())) return dateStr;
-      return date.toLocaleDateString('de-DE', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-    } catch {
-      return dateStr;
-    }
+    return String(dateStr);
   }
 
   // ============================================
