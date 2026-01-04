@@ -22,7 +22,7 @@
       <!-- Titel mittig -->
       <div class="header-center">
         <h1 class="site-title">Kerstin Geffert</h1>
-        <p class="site-subtitle">press media clippings</p>
+        <p class="site-subtitle">"Fashion wasn't what you wore someplace anymore; it was the whole reason for going." – Andy Warhol</p>
       </div>
 
       <!-- Controls rechts: DE/EN + Menü in einer Zeile -->
@@ -44,8 +44,8 @@
           <ul class="nav-list">
             <li><a href="#" data-nav="ueber" class="lang-de">Über</a><a href="#" data-nav="ueber" class="lang-en">About</a></li>
             <li><a href="#" data-nav="archiv" class="lang-de">Presse-Archiv</a><a href="#" data-nav="archiv" class="lang-en">Press Archive</a></li>
-            <li><a href="#" data-nav="anfragen" class="lang-de">Anfragen/Kooperationen</a><a href="#" data-nav="anfragen" class="lang-en">Inquiries/Collaborations</a></li>
             <li><a href="#" data-nav="kontakt" class="lang-de">Kontakt</a><a href="#" data-nav="kontakt" class="lang-en">Contact</a></li>
+            <li><a href="#" data-nav="impressum" class="lang-de">Impressum</a><a href="#" data-nav="impressum" class="lang-en">Imprint</a></li>
           </ul>
         </nav>
       </div>
@@ -246,26 +246,19 @@
     </div>
   </div>
 
-  <!-- Anfragen/Kooperationen Modal -->
-  <div class="modal" id="modal-anfragen" aria-hidden="true">
+  <!-- Impressum Modal -->
+  <div class="modal" id="modal-impressum" aria-hidden="true">
     <div class="modal-content">
       <button class="modal-close" data-modal-close>&times;</button>
-      <h2 class="lang-de">Anfragen &amp; Kooperationen</h2>
-      <h2 class="lang-en">Inquiries &amp; Collaborations</h2>
+      <h2 class="lang-de">Impressum</h2>
+      <h2 class="lang-en">Imprint</h2>
       <p class="lang-de">
-        Für Kooperations- oder Presseanfragen senden Sie bitte eine E-Mail an:
+        <!-- Impressum-Inhalt hier einfügen -->
+        Angaben gemäß § 5 TMG folgen in Kürze.
       </p>
       <p class="lang-en">
-        For collaboration or press inquiries, please send an email to:
-      </p>
-      <p class="contact-email">
-        <a href="mailto:kooperationen@example.com">kooperationen@example.com</a>
-      </p>
-      <p class="lang-de">
-        Wir freuen uns über spannende Projekte und kreative Zusammenarbeit.
-      </p>
-      <p class="lang-en">
-        We look forward to exciting projects and creative collaborations.
+        <!-- Imprint content here -->
+        Information according to § 5 TMG coming soon.
       </p>
     </div>
   </div>
@@ -533,11 +526,11 @@
             case 'archiv':
               openModal('modal-archiv');
               break;
-            case 'anfragen':
-              openModal('modal-anfragen');
-              break;
             case 'kontakt':
               openModal('modal-kontakt');
+              break;
+            case 'impressum':
+              openModal('modal-impressum');
               break;
           }
         });
