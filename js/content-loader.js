@@ -1,6 +1,7 @@
 /**
  * Content Loader für Kerstin Geffert Website
  * Lädt Inhalte dynamisch aus Google Sheets
+ * Unterstützt mehrere Bilder pro Editorial (Lightbox-Galerie)
  */
 
 (function() {
@@ -61,7 +62,7 @@
 
   function parseSheetData(data) {
     const table = data.table;
-    const headers = table.cols.map(col => col.label?.toLowerCase() || '');
+    const headers = table.cols.map(col => col.label?.toLowerCase().trim().replace(/[- ]/g, '_') || '');
     const rows = [];
 
     for (const row of table.rows) {
@@ -166,15 +167,46 @@
     return url;
   }
 
-  function createImageTile(item) {
-    const imageUrl = convertDriveUrl(item.bild_url);
+  // Sammle alle Bild-URLs aus einem Item (Bild-URL, Bild-URL-2, Bild-URL-3, etc.)
+  function getImageUrls(item) {
+    const urls = [];
+
+    // Haupt-Bild-URL
+    const mainUrl = item.bild_url || item['bild-url'] || item.bild_url_1 || item['bild-url-1'];
+    if (mainUrl) {
+      urls.push(convertDriveUrl(mainUrl));
+    }
+
+    // Zusätzliche Bilder (2-10)
+    for (let i = 2; i <= 10; i++) {
+      const urlKey = `bild_url_${i}`;
+      const urlKeyAlt = `bild-url-${i}`;
+      const url = item[urlKey] || item[urlKeyAlt];
+      if (url) {
+        urls.push(convertDriveUrl(url));
+      }
+    }
+
+    return urls;
+  }
+
+  function createImageTile(item, groupId) {
+    const imageUrls = getImageUrls(item);
+    if (imageUrls.length === 0) return '';
+
+    const mainImageUrl = imageUrls[0];
+    // Speichere alle URLs als data-Attribut für die Lightbox
+    const allUrlsJson = JSON.stringify(imageUrls);
 
     return `
       <article class="tile tile-image" data-date="${item.datum || ''}">
         <div class="tile-media">
-          <div class="press-image-wrapper" data-full="${imageUrl}">
+          <div class="press-image-wrapper"
+               data-full="${mainImageUrl}"
+               data-gallery='${allUrlsJson}'
+               data-group="${groupId}">
             <img
-              src="${imageUrl}"
+              src="${mainImageUrl}"
               loading="lazy"
               decoding="async"
               alt="${item.titel_de || ''}"
@@ -229,13 +261,14 @@
     `;
   }
 
-  function createTile(item) {
+  function createTile(item, index) {
     const typ = (item.typ || '').toLowerCase().trim();
+    const groupId = `gallery-${index}`;
 
     switch (typ) {
       case 'bild':
       case 'image':
-        return createImageTile(item);
+        return createImageTile(item, groupId);
       case 'zitat':
       case 'quote':
         return createQuoteTile(item);
@@ -252,6 +285,7 @@
 
     try {
       const date = new Date(dateStr);
+      if (isNaN(date.getTime())) return dateStr;
       return date.toLocaleDateString('de-DE', {
         day: 'numeric',
         month: 'long',
@@ -278,50 +312,142 @@
     let leftHtml = '';
     let rightHtml = '';
 
-    for (const item of rows) {
+    rows.forEach((item, index) => {
       const spalte = (item.spalte || '').toLowerCase().trim();
-      const tileHtml = createTile(item);
+      const tileHtml = createTile(item, index);
 
       if (spalte === 'rechts' || spalte === 'right') {
         rightHtml += tileHtml;
       } else {
         leftHtml += tileHtml;
       }
-    }
+    });
 
     leftColumn.innerHTML = leftHtml;
     rightColumn.innerHTML = rightHtml;
 
-    // Lightbox neu initialisieren
-    initLightbox();
+    // Lightbox neu initialisieren mit Galerie-Support
+    initGalleryLightbox();
 
     // Sprache anwenden
     applyCurrentLanguage();
   }
 
-  function initLightbox() {
-    // Lightbox-Event-Listener für neue Bilder
+  // ============================================
+  // LIGHTBOX MIT GALERIE-SUPPORT
+  // ============================================
+
+  function initGalleryLightbox() {
     const imageItems = document.querySelectorAll('.press-image-wrapper');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
     const lightboxLink = document.getElementById('lightbox-link');
+    const prevBtn = lightbox?.querySelector('.lightbox-prev');
+    const nextBtn = lightbox?.querySelector('.lightbox-next');
+    const closeBtn = lightbox?.querySelector('.lightbox-close');
 
     if (!lightbox || !lightboxImg) return;
 
-    imageItems.forEach((item, index) => {
+    let currentGallery = [];
+    let currentIndex = 0;
+
+    function showImage(index) {
+      if (index < 0 || index >= currentGallery.length) return;
+
+      currentIndex = index;
+      const src = currentGallery[index];
+
+      lightboxImg.src = src;
+      if (lightboxLink) lightboxLink.href = src;
+
+      // Navigation ein/ausblenden
+      if (prevBtn) prevBtn.style.display = currentGallery.length > 1 ? 'block' : 'none';
+      if (nextBtn) nextBtn.style.display = currentGallery.length > 1 ? 'block' : 'none';
+    }
+
+    function openLightbox(galleryUrls, startIndex = 0) {
+      currentGallery = galleryUrls;
+      currentIndex = startIndex;
+
+      showImage(currentIndex);
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+      lightboxImg.src = '';
+    }
+
+    function showNext() {
+      showImage((currentIndex + 1) % currentGallery.length);
+    }
+
+    function showPrev() {
+      showImage((currentIndex - 1 + currentGallery.length) % currentGallery.length);
+    }
+
+    // Event-Listener für Bilder
+    imageItems.forEach((item) => {
       item.style.cursor = 'pointer';
       item.addEventListener('click', () => {
-        const fullSrc = item.dataset.full;
-        const img = item.querySelector('img');
-        const alt = img ? img.alt : '';
+        // Galerie-URLs aus data-Attribut laden
+        let galleryUrls;
+        try {
+          galleryUrls = JSON.parse(item.dataset.gallery || '[]');
+        } catch {
+          galleryUrls = [];
+        }
 
-        lightboxImg.src = fullSrc;
-        lightboxImg.alt = alt;
-        if (lightboxLink) lightboxLink.href = fullSrc;
+        // Fallback auf einzelnes Bild
+        if (galleryUrls.length === 0) {
+          galleryUrls = [item.dataset.full];
+        }
 
-        lightbox.classList.add('active');
-        document.body.style.overflow = 'hidden';
+        openLightbox(galleryUrls, 0);
       });
+    });
+
+    // Event-Listener für Navigation
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeLightbox);
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showPrev();
+      });
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        showNext();
+      });
+    }
+
+    // Schließen bei Klick auf Backdrop
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Tastaturnavigation
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+
+      switch (e.key) {
+        case 'Escape':
+          closeLightbox();
+          break;
+        case 'ArrowRight':
+          showNext();
+          break;
+        case 'ArrowLeft':
+          showPrev();
+          break;
+      }
     });
   }
 
