@@ -281,10 +281,19 @@
   }
 
   function formatDate(dateStr) {
-    // Einfach den Text so zurückgeben wie er ist (Freitext erlaubt)
-    // Beispiele: "Ausgabe 1/2023", "Sommer 2022", "März 2024", "12. Juli 2025"
+    // Freitext erlaubt: "Ausgabe 1/2023", "Sommer 2022", "März 2024"
     if (!dateStr) return '';
-    return String(dateStr);
+
+    const str = String(dateStr);
+
+    // Google Sheets Date-Objekt Format: "Date(2023,0,1)" → ignorieren, Freitext nutzen
+    if (str.startsWith('Date(')) {
+      // Wenn es ein Google Sheets Date ist, zeigen wir nichts an
+      // (Kerstin soll stattdessen Freitext im Sheet eingeben)
+      return '';
+    }
+
+    return str;
   }
 
   // ============================================
