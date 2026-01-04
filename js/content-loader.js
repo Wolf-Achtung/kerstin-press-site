@@ -138,7 +138,9 @@
     // Google Drive Link umwandeln
     const driveMatch = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
     if (driveMatch) {
-      return `https://drive.google.com/uc?export=view&id=${driveMatch[1]}`;
+      const fileId = driveMatch[1];
+      // Zuverlässigere Methode für Google Drive Bilder
+      return `https://lh3.googleusercontent.com/d/${fileId}`;
     }
 
     return url;
