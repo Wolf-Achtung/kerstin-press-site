@@ -199,8 +199,10 @@
     const mainImageUrl = imageUrls[0];
     // Speichere alle URLs als data-Attribut für die Lightbox
     const allUrlsJson = JSON.stringify(imageUrls);
-    // Wenn ein Link vorhanden ist, wird statt Lightbox ein Popup geöffnet
+    // Wenn ein Link vorhanden ist, wird statt Lightbox ein Popup/Modal geöffnet
     const popupLink = item.link || '';
+    // Screenshot für Split-Modal (aus bild_url_2)
+    const screenshotUrl = imageUrls.length > 1 ? imageUrls[1] : '';
 
     return `
       <article class="tile tile-image" data-date="${item.datum || ''}">
@@ -209,7 +211,8 @@
                data-full="${mainImageUrl}"
                data-gallery='${allUrlsJson}'
                data-group="${groupId}"
-               ${popupLink ? `data-popup-link="${popupLink}"` : ''}>
+               ${popupLink ? `data-popup-link="${popupLink}"` : ''}
+               ${screenshotUrl ? `data-screenshot="${screenshotUrl}"` : ''}>
             <img
               src="${mainImageUrl}"
               loading="lazy"
@@ -393,19 +396,59 @@
       showImage((currentIndex - 1 + currentGallery.length) % currentGallery.length);
     }
 
+    // Article Split Modal
+    const articleModal = document.getElementById('article-modal');
+    const articleIframe = document.getElementById('article-iframe');
+    const articleScreenshot = document.getElementById('article-screenshot');
+    const articleCloseBtn = articleModal?.querySelector('.article-modal-close');
+
+    function openArticleModal(articleUrl, screenshotUrl) {
+      if (!articleModal || !articleIframe || !articleScreenshot) return;
+
+      articleIframe.src = articleUrl;
+      articleScreenshot.src = screenshotUrl;
+      articleModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeArticleModal() {
+      if (!articleModal) return;
+      articleModal.classList.remove('active');
+      articleIframe.src = '';
+      articleScreenshot.src = '';
+      document.body.style.overflow = '';
+    }
+
+    if (articleCloseBtn) {
+      articleCloseBtn.addEventListener('click', closeArticleModal);
+    }
+
+    if (articleModal) {
+      articleModal.addEventListener('click', (e) => {
+        if (e.target === articleModal) closeArticleModal();
+      });
+    }
+
     // Event-Listener für Bilder
     imageItems.forEach((item) => {
       item.style.cursor = 'pointer';
       item.addEventListener('click', () => {
-        // Prüfen ob ein Popup-Link vorhanden ist
         const popupLink = item.dataset.popupLink;
-        if (popupLink) {
-          // Popup-Fenster öffnen statt Lightbox
-          window.open(popupLink, 'popup', 'width=1000,height=800,resizable=yes,scrollbars=yes');
+        const screenshotUrl = item.dataset.screenshot;
+
+        // Wenn Link UND Screenshot vorhanden: Split-Modal öffnen
+        if (popupLink && screenshotUrl) {
+          openArticleModal(popupLink, screenshotUrl);
           return;
         }
 
-        // Galerie-URLs aus data-Attribut laden
+        // Wenn nur Link vorhanden: In neuem Tab öffnen
+        if (popupLink) {
+          window.open(popupLink, '_blank');
+          return;
+        }
+
+        // Sonst: Lightbox mit Galerie öffnen
         let galleryUrls;
         try {
           galleryUrls = JSON.parse(item.dataset.gallery || '[]');
