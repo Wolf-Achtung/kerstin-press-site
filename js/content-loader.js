@@ -199,6 +199,8 @@
     const mainImageUrl = imageUrls[0];
     // Speichere alle URLs als data-Attribut für die Lightbox
     const allUrlsJson = JSON.stringify(imageUrls);
+    // Wenn ein Link vorhanden ist, wird statt Lightbox ein Popup geöffnet
+    const popupLink = item.link || '';
 
     return `
       <article class="tile tile-image" data-date="${item.datum || ''}">
@@ -206,15 +208,16 @@
           <div class="press-image-wrapper"
                data-full="${mainImageUrl}"
                data-gallery='${allUrlsJson}'
-               data-group="${groupId}">
+               data-group="${groupId}"
+               ${popupLink ? `data-popup-link="${popupLink}"` : ''}>
             <img
               src="${mainImageUrl}"
               loading="lazy"
               decoding="async"
               alt="${item.titel_de || ''}"
             />
-            <span class="zoom-hint lang-de">Klick zum Vergrößern</span>
-            <span class="zoom-hint lang-en">Click to enlarge</span>
+            <span class="zoom-hint lang-de">${popupLink ? 'Klick für mehr Info' : 'Klick zum Vergrößern'}</span>
+            <span class="zoom-hint lang-en">${popupLink ? 'Click for more info' : 'Click to enlarge'}</span>
           </div>
         </div>
         <div class="tile-text">
@@ -394,6 +397,14 @@
     imageItems.forEach((item) => {
       item.style.cursor = 'pointer';
       item.addEventListener('click', () => {
+        // Prüfen ob ein Popup-Link vorhanden ist
+        const popupLink = item.dataset.popupLink;
+        if (popupLink) {
+          // Popup-Fenster öffnen statt Lightbox
+          window.open(popupLink, 'popup', 'width=1000,height=800,resizable=yes,scrollbars=yes');
+          return;
+        }
+
         // Galerie-URLs aus data-Attribut laden
         let galleryUrls;
         try {
