@@ -678,6 +678,49 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
     overflow-y: auto;
 }
 
+.modal-content-legal {
+    max-width: 700px;
+}
+
+.modal-content-legal h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 1.5rem 0 0.5rem;
+    color: #333;
+}
+
+.modal-content-legal h3:first-of-type {
+    margin-top: 0.5rem;
+}
+
+.modal-content-legal p {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.modal-content-legal ul {
+    margin: 0.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.modal-content-legal li {
+    margin: 0.25rem 0;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+.modal-content-legal a {
+    color: #333;
+    text-decoration: underline;
+}
+
+.modal-content-legal a:hover {
+    color: #000;
+}
+
 .modal-content h2 {
     margin: 0 0 1rem;
     font-size: 1.3rem;
