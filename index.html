@@ -238,9 +238,8 @@
 
       <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form">
         <input type="hidden" name="form-name" value="contact">
-        <p class="hidden" style="display:none;">
-          <label>Don't fill this out: <input name="bot-field"></label>
-        </p>
+        <!-- Honeypot gegen Spam -->
+        <p style="display:none;"><label>Nicht ausfüllen: <input name="bot-field"></label></p>
 
         <div class="form-group">
           <label for="contact-name" class="lang-de">Name</label>
@@ -260,12 +259,12 @@
           <select id="contact-subject" name="subject" required>
             <option value="" class="lang-de">Bitte wählen...</option>
             <option value="" class="lang-en">Please select...</option>
-            <option value="presse" class="lang-de">Presseanfrage</option>
-            <option value="press" class="lang-en">Press Inquiry</option>
-            <option value="kooperation" class="lang-de">Kooperation</option>
-            <option value="cooperation" class="lang-en">Cooperation</option>
-            <option value="allgemein" class="lang-de">Allgemeine Anfrage</option>
-            <option value="general" class="lang-en">General Inquiry</option>
+            <option value="Presseanfrage" class="lang-de">Presseanfrage</option>
+            <option value="Press Inquiry" class="lang-en">Press Inquiry</option>
+            <option value="Kooperation" class="lang-de">Kooperation</option>
+            <option value="Cooperation" class="lang-en">Cooperation</option>
+            <option value="Allgemeine Anfrage" class="lang-de">Allgemeine Anfrage</option>
+            <option value="General Inquiry" class="lang-en">General Inquiry</option>
           </select>
         </div>
 
