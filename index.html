@@ -229,19 +229,62 @@
 
   <!-- Kontakt Modal -->
   <div class="modal" id="modal-kontakt" aria-hidden="true">
-    <div class="modal-content">
+    <div class="modal-content modal-content-contact">
       <button class="modal-close" data-modal-close>&times;</button>
       <h2 class="lang-de">Kontakt</h2>
       <h2 class="lang-en">Contact</h2>
-      <p class="lang-de">
-        Für allgemeine Anfragen erreichen Sie uns unter:
-      </p>
-      <p class="lang-en">
-        For general inquiries, please contact us at:
-      </p>
-      <p class="contact-email">
-        <a href="mailto:info@example.com">info@example.com</a>
-      </p>
+      <p class="contact-intro lang-de">Ich freue mich über deine Nachricht.</p>
+      <p class="contact-intro lang-en">I look forward to hearing from you.</p>
+
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form">
+        <input type="hidden" name="form-name" value="contact">
+        <p class="hidden" style="display:none;">
+          <label>Don't fill this out: <input name="bot-field"></label>
+        </p>
+
+        <div class="form-group">
+          <label for="contact-name" class="lang-de">Name</label>
+          <label for="contact-name" class="lang-en">Name</label>
+          <input type="text" id="contact-name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-email" class="lang-de">E-Mail</label>
+          <label for="contact-email" class="lang-en">Email</label>
+          <input type="email" id="contact-email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-subject" class="lang-de">Betreff</label>
+          <label for="contact-subject" class="lang-en">Subject</label>
+          <select id="contact-subject" name="subject" required>
+            <option value="" class="lang-de">Bitte wählen...</option>
+            <option value="" class="lang-en">Please select...</option>
+            <option value="presse" class="lang-de">Presseanfrage</option>
+            <option value="press" class="lang-en">Press Inquiry</option>
+            <option value="kooperation" class="lang-de">Kooperation</option>
+            <option value="cooperation" class="lang-en">Cooperation</option>
+            <option value="allgemein" class="lang-de">Allgemeine Anfrage</option>
+            <option value="general" class="lang-en">General Inquiry</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-message" class="lang-de">Nachricht</label>
+          <label for="contact-message" class="lang-en">Message</label>
+          <textarea id="contact-message" name="message" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">
+          <span class="lang-de">Absenden</span>
+          <span class="lang-en">Send</span>
+        </button>
+      </form>
+
+      <div class="contact-success" style="display: none;">
+        <p class="lang-de">Vielen Dank für deine Nachricht! Ich melde mich bald.</p>
+        <p class="lang-en">Thank you for your message! I'll get back to you soon.</p>
+      </div>
     </div>
   </div>
 
@@ -824,6 +867,76 @@
           }, 50);
         });
       });
+    })();
+
+    // =============================================
+    // KONTAKTFORMULAR
+    // =============================================
+    (function () {
+      const form = document.querySelector('.contact-form');
+      const successMsg = document.querySelector('.contact-success');
+
+      if (!form || !successMsg) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const submitBtn = form.querySelector('.form-submit');
+
+        // Button deaktivieren während Senden
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="lang-de">Wird gesendet...</span><span class="lang-en">Sending...</span>';
+
+        // Sprache anwenden
+        const isEnglish = document.body.classList.contains('lang-en');
+        submitBtn.querySelectorAll('.lang-de').forEach(el => el.style.display = isEnglish ? 'none' : 'inline');
+        submitBtn.querySelectorAll('.lang-en').forEach(el => el.style.display = isEnglish ? 'inline' : 'none');
+
+        try {
+          const response = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+          });
+
+          if (response.ok) {
+            form.style.display = 'none';
+            successMsg.style.display = 'block';
+          } else {
+            throw new Error('Fehler beim Senden');
+          }
+        } catch (error) {
+          // Bei Fehler zurücksetzen
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span class="lang-de">Absenden</span><span class="lang-en">Send</span>';
+          const isEn = document.body.classList.contains('lang-en');
+          submitBtn.querySelectorAll('.lang-de').forEach(el => el.style.display = isEn ? 'none' : 'inline');
+          submitBtn.querySelectorAll('.lang-en').forEach(el => el.style.display = isEn ? 'inline' : 'none');
+          alert(isEn ? 'Error sending message. Please try again.' : 'Fehler beim Senden. Bitte versuche es erneut.');
+        }
+      });
+
+      // Formular zurücksetzen wenn Modal geschlossen wird
+      const modal = document.getElementById('modal-kontakt');
+      if (modal) {
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.attributeName === 'class' && !modal.classList.contains('open')) {
+              // Modal wurde geschlossen - Formular zurücksetzen
+              setTimeout(() => {
+                form.reset();
+                form.style.display = 'flex';
+                successMsg.style.display = 'none';
+                const submitBtn = form.querySelector('.form-submit');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span class="lang-de">Absenden</span><span class="lang-en">Send</span>';
+              }, 300);
+            }
+          });
+        });
+        observer.observe(modal, { attributes: true });
+      }
     })();
   </script>
 
