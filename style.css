@@ -418,7 +418,7 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
    ======================================== */
 
 .tile-quote {
-    background-color: #1a1a1a;
+    background-color: #888;
     padding: 2.5rem 2rem;
     border: none;
     box-shadow: none;
@@ -443,7 +443,7 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
     margin: 0;
     font-size: 0.8rem;
     font-weight: 400;
-    color: #888;
+    color: #e0e0e0;
     letter-spacing: 0.05em;
 }
 
