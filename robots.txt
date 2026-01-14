@@ -1,0 +1,7 @@
+# robots.txt für kerstingeffert.de
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://kerstingeffert.de/sitemap.xml
