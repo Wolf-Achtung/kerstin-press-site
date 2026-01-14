@@ -236,8 +236,8 @@
   function createQuoteTile(item) {
     return `
       <article class="tile tile-quote">
-        ${item.zitat_de ? `<blockquote class="lang-de">„${item.zitat_de}"</blockquote>` : ''}
-        ${item.zitat_en ? `<blockquote class="lang-en">"${item.zitat_en}"</blockquote>` : ''}
+        ${item.zitat_de ? `<blockquote class="lang-de">${item.zitat_de}</blockquote>` : ''}
+        ${item.zitat_en ? `<blockquote class="lang-en">${item.zitat_en}</blockquote>` : ''}
         ${item.medium ? `<p class="quote-meta">– ${item.medium}</p>` : '<p class="quote-meta">– Kerstin Geffert</p>'}
       </article>
     `;
