@@ -500,7 +500,13 @@
           return;
         }
 
-        // Sonst: Lightbox mit Galerie öffnen
+        // Wenn 3+ Bilder: Spread-Modal mit Bild 2 und 3 (Cover überspringen)
+        if (galleryUrls.length >= 3) {
+          openSpreadModal(galleryUrls[1], galleryUrls[2]);
+          return;
+        }
+
+        // Sonst: Lightbox mit einzelnem Bild öffnen
         openLightbox(galleryUrls, 0);
       });
     });
