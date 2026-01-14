@@ -571,6 +571,81 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
 }
 
 /* ========================================
+   SPREAD MODAL (Zwei Seiten nebeneinander)
+   ======================================== */
+
+.spread-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.spread-modal.active {
+    display: flex;
+}
+
+.spread-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 40px;
+    color: #333;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10001;
+    line-height: 1;
+    padding: 10px;
+}
+
+.spread-modal-close:hover {
+    opacity: 0.7;
+}
+
+.spread-modal-content {
+    display: flex;
+    gap: 4px;
+    max-width: 95%;
+    max-height: 90vh;
+    align-items: center;
+    justify-content: center;
+}
+
+.spread-modal-page {
+    flex: 0 1 auto;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spread-modal-page img {
+    max-height: 85vh;
+    max-width: 48vw;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 900px) {
+    .spread-modal-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .spread-modal-page img {
+        max-height: 45vh;
+        max-width: 90vw;
+    }
+}
+
+/* ========================================
    ARTICLE SPLIT MODAL
    ======================================== */
 

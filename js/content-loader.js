@@ -396,7 +396,40 @@
       showImage((currentIndex - 1 + currentGallery.length) % currentGallery.length);
     }
 
-    // Article Split Modal
+    // Spread Modal (Zwei Seiten nebeneinander)
+    const spreadModal = document.getElementById('spread-modal');
+    const spreadImgLeft = document.getElementById('spread-img-left');
+    const spreadImgRight = document.getElementById('spread-img-right');
+    const spreadCloseBtn = spreadModal?.querySelector('.spread-modal-close');
+
+    function openSpreadModal(leftUrl, rightUrl) {
+      if (!spreadModal || !spreadImgLeft || !spreadImgRight) return;
+
+      spreadImgLeft.src = leftUrl;
+      spreadImgRight.src = rightUrl;
+      spreadModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSpreadModal() {
+      if (!spreadModal) return;
+      spreadModal.classList.remove('active');
+      spreadImgLeft.src = '';
+      spreadImgRight.src = '';
+      document.body.style.overflow = '';
+    }
+
+    if (spreadCloseBtn) {
+      spreadCloseBtn.addEventListener('click', closeSpreadModal);
+    }
+
+    if (spreadModal) {
+      spreadModal.addEventListener('click', (e) => {
+        if (e.target === spreadModal) closeSpreadModal();
+      });
+    }
+
+    // Article Split Modal (iframe + Screenshot)
     const articleModal = document.getElementById('article-modal');
     const articleIframe = document.getElementById('article-iframe');
     const articleScreenshot = document.getElementById('article-screenshot');
@@ -436,7 +469,7 @@
         const popupLink = item.dataset.popupLink;
         const screenshotUrl = item.dataset.screenshot;
 
-        // Wenn Link UND Screenshot vorhanden: Split-Modal öffnen
+        // Wenn Link UND Screenshot vorhanden: Article-Split-Modal öffnen
         if (popupLink && screenshotUrl) {
           openArticleModal(popupLink, screenshotUrl);
           return;
@@ -448,7 +481,7 @@
           return;
         }
 
-        // Sonst: Lightbox mit Galerie öffnen
+        // Galerie-URLs holen
         let galleryUrls;
         try {
           galleryUrls = JSON.parse(item.dataset.gallery || '[]');
@@ -461,6 +494,13 @@
           galleryUrls = [item.dataset.full];
         }
 
+        // Wenn genau 2 Bilder: Spread-Modal (zwei Seiten nebeneinander)
+        if (galleryUrls.length === 2) {
+          openSpreadModal(galleryUrls[0], galleryUrls[1]);
+          return;
+        }
+
+        // Sonst: Lightbox mit Galerie öffnen
         openLightbox(galleryUrls, 0);
       });
     });
@@ -491,12 +531,24 @@
 
     // Tastaturnavigation
     document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        // Alle Modals schließen
+        if (spreadModal?.classList.contains('active')) {
+          closeSpreadModal();
+        }
+        if (articleModal?.classList.contains('active')) {
+          closeArticleModal();
+        }
+        if (lightbox.classList.contains('active')) {
+          closeLightbox();
+        }
+        return;
+      }
+
+      // Pfeiltasten nur für Lightbox
       if (!lightbox.classList.contains('active')) return;
 
       switch (e.key) {
-        case 'Escape':
-          closeLightbox();
-          break;
         case 'ArrowRight':
           showNext();
           break;
