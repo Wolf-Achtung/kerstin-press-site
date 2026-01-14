@@ -1054,6 +1054,25 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
     line-height: 1.8;
 }
 
+/* Email Action Link */
+.email-action {
+    color: var(--text-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.email-action:hover {
+    color: var(--text-secondary);
+}
+
+.email-action.email-copied {
+    color: #2a9d8f;
+    text-decoration: none;
+    font-weight: 500;
+}
+
 .modal-content h2 {
     margin: 0 0 1rem;
     font-size: 1.3rem;

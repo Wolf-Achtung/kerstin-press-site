@@ -310,7 +310,7 @@
           10405 Berlin
         </p>
         <h3>Kontakt</h3>
-        <p>E-Mail: <a href="mailto:kontakt@kerstingeffert.de">kontakt@kerstingeffert.de</a></p>
+        <p>E-Mail: <a href="#" class="email-action" data-email="kontakt@kerstingeffert.de">kontakt@kerstingeffert.de</a></p>
         <h3>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h3>
         <p>
           Kerstin Geffert<br>
@@ -332,7 +332,7 @@
           10405 Berlin, Germany
         </p>
         <h3>Contact</h3>
-        <p>Email: <a href="mailto:kontakt@kerstingeffert.de">kontakt@kerstingeffert.de</a></p>
+        <p>Email: <a href="#" class="email-action" data-email="kontakt@kerstingeffert.de">kontakt@kerstingeffert.de</a></p>
         <h3>Responsible for content according to § 18 (2) MStV</h3>
         <p>
           Kerstin Geffert<br>
@@ -365,7 +365,7 @@
           Kerstin Geffert<br>
           Greifswalder Str. 224a<br>
           10405 Berlin<br>
-          E-Mail: <a href="mailto:kontakt@kerstingeffert.de">kontakt@kerstingeffert.de</a>
+          E-Mail: <a href="#" class="email-action" data-email="kontakt@kerstingeffert.de">kontakt@kerstingeffert.de</a>
         </p>
 
         <h3>3. Hosting & Website-Betrieb</h3>
@@ -430,7 +430,7 @@
           Kerstin Geffert<br>
           Greifswalder Str. 224a<br>
           10405 Berlin, Germany<br>
-          Email: <a href="mailto:kontakt@kerstingeffert.de">kontakt@kerstingeffert.de</a>
+          Email: <a href="#" class="email-action" data-email="kontakt@kerstingeffert.de">kontakt@kerstingeffert.de</a>
         </p>
 
         <h3>3. Hosting & Website Operation</h3>
@@ -801,6 +801,38 @@
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeAllModals();
+      });
+
+      // Email-Action: Kopieren + Kontaktformular öffnen
+      document.querySelectorAll('.email-action').forEach(link => {
+        link.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const email = link.dataset.email;
+
+          // Email in Zwischenablage kopieren
+          try {
+            await navigator.clipboard.writeText(email);
+
+            // Feedback anzeigen
+            const originalText = link.textContent;
+            const isEnglish = document.body.classList.contains('lang-en');
+            link.textContent = isEnglish ? 'Copied!' : 'Kopiert!';
+            link.classList.add('email-copied');
+
+            setTimeout(() => {
+              link.textContent = originalText;
+              link.classList.remove('email-copied');
+            }, 1500);
+          } catch (err) {
+            console.log('Clipboard error:', err);
+          }
+
+          // Aktuelles Modal schließen und Kontaktformular öffnen
+          closeAllModals();
+          setTimeout(() => {
+            openModal('modal-kontakt');
+          }, 200);
+        });
       });
     })();
 
