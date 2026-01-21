@@ -632,16 +632,16 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
 
 .spread-modal-content {
     display: flex;
-    gap: 4px;
+    gap: 8px;
     max-width: 95%;
     max-height: 90vh;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
 }
 
 .spread-modal-page {
-    flex: 0 1 auto;
-    max-height: 90vh;
+    flex: 1 1 0;
+    max-height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -649,11 +649,34 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
 
 .spread-modal-page img {
     max-height: 85vh;
-    max-width: 48vw;
+    max-width: 47vw;
     width: auto;
-    height: auto;
+    height: 100%;
     object-fit: contain;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Zoom-Link im Spread-Modal */
+.spread-modal-zoom {
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 16px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+    z-index: 10001;
+}
+
+.spread-modal-zoom:hover {
+    background: rgba(0, 0, 0, 0.9);
+    color: #fff;
 }
 
 @media (max-width: 900px) {
