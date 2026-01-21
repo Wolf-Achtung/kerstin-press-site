@@ -545,19 +545,7 @@
           galleryUrls = [item.dataset.full];
         }
 
-        // Wenn genau 2 Bilder: Spread-Modal (zwei Seiten nebeneinander)
-        if (galleryUrls.length === 2) {
-          openSpreadModal(galleryUrls[1], galleryUrls[0]);
-          return;
-        }
-
-        // Wenn 3+ Bilder: Spread-Modal mit Bild 2 und 3 (Cover überspringen)
-        if (galleryUrls.length >= 3) {
-          openSpreadModal(galleryUrls[2], galleryUrls[1]);
-          return;
-        }
-
-        // Sonst: Lightbox mit einzelnem Bild öffnen
+        // Lightbox mit allen Bildern öffnen (Start bei Cover, Pfeile für Navigation)
         openLightbox(galleryUrls, 0);
       });
     });
