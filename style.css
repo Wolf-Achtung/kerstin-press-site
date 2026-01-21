@@ -1301,6 +1301,14 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
         font-size: 0.75rem;
     }
 
+    /* Subtitle: Zeilenumbrüche auf Mobile entfernen, fließender Text */
+    .site-subtitle br {
+        display: none;
+    }
+    .site-subtitle::after {
+        content: none;
+    }
+
     /* Kacheln */
     .tile-text {
         padding: 0.875rem 1rem 1rem;
