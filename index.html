@@ -3,7 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kerstin Geffert – Presse &amp; Medien</title>
+  <title>Kerstin Geffert – Presse & Medien | Fashion & Style aus Berlin</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Kerstin Geffert – Berliner Unternehmerin und Style-Ikone. Presseartikel, Interviews und Medienberichte über Mode, Stil und den Hashtag #wearstin." />
+  <meta name="keywords" content="Kerstin Geffert, Berlin, Mode, Fashion, Style, Presse, Medien, wearstin, Unternehmerin" />
+  <meta name="author" content="Kerstin Geffert" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://kerstingeffert.de/" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://kerstingeffert.de/" />
+  <meta property="og:title" content="Kerstin Geffert – Presse & Medien" />
+  <meta property="og:description" content="Berliner Unternehmerin und Style-Ikone. Presseartikel, Interviews und Medienberichte über Mode, Stil und #wearstin." />
+  <meta property="og:image" content="https://kerstingeffert.de/images/og-image.jpg" />
+  <meta property="og:locale" content="de_DE" />
+  <meta property="og:site_name" content="Kerstin Geffert" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://kerstingeffert.de/" />
+  <meta name="twitter:title" content="Kerstin Geffert – Presse & Medien" />
+  <meta name="twitter:description" content="Berliner Unternehmerin und Style-Ikone. Presseartikel, Interviews und Medienberichte." />
+  <meta name="twitter:image" content="https://kerstingeffert.de/images/og-image.jpg" />
+
+  <!-- Structured Data / JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Kerstin Geffert",
+    "url": "https://kerstingeffert.de",
+    "image": "https://kerstingeffert.de/images/about.jpg",
+    "description": "Berliner Unternehmerin und Style-Ikone, bekannt für den Hashtag #wearstin",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Berlin",
+      "addressCountry": "DE"
+    },
+    "sameAs": [
+      "https://www.instagram.com/kerstingeffert/",
+      "https://www.tiktok.com/@geffertknits"
+    ]
+  }
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
   <link rel="stylesheet" href="style.css" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -12,204 +58,526 @@
     rel="stylesheet"
   />
 </head>
-<body>
+<body class="lang-de">
   <!-- HEADER -->
   <header class="site-header">
-    <h1 class="site-title">Kerstin Geffert</h1>
-    <p class="site-subtitle">Press &amp; Media Gallery</p>
+    <div class="header-content">
+      <!-- Spacer links für Zentrierung -->
+      <div class="header-spacer"></div>
 
-    <nav class="site-nav" aria-label="Navigation">
-      <ul>
-        <li><a href="#presse">Presse</a></li>
-        <li><a href="#videos">Videos</a></li>
-        <li><a href="#" id="nav-archiv">Archiv</a></li>
-        <li><a href="#" id="nav-ueber">Über</a></li>
-        <li><a href="#" id="nav-kontakt">Kontakt</a></li>
-      </ul>
-    </nav>
+      <!-- Titel mittig -->
+      <div class="header-center">
+        <h1 class="site-title">Kerstin Geffert</h1>
+        <p class="site-subtitle">Fashion wasn't what you wore someplace anymore;<br>it was the whole reason for going.<br>– Andy Warhol</p>
+      </div>
+
+      <!-- Controls rechts: Social + DE/EN + Menü in einer Zeile -->
+      <div class="header-controls">
+        <div class="social-icons">
+          <a href="https://www.instagram.com/kerstingeffert/" target="_blank" rel="noopener" aria-label="Instagram" class="social-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"></circle>
+            </svg>
+          </a>
+          <a href="https://www.tiktok.com/@geffertknits" target="_blank" rel="noopener" aria-label="TikTok" class="social-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+            </svg>
+          </a>
+        </div>
+        <div class="lang-switch">
+          <button data-lang="de" class="lang-btn lang-active">DE</button>
+          <span class="lang-divider">|</span>
+          <button data-lang="en" class="lang-btn">EN</button>
+        </div>
+
+        <nav class="site-nav" aria-label="Hauptnavigation">
+          <div class="nav-toggle">
+            <span class="lang-de">Menü</span>
+            <span class="lang-en">Menu</span>
+            <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+          <ul class="nav-list">
+            <li><a href="#" data-nav="ueber" class="lang-de">Über</a><a href="#" data-nav="ueber" class="lang-en">About</a></li>
+            <li><a href="#" data-nav="kontakt" class="lang-de">Kontakt</a><a href="#" data-nav="kontakt" class="lang-en">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
   </header>
 
-  <!-- MAIN -->
-  <main class="container">
-    <div class="main-content">
-      <!-- PRESSE -->
-      <section id="presse" class="section">
-        <h2 class="section-title">Presseberichte</h2>
+  <!-- MAIN: 2/3 – 1/3 GRID -->
+  <main class="page-layout">
+    <!-- Linke Spalte (2/3) -->
+    <div class="column column-left" id="content-left">
 
-        <div class="press-grid">
-          <!-- Beispiel 1 – FAZ -->
-          <article class="press-article" data-date="2023-01-01">
-            <div class="press-header">
-              <span class="press-medium">FAZ Magazin</span>
-              <h3 class="press-title">Titelstory: Kerstin Geffert</h3>
-            </div>
-            <p class="press-date">Ausgabe 1/2023</p>
-            <p class="press-quote">
-              „Mode ist mehr als Kleidung – sie ist Ausdruck von Haltung und Identität."
-            </p>
-            <div class="press-media">
-              <a
-                href="images/FAZ_Issue1-23_Titelstory_KerstinGeffert.pdf"
-                class="pdf-link"
-                download
-                >PDF herunterladen</a
-              >
-              <div
-                class="press-image-wrapper"
-                data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-53.webp"
-              >
-                <img
-                  src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-53_cover.webp"
-                  loading="lazy"
-                  decoding="async"
-                  width="1200"
-                  height="675"
-                  alt="FAZ Titelstory: Kerstin Geffert"
-                />
-                <span class="zoom-hint">Klick zum Vergrößern</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Beispiel 2 – Magazin 1 -->
-          <article class="press-article" data-date="2025-07-12">
-            <div class="press-header">
-              <span class="press-medium">Lifestyle Magazin</span>
-              <h3 class="press-title">Stil-Inspiration: Kreative Looks</h3>
-            </div>
-            <p class="press-date">12. Juli 2025</p>
-            <p class="press-quote">
-              „Mit ihrer einzigartigen Mischung aus Eleganz und Streetstyle definiert sie die Mode neu."
-            </p>
-            <div class="press-media">
-              <a
-                href="images/20250712_Magazin_Seiten_34-35.pdf"
-                class="pdf-link"
-                download
-                >PDF herunterladen</a
-              >
-              <div
-                class="press-image-wrapper"
-                data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-54.webp"
-              >
-                <img
-                  src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-54_cover.webp"
-                  loading="lazy"
-                  decoding="async"
-                  width="1200"
-                  height="675"
-                  alt="Stil-Inspiration: Kreative Looks"
-                />
-                <span class="zoom-hint">Klick zum Vergrößern</span>
-              </div>
-            </div>
-          </article>
-
-          <!-- Beispiel 3 – Magazin 2 -->
-          <article class="press-article" data-date="2025-07-12">
-            <div class="press-header">
-              <span class="press-medium">Lifestyle Magazin</span>
-              <h3 class="press-title">Nachhaltige Mode mit Persönlichkeit</h3>
-            </div>
-            <p class="press-date">12. Juli 2025</p>
-            <p class="press-quote">
-              „Ihr Gespür für Trends und Nachhaltigkeit inspiriert eine ganze Generation."
-            </p>
-            <div class="press-media">
-              <a
-                href="images/20250712_Magazin_Seiten_36-37.pdf"
-                class="pdf-link"
-                download
-                >PDF herunterladen</a
-              >
-              <div
-                class="press-image-wrapper"
-                data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-55.webp"
-              >
-                <img
-                  src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-55_cover.webp"
-                  loading="lazy"
-                  decoding="async"
-                  width="1200"
-                  height="675"
-                  alt="Nachhaltige Mode mit Persönlichkeit"
-                />
-                <span class="zoom-hint">Klick zum Vergrößern</span>
-              </div>
-            </div>
-          </article>
-        </div>
-
-        <!-- Weitere Artikel kannst du nach Bedarf in gleicher Struktur ergänzen -->
-      </section>
-
-      <!-- VIDEOS -->
-      <section id="videos" class="section">
-        <h2 class="section-title">Videos &amp; Interviews</h2>
-        <div class="video-grid">
-          <div class="video-item">
-            <div class="video-wrapper">
-              <iframe
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                title="Interview mit Fashion-TV"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-            </div>
-            <p class="video-caption">Interview mit Fashion-TV (3:30 min)</p>
-          </div>
-
-          <div class="video-item">
-            <div class="video-wrapper">
-              <iframe
-                src="https://www.youtube.com/embed/9bZkp7q19f0"
-                title="Runway Rückblick"
-                frameborder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowfullscreen
-              ></iframe>
-            </div>
-            <p class="video-caption">Rückblick auf das letzte Runway-Event (2:45 min)</p>
+      <!-- Kachel 1: Großes Querformat -->
+      <article class="tile tile-image tile-landscape" data-date="2023-01-01">
+        <div class="tile-media">
+          <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-53.webp">
+            <img
+              src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-53_cover.webp"
+              loading="lazy"
+              decoding="async"
+              alt="FAZ Titelstory: Kerstin Geffert"
+            />
+            <span class="zoom-hint lang-de">Klick zum Vergrößern</span>
+            <span class="zoom-hint lang-en">Click to enlarge</span>
           </div>
         </div>
-      </section>
+        <div class="tile-text">
+          <span class="tile-medium">FAZ Magazin</span>
+          <h3 class="tile-title lang-de">Titelstory: Kerstin Geffert</h3>
+          <h3 class="tile-title lang-en">Cover Story: Kerstin Geffert</h3>
+          <p class="tile-date lang-de">Ausgabe 1/2023</p>
+          <p class="tile-date lang-en">Issue 1/2023</p>
+        </div>
+      </article>
+
+      <!-- Quote-Block 1 -->
+      <article class="tile tile-quote">
+        <blockquote class="lang-de">
+          Mode ist mehr als Kleidung – sie ist Ausdruck von Haltung und Identität.
+        </blockquote>
+        <blockquote class="lang-en">
+          Fashion is more than clothing – it's an expression of attitude and identity.
+        </blockquote>
+        <p class="quote-meta">– Kerstin Geffert</p>
+      </article>
+
+      <!-- Kachel 3: Querformat -->
+      <article class="tile tile-image tile-landscape" data-date="2025-07-12">
+        <div class="tile-media">
+          <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-55.webp">
+            <img
+              src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-55_cover.webp"
+              loading="lazy"
+              decoding="async"
+              alt="Nachhaltige Mode mit Persönlichkeit"
+            />
+            <span class="zoom-hint lang-de">Klick zum Vergrößern</span>
+            <span class="zoom-hint lang-en">Click to enlarge</span>
+          </div>
+        </div>
+        <div class="tile-text">
+          <span class="tile-medium">Lifestyle Magazin</span>
+          <h3 class="tile-title lang-de">Nachhaltige Mode mit Persönlichkeit</h3>
+          <h3 class="tile-title lang-en">Sustainable Fashion with Personality</h3>
+          <p class="tile-date">12. Juli 2025</p>
+        </div>
+      </article>
+
+      <!-- Video-Kachel -->
+      <article class="tile tile-video">
+        <div class="tile-media">
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/fcazOZz7VrY"
+              title="Video 1"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="tile-text">
+          <span class="tile-medium">Fashion-TV</span>
+          <h3 class="tile-title lang-de">Exklusiv-Interview</h3>
+          <h3 class="tile-title lang-en">Exclusive Interview</h3>
+          <p class="tile-date">(3:30 min)</p>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- Rechte Spalte (1/3) -->
+    <div class="column column-right" id="content-right">
+
+      <!-- Kachel 2: Schmales Hochformat -->
+      <article class="tile tile-image tile-portrait" data-date="2025-07-12">
+        <div class="tile-media">
+          <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-54.webp">
+            <img
+              src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-54_cover.webp"
+              loading="lazy"
+              decoding="async"
+              alt="Stil-Inspiration: Kreative Looks"
+            />
+            <span class="zoom-hint lang-de">Klick zum Vergrößern</span>
+            <span class="zoom-hint lang-en">Click to enlarge</span>
+          </div>
+        </div>
+        <div class="tile-text">
+          <span class="tile-medium">Lifestyle Magazin</span>
+          <h3 class="tile-title lang-de">Stil-Inspiration: Kreative Looks</h3>
+          <h3 class="tile-title lang-en">Style Inspiration: Creative Looks</h3>
+          <p class="tile-date">12. Juli 2025</p>
+        </div>
+      </article>
+
+      <!-- Quote-Block 2 -->
+      <article class="tile tile-quote">
+        <blockquote class="lang-de">
+          Mit ihrer einzigartigen Mischung aus Eleganz und Streetstyle definiert sie die Mode neu.
+        </blockquote>
+        <blockquote class="lang-en">
+          With her unique blend of elegance and streetstyle, she redefines fashion.
+        </blockquote>
+        <p class="quote-meta">– Lifestyle Magazin</p>
+      </article>
+
+      <!-- Quote-Block 3 (Blindtext) -->
+      <article class="tile tile-quote">
+        <blockquote class="lang-de">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+        </blockquote>
+        <blockquote class="lang-en">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+        </blockquote>
+        <p class="quote-meta">– Platzhalter</p>
+      </article>
+
+      <!-- Video-Kachel 2 -->
+      <article class="tile tile-video">
+        <div class="tile-media">
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/pVP-3thby_M"
+              title="Video 2"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
+        </div>
+        <div class="tile-text">
+          <span class="tile-medium">Runway</span>
+          <h3 class="tile-title lang-de">Runway-Rückblick</h3>
+          <h3 class="tile-title lang-en">Runway Retrospective</h3>
+          <p class="tile-date">(2:45 min)</p>
+        </div>
+      </article>
+
     </div>
   </main>
 
-  <!-- MODALS: ÜBER / KONTAKT / ARCHIV -->
+  <!-- MODALS -->
+
+  <!-- Über Modal -->
   <div class="modal" id="modal-ueber" aria-hidden="true">
-    <div class="modal-content">
+    <div class="modal-content modal-content-about">
       <button class="modal-close" data-modal-close>&times;</button>
-      <h2>Über Kerstin</h2>
-      <p>
-        Kerstin Geffert begeistert mit kreativen Looks und nachhaltigen Kooperationen.
-        Mode ist Ausdruck von Persönlichkeit und Haltung.
-      </p>
+      <div class="about-layout">
+        <div class="about-image">
+          <img src="images/about.jpg" alt="Kerstin Geffert" />
+          <p class="photo-credit">(Photo: Marie Manoc)</p>
+        </div>
+        <div class="about-text">
+          <h2 class="lang-de">Über</h2>
+          <h2 class="lang-en">About</h2>
+          <div class="lang-de">
+            <p>Westfälin, Skorpion. Wahl-Berlinerin seit den frühen 90ern (ja, genau: eine der Glücklichen, die diese irre Zeit kurz nach dem Mauerfall miterleben durften).</p>
+            <p>Unternehmerin seit 1995.</p>
+            <p>2011 Etablierung des Hashtags <a href="https://www.instagram.com/kerstingeffert/" target="_blank" rel="noopener">#wearstin</a> auf Instagram – mit mittlerweile über 1.000 Stil-Versionen meiner Selbst.</p>
+            <p>In den vergangenen Jahren sind tolle Beiträge über mich und meinen Look erschienen. Einige davon habe ich hier versammelt. Weil ich sehr stolz darauf bin. Und weil ich ein bisschen Sorge habe, dass ich sie sonst verbasele. Man wird ja nicht jünger…</p>
+          </div>
+          <div class="lang-en">
+            <p>Westphalian. Scorpio. Berlin by choice since the early '90s (yes, exactly: one of the lucky ones who got to experience that wild time right after the Wall came down).</p>
+            <p>Entrepreneur since 1995.</p>
+            <p>In 2011, I launched the hashtag <a href="https://www.instagram.com/kerstingeffert/" target="_blank" rel="noopener">#wearstin</a> on Instagram — now featuring over 1,000 style versions of myself.</p>
+            <p>Over the past few years, some wonderful pieces have been written about me and the way I dress. I've gathered a few of them here. Because I'm very proud of them. And because I'm slightly afraid I might otherwise misplace them. One doesn't get any younger, after all.</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- Kontakt Modal -->
   <div class="modal" id="modal-kontakt" aria-hidden="true">
-    <div class="modal-content">
+    <div class="modal-content modal-content-contact">
       <button class="modal-close" data-modal-close>&times;</button>
-      <h2>Kontakt &amp; Kooperationen</h2>
-      <p>
-        Bei Kooperations- oder Presseanfragen sende bitte eine E-Mail an
-        <a href="mailto:info@example.com">info@example.com</a>.
-      </p>
+      <h2 class="lang-de">Kontakt</h2>
+      <h2 class="lang-en">Contact</h2>
+      <p class="contact-intro lang-de">Ich freue mich über deine Nachricht.</p>
+      <p class="contact-intro lang-en">I look forward to hearing from you.</p>
+
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" class="contact-form">
+        <input type="hidden" name="form-name" value="contact">
+        <!-- Honeypot gegen Spam -->
+        <p style="display:none;"><label>Nicht ausfüllen: <input name="bot-field"></label></p>
+
+        <div class="form-group">
+          <label for="contact-name" class="lang-de">Name</label>
+          <label for="contact-name" class="lang-en">Name</label>
+          <input type="text" id="contact-name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-email" class="lang-de">E-Mail</label>
+          <label for="contact-email" class="lang-en">Email</label>
+          <input type="email" id="contact-email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="contact-message" class="lang-de">Nachricht</label>
+          <label for="contact-message" class="lang-en">Message</label>
+          <textarea id="contact-message" name="message" rows="4" required></textarea>
+        </div>
+
+        <button type="submit" class="form-submit">
+          <span class="lang-de">Absenden</span>
+          <span class="lang-en">Send</span>
+        </button>
+      </form>
+
+      <div class="contact-success" style="display: none;">
+        <p class="lang-de">Vielen Dank für die Nachricht, ich melde mich!</p>
+        <p class="lang-en">Thank you for your message, I'll be in touch!</p>
+      </div>
     </div>
   </div>
 
+  <!-- Impressum Modal -->
+  <div class="modal" id="modal-impressum" aria-hidden="true">
+    <div class="modal-content modal-content-legal">
+      <button class="modal-close" data-modal-close>&times;</button>
+      <h2 class="lang-de">Impressum</h2>
+      <h2 class="lang-en">Imprint</h2>
+      <div class="lang-de">
+        <h3>Angaben gemäß § 5 TMG</h3>
+        <p>
+          Kerstin Geffert<br>
+          Greifswalder Str. 224a<br>
+          10405 Berlin
+        </p>
+        <h3>Kontakt</h3>
+        <p>E-Mail: <a href="#" class="email-action" data-email="kontakt@kerstingeffert.de">kontakt@kerstingeffert.de</a></p>
+        <h3>Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV</h3>
+        <p>
+          Kerstin Geffert<br>
+          Greifswalder Str. 224a<br>
+          10405 Berlin
+        </p>
+        <h3>Hinweis</h3>
+        <p>Diese Website wird als private Creator-Website betrieben. Inhalte dienen der persönlichen Darstellung. Eine Gewinnerzielungsabsicht kann nicht ausgeschlossen werden (z. B. durch Kooperationen oder Affiliate-Links).</p>
+        <h3>Haftung für Links</h3>
+        <p>Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich. Die verlinkten Seiten wurden zum Zeitpunkt der Verlinkung auf mögliche Rechtsverstöße überprüft. Rechtswidrige Inhalte waren zum Zeitpunkt der Verlinkung nicht erkennbar. Eine permanente inhaltliche Kontrolle der verlinkten Seiten ist jedoch ohne konkrete Anhaltspunkte einer Rechtsverletzung nicht zumutbar. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Links umgehend entfernen.</p>
+        <h3>Urheberrecht</h3>
+        <p>Die durch die Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers. Downloads und Kopien dieser Seite sind nur für den privaten, nicht kommerziellen Gebrauch gestattet. Soweit die Inhalte auf dieser Seite nicht vom Betreiber erstellt wurden, werden die Urheberrechte Dritter beachtet. Insbesondere werden Inhalte Dritter als solche gekennzeichnet. Sollten Sie trotzdem auf eine Urheberrechtsverletzung aufmerksam werden, bitten wir um einen entsprechenden Hinweis. Bei Bekanntwerden von Rechtsverletzungen werden wir derartige Inhalte umgehend entfernen.</p>
+      </div>
+      <div class="lang-en">
+        <h3>Information according to § 5 TMG</h3>
+        <p>
+          Kerstin Geffert<br>
+          Greifswalder Str. 224a<br>
+          10405 Berlin, Germany
+        </p>
+        <h3>Contact</h3>
+        <p>Email: <a href="#" class="email-action" data-email="kontakt@kerstingeffert.de">kontakt@kerstingeffert.de</a></p>
+        <h3>Responsible for content according to § 18 (2) MStV</h3>
+        <p>
+          Kerstin Geffert<br>
+          Greifswalder Str. 224a<br>
+          10405 Berlin, Germany
+        </p>
+        <h3>Note</h3>
+        <p>This website is operated as a private creator website. Content is for personal presentation purposes. A profit-making intent cannot be excluded (e.g., through cooperations or affiliate links).</p>
+        <h3>Liability for Links</h3>
+        <p>Our website contains links to external third-party websites over whose content we have no influence. Therefore, we cannot accept any liability for this external content. The respective provider or operator of the linked pages is always responsible for the content of the linked pages. The linked pages were checked for possible legal violations at the time of linking. Illegal content was not recognizable at the time of linking. However, permanent monitoring of the content of linked pages is not reasonable without concrete evidence of a legal violation. If we become aware of any legal violations, we will remove such links immediately.</p>
+        <h3>Copyright</h3>
+        <p>The content and works created by the site operators on these pages are subject to German copyright law. Duplication, processing, distribution, and any kind of exploitation outside the limits of copyright law require the written consent of the respective author or creator. Downloads and copies of this site are only permitted for private, non-commercial use. Insofar as the content on this site was not created by the operator, the copyrights of third parties are respected. In particular, third-party content is identified as such. Should you nevertheless become aware of a copyright infringement, please inform us accordingly. If we become aware of any infringements, we will remove such content immediately.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Datenschutz Modal -->
+  <div class="modal" id="modal-datenschutz" aria-hidden="true">
+    <div class="modal-content modal-content-legal">
+      <button class="modal-close" data-modal-close>&times;</button>
+      <h2 class="lang-de">Datenschutzerklärung</h2>
+      <h2 class="lang-en">Privacy Policy</h2>
+
+      <div class="lang-de">
+        <h3>1. Datenschutz auf einen Blick</h3>
+        <p>Der Schutz deiner persönlichen Daten ist mir wichtig. Personenbezogene Daten werden auf dieser Website nur im notwendigen Umfang und gemäß der Datenschutz-Grundverordnung (DSGVO) verarbeitet.</p>
+
+        <h3>2. Verantwortliche Stelle</h3>
+        <p>
+          Kerstin Geffert<br>
+          Greifswalder Str. 224a<br>
+          10405 Berlin<br>
+          E-Mail: <a href="#" class="email-action" data-email="kontakt@kerstingeffert.de">kontakt@kerstingeffert.de</a>
+        </p>
+
+        <h3>3. Hosting & Website-Betrieb</h3>
+        <p>Diese Website wird mit Diensten von Google betrieben (z. B. Google Sites).</p>
+        <p>Beim Besuch der Website werden automatisch folgende Daten verarbeitet:</p>
+        <ul>
+          <li>IP-Adresse</li>
+          <li>Datum und Uhrzeit des Zugriffs</li>
+          <li>Browsertyp und Betriebssystem</li>
+          <li>Referrer-URL</li>
+        </ul>
+        <p>Diese Daten dienen der technischen Bereitstellung, Sicherheit und Stabilität der Website.</p>
+        <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO<br>
+        Datenübermittlung in die USA: Google ist nach dem EU-US Data Privacy Framework zertifiziert.</p>
+
+        <h3>4. Google Fonts</h3>
+        <p>Diese Website nutzt Google Fonts zur einheitlichen Darstellung von Schriftarten. Beim Aufruf der Website lädt dein Browser die benötigten Fonts direkt von Google-Servern, wodurch deine IP-Adresse an Google übermittelt wird.</p>
+        <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an einer ansprechenden Darstellung)</p>
+
+        <h3>5. Kontaktaufnahme</h3>
+        <p>Wenn du mich per E-Mail kontaktierst, werden deine Angaben zur Bearbeitung der Anfrage gespeichert.</p>
+        <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO</p>
+        <p>Die Daten werden gelöscht, sobald sie nicht mehr erforderlich sind.</p>
+
+        <h3>6. Cookies</h3>
+        <p>Diese Website verwendet ausschließlich technisch notwendige Cookies, die für den Betrieb der Website erforderlich sind.</p>
+        <p>Es erfolgt kein Tracking und keine Analyse des Nutzerverhaltens.</p>
+        <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO</p>
+
+        <h3>7. Social Media & eingebettete Inhalte</h3>
+        <p>Auf dieser Website können Inhalte von Drittanbietern eingebettet sein (z. B. Instagram, TikTok, YouTube).</p>
+        <p>Beim Aufruf solcher Inhalte können personenbezogene Daten (z. B. IP-Adresse) an den jeweiligen Anbieter übertragen werden.</p>
+        <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung)</p>
+
+        <h3>8. Affiliate-Links & Kooperationen</h3>
+        <p>Diese Website kann Affiliate-Links enthalten. Beim Klick auf einen solchen Link können Tracking-Informationen durch den jeweiligen Anbieter gespeichert werden.</p>
+        <p>Für dich entstehen keine Nachteile oder Mehrkosten.</p>
+        <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO</p>
+
+        <h3>9. Deine Rechte</h3>
+        <p>Du hast jederzeit das Recht auf:</p>
+        <ul>
+          <li>Auskunft (Art. 15 DSGVO)</li>
+          <li>Berichtigung (Art. 16 DSGVO)</li>
+          <li>Löschung (Art. 17 DSGVO)</li>
+          <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
+          <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
+          <li>Widerruf erteilter Einwilligungen (Art. 7 Abs. 3 DSGVO)</li>
+        </ul>
+        <p>Zudem besteht ein Beschwerderecht bei der zuständigen Datenschutzaufsichtsbehörde.</p>
+
+        <h3>10. Aktualität</h3>
+        <p>Diese Datenschutzerklärung wird bei Bedarf an rechtliche oder technische Änderungen angepasst.</p>
+      </div>
+
+      <div class="lang-en">
+        <h3>1. Privacy at a Glance</h3>
+        <p>The protection of your personal data is important to me. Personal data is only processed on this website to the extent necessary and in accordance with the General Data Protection Regulation (GDPR).</p>
+
+        <h3>2. Responsible Party</h3>
+        <p>
+          Kerstin Geffert<br>
+          Greifswalder Str. 224a<br>
+          10405 Berlin, Germany<br>
+          Email: <a href="#" class="email-action" data-email="kontakt@kerstingeffert.de">kontakt@kerstingeffert.de</a>
+        </p>
+
+        <h3>3. Hosting & Website Operation</h3>
+        <p>This website is operated using Google services (e.g., Google Sites).</p>
+        <p>When visiting the website, the following data is automatically processed:</p>
+        <ul>
+          <li>IP address</li>
+          <li>Date and time of access</li>
+          <li>Browser type and operating system</li>
+          <li>Referrer URL</li>
+        </ul>
+        <p>This data is used for technical provision, security, and stability of the website.</p>
+        <p>Legal basis: Art. 6 (1) (f) GDPR<br>
+        Data transfer to the USA: Google is certified under the EU-US Data Privacy Framework.</p>
+
+        <h3>4. Google Fonts</h3>
+        <p>This website uses Google Fonts for consistent font display. When you visit the website, your browser loads the required fonts directly from Google servers, which transmits your IP address to Google.</p>
+        <p>Legal basis: Art. 6 (1) (f) GDPR (legitimate interest in appealing presentation)</p>
+
+        <h3>5. Contact</h3>
+        <p>If you contact me by email, your information will be stored for processing the inquiry.</p>
+        <p>Legal basis: Art. 6 (1) (b) GDPR</p>
+        <p>The data will be deleted as soon as it is no longer required.</p>
+
+        <h3>6. Cookies</h3>
+        <p>This website only uses technically necessary cookies that are required for the operation of the website.</p>
+        <p>There is no tracking or analysis of user behavior.</p>
+        <p>Legal basis: Art. 6 (1) (f) GDPR</p>
+
+        <h3>7. Social Media & Embedded Content</h3>
+        <p>This website may contain embedded content from third-party providers (e.g., Instagram, TikTok, YouTube).</p>
+        <p>When accessing such content, personal data (e.g., IP address) may be transmitted to the respective provider.</p>
+        <p>Legal basis: Art. 6 (1) (a) GDPR (consent)</p>
+
+        <h3>8. Affiliate Links & Cooperations</h3>
+        <p>This website may contain affiliate links. When clicking on such a link, tracking information may be stored by the respective provider.</p>
+        <p>This does not result in any disadvantages or additional costs for you.</p>
+        <p>Legal basis: Art. 6 (1) (a) GDPR</p>
+
+        <h3>9. Your Rights</h3>
+        <p>You have the right at any time to:</p>
+        <ul>
+          <li>Information (Art. 15 GDPR)</li>
+          <li>Rectification (Art. 16 GDPR)</li>
+          <li>Erasure (Art. 17 GDPR)</li>
+          <li>Restriction of processing (Art. 18 GDPR)</li>
+          <li>Data portability (Art. 20 GDPR)</li>
+          <li>Withdrawal of consent (Art. 7 (3) GDPR)</li>
+        </ul>
+        <p>You also have the right to lodge a complaint with the competent data protection supervisory authority.</p>
+
+        <h3>10. Updates</h3>
+        <p>This privacy policy will be updated as necessary to reflect legal or technical changes.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Archiv Modal -->
   <div class="modal" id="modal-archiv" aria-hidden="true">
     <div class="modal-content">
       <button class="modal-close" data-modal-close>&times;</button>
-      <h2>Presse-Archiv</h2>
+      <h2 class="lang-de">Presse-Archiv</h2>
+      <h2 class="lang-en">Press Archive</h2>
       <input
         type="search"
         id="archiv-search"
+        class="lang-de"
         placeholder="Stichwort, Medium oder Jahr eingeben"
       />
+      <input
+        type="search"
+        id="archiv-search-en"
+        class="lang-en"
+        placeholder="Enter keyword, publication or year"
+      />
       <ul id="archiv-list"></ul>
+    </div>
+  </div>
+
+  <!-- SPREAD MODAL (Zwei Seiten nebeneinander) -->
+  <div id="spread-modal" class="spread-modal" role="dialog" aria-modal="true">
+    <button class="spread-modal-close" aria-label="Schließen">&times;</button>
+    <div class="spread-modal-content">
+      <div class="spread-modal-page spread-modal-left">
+        <img id="spread-img-left" src="" alt="Seite 1" />
+      </div>
+      <div class="spread-modal-page spread-modal-right">
+        <img id="spread-img-right" src="" alt="Seite 2" />
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTICLE SPLIT MODAL (Artikel links, Screenshot rechts) -->
+  <div id="article-modal" class="article-modal" role="dialog" aria-modal="true">
+    <button class="article-modal-close" aria-label="Schließen">&times;</button>
+    <div class="article-modal-content">
+      <div class="article-modal-left">
+        <iframe id="article-iframe" src="" title="Artikel"></iframe>
+      </div>
+      <div class="article-modal-right">
+        <img id="article-screenshot" src="" alt="Artikel-Ausschnitt" />
+      </div>
     </div>
   </div>
 
@@ -225,7 +593,6 @@
         class="lightbox-open-tab"
         title="In neuem Tab öffnen"
       >
-        <!-- kleines Icon -->
         <svg
           width="20"
           height="20"
@@ -249,19 +616,102 @@
   <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-content">
-      <p class="footer-copy">&copy; 2025 Kerstin Geffert – Berlin</p>
+      <p class="footer-copy">&copy; 2026 Kerstin Geffert – Berlin</p>
       <nav class="footer-nav">
         <ul>
-          <li><a href="#">Impressum</a></li>
-          <li><a href="#">Datenschutz</a></li>
+          <li><a href="#" data-nav="impressum" class="lang-de">Impressum</a><a href="#" data-nav="impressum" class="lang-en">Imprint</a></li>
+          <li><a href="#" data-nav="datenschutz" class="lang-de">Datenschutz</a><a href="#" data-nav="datenschutz" class="lang-en">Privacy</a></li>
         </ul>
       </nav>
     </div>
   </footer>
 
-  <!-- SCRIPTS: Lightbox, Sortierung, Modals, Archiv -->
+  <!-- SCRIPTS -->
   <script>
+    // =============================================
+    // SPRACHUMSCHALTUNG (DE/EN)
+    // =============================================
+    (function () {
+      const langButtons = document.querySelectorAll('[data-lang]');
+
+      function setLanguage(lang) {
+        // Nur gültige Sprachen akzeptieren
+        if (lang !== 'de' && lang !== 'en') {
+          lang = 'de'; // Fallback auf Deutsch
+        }
+
+        // Body-Klassen korrekt setzen (nie beide gleichzeitig!)
+        if (lang === 'en') {
+          document.body.classList.remove('lang-de');
+          document.body.classList.add('lang-en');
+        } else {
+          document.body.classList.remove('lang-en');
+          document.body.classList.add('lang-de');
+        }
+
+        // Aktiven Button markieren
+        langButtons.forEach(btn => {
+          btn.classList.toggle('lang-active', btn.getAttribute('data-lang') === lang);
+        });
+
+        // HTML lang-Attribut aktualisieren
+        document.documentElement.lang = lang;
+
+        // Im localStorage speichern
+        localStorage.setItem('preferred-lang', lang);
+      }
+
+      // Event Listener für Buttons
+      langButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const lang = btn.getAttribute('data-lang');
+          setLanguage(lang);
+        });
+      });
+
+      // Gespeicherte Sprache laden (mit Validierung)
+      const savedLang = localStorage.getItem('preferred-lang');
+      if (savedLang === 'en') {
+        setLanguage('en');
+      }
+      // Sonst bleibt Default (lang-de aus HTML)
+    })();
+
+    // =============================================
+    // MOBILE MENÜ TOGGLE
+    // =============================================
+    (function () {
+      const navToggle = document.querySelector('.nav-toggle');
+      const navList = document.querySelector('.nav-list');
+
+      if (navToggle && navList) {
+        navToggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          navList.classList.toggle('nav-open');
+          navToggle.classList.toggle('nav-active');
+        });
+
+        // Schließen beim Klick außerhalb
+        document.addEventListener('click', (e) => {
+          if (!e.target.closest('.site-nav')) {
+            navList.classList.remove('nav-open');
+            navToggle.classList.remove('nav-active');
+          }
+        });
+
+        // Schließen beim Klick auf einen Link
+        navList.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', () => {
+            navList.classList.remove('nav-open');
+            navToggle.classList.remove('nav-active');
+          });
+        });
+      }
+    })();
+
+    // =============================================
     // LIGHTBOX
+    // =============================================
     (function () {
       const lightbox = document.getElementById('lightbox');
       const lightboxImg = document.getElementById('lightbox-img');
@@ -337,23 +787,9 @@
       });
     })();
 
-    // PRESSE CHRONOLOGISCH SORTIEREN (neueste zuerst)
-    (function () {
-      const section = document.querySelector('#presse');
-      if (!section) return;
-      const articles = Array.from(section.querySelectorAll('.press-article'));
-      if (articles.length < 2) return;
-
-      articles.sort((a, b) => {
-        const da = new Date(a.getAttribute('data-date') || '');
-        const db = new Date(b.getAttribute('data-date') || '');
-        return db - da;
-      });
-
-      articles.forEach((a) => section.appendChild(a));
-    })();
-
-    // MODALS (Über / Kontakt / Archiv)
+    // =============================================
+    // MODALS (Über / Kontakt / Anfragen / Archiv)
+    // =============================================
     (function () {
       const body = document.body;
 
@@ -373,29 +809,33 @@
         body.style.overflow = '';
       }
 
-      // Trigger
-      const ueber = document.getElementById('nav-ueber');
-      const kontakt = document.getElementById('nav-kontakt');
-      const archiv = document.getElementById('nav-archiv');
-
-      if (ueber)
-        ueber.addEventListener('click', (e) => {
+      // Navigation Links
+      document.querySelectorAll('[data-nav]').forEach(link => {
+        link.addEventListener('click', (e) => {
           e.preventDefault();
-          openModal('modal-ueber');
-        });
+          const target = link.getAttribute('data-nav');
 
-      if (kontakt)
-        kontakt.addEventListener('click', (e) => {
-          e.preventDefault();
-          openModal('modal-kontakt');
+          switch (target) {
+            case 'ueber':
+              openModal('modal-ueber');
+              break;
+            case 'archiv':
+              openModal('modal-archiv');
+              break;
+            case 'kontakt':
+              openModal('modal-kontakt');
+              break;
+            case 'impressum':
+              openModal('modal-impressum');
+              break;
+            case 'datenschutz':
+              openModal('modal-datenschutz');
+              break;
+          }
         });
+      });
 
-      if (archiv)
-        archiv.addEventListener('click', (e) => {
-          e.preventDefault();
-          openModal('modal-archiv');
-        });
-
+      // Close Buttons & Backdrop
       document.addEventListener('click', (e) => {
         const target = e.target;
         if (target.matches('[data-modal-close]') || target.classList.contains('modal')) {
@@ -407,35 +847,74 @@
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') closeAllModals();
       });
+
+      // Email-Action: Kopieren + Kontaktformular öffnen
+      document.querySelectorAll('.email-action').forEach(link => {
+        link.addEventListener('click', async (e) => {
+          e.preventDefault();
+          const email = link.dataset.email;
+
+          // Email in Zwischenablage kopieren
+          try {
+            await navigator.clipboard.writeText(email);
+
+            // Feedback anzeigen
+            const originalText = link.textContent;
+            const isEnglish = document.body.classList.contains('lang-en');
+            link.textContent = isEnglish ? 'Copied!' : 'Kopiert!';
+            link.classList.add('email-copied');
+
+            setTimeout(() => {
+              link.textContent = originalText;
+              link.classList.remove('email-copied');
+            }, 1500);
+          } catch (err) {
+            console.log('Clipboard error:', err);
+          }
+
+          // Aktuelles Modal schließen und Kontaktformular öffnen
+          closeAllModals();
+          setTimeout(() => {
+            openModal('modal-kontakt');
+          }, 200);
+        });
+      });
     })();
 
+    // =============================================
     // ARCHIV-SUCHE
+    // =============================================
     (function () {
-      const searchInput = document.getElementById('archiv-search');
+      const searchInputDE = document.getElementById('archiv-search');
+      const searchInputEN = document.getElementById('archiv-search-en');
       const list = document.getElementById('archiv-list');
-      const articles = Array.from(document.querySelectorAll('.press-article'));
-      if (!searchInput || !list || articles.length === 0) return;
+      const tiles = Array.from(document.querySelectorAll('.tile-image'));
 
-      const dataset = articles.map((article) => {
-        const title = article.querySelector('.press-title')?.textContent || '';
-        const medium = article.querySelector('.press-medium')?.textContent || '';
-        const dateText = article.querySelector('.press-date')?.textContent || '';
-        const iso = article.getAttribute('data-date') || '';
-        return { title, medium, dateText, iso, el: article };
+      if (!list || tiles.length === 0) return;
+
+      const dataset = tiles.map((tile) => {
+        const title = tile.querySelector('.tile-title.lang-de')?.textContent ||
+                      tile.querySelector('.tile-title')?.textContent || '';
+        const titleEn = tile.querySelector('.tile-title.lang-en')?.textContent || title;
+        const medium = tile.querySelector('.tile-medium')?.textContent || '';
+        const dateText = tile.querySelector('.tile-date')?.textContent || '';
+        const iso = tile.getAttribute('data-date') || '';
+        return { title, titleEn, medium, dateText, iso, el: tile };
       });
 
-      function render(items) {
+      function render(items, isEnglish) {
         list.innerHTML = '';
         if (!items.length) {
           const li = document.createElement('li');
-          li.textContent = 'Keine Treffer.';
+          li.textContent = isEnglish ? 'No results.' : 'Keine Treffer.';
           list.appendChild(li);
           return;
         }
         items.forEach((item) => {
           const li = document.createElement('li');
           const dateLabel = item.dateText || item.iso;
-          li.innerHTML = `<strong>${item.title}</strong><span>${item.medium} · ${dateLabel}</span>`;
+          const displayTitle = isEnglish ? item.titleEn : item.title;
+          li.innerHTML = `<strong>${displayTitle}</strong><span>${item.medium} · ${dateLabel}</span>`;
           li.addEventListener('click', () => {
             const modal = document.getElementById('modal-archiv');
             if (modal) {
@@ -449,26 +928,123 @@
         });
       }
 
-      function filter() {
+      function filter(searchInput) {
+        const isEnglish = document.body.classList.contains('lang-en');
         const q = (searchInput.value || '').toLowerCase().trim();
         if (!q) {
-          render(dataset);
+          render(dataset, isEnglish);
           return;
         }
         const result = dataset.filter((item) => {
           return (
             item.title.toLowerCase().includes(q) ||
+            item.titleEn.toLowerCase().includes(q) ||
             item.medium.toLowerCase().includes(q) ||
             item.dateText.toLowerCase().includes(q) ||
             item.iso.toLowerCase().includes(q)
           );
         });
-        render(result);
+        render(result, isEnglish);
       }
 
-      searchInput.addEventListener('input', filter);
-      render(dataset);
+      if (searchInputDE) {
+        searchInputDE.addEventListener('input', () => filter(searchInputDE));
+      }
+      if (searchInputEN) {
+        searchInputEN.addEventListener('input', () => filter(searchInputEN));
+      }
+
+      // Initial render
+      render(dataset, false);
+
+      // Update on language change
+      document.querySelectorAll('[data-lang]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          setTimeout(() => {
+            const isEnglish = document.body.classList.contains('lang-en');
+            const activeInput = isEnglish ? searchInputEN : searchInputDE;
+            if (activeInput) filter(activeInput);
+          }, 50);
+        });
+      });
+    })();
+
+    // =============================================
+    // KONTAKTFORMULAR
+    // =============================================
+    (function () {
+      const form = document.querySelector('.contact-form');
+      const successMsg = document.querySelector('.contact-success');
+
+      if (!form || !successMsg) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const submitBtn = form.querySelector('.form-submit');
+
+        // Button deaktivieren während Senden
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="lang-de">Wird gesendet...</span><span class="lang-en">Sending...</span>';
+
+        // Sprache anwenden
+        const isEnglish = document.body.classList.contains('lang-en');
+        submitBtn.querySelectorAll('.lang-de').forEach(el => el.style.display = isEnglish ? 'none' : 'inline');
+        submitBtn.querySelectorAll('.lang-en').forEach(el => el.style.display = isEnglish ? 'inline' : 'none');
+
+        try {
+          const response = await fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams(formData).toString()
+          });
+
+          if (response.ok) {
+            form.style.display = 'none';
+            successMsg.style.display = 'block';
+          } else {
+            throw new Error('Fehler beim Senden');
+          }
+        } catch (error) {
+          // Bei Fehler zurücksetzen
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<span class="lang-de">Absenden</span><span class="lang-en">Send</span>';
+          const isEn = document.body.classList.contains('lang-en');
+          submitBtn.querySelectorAll('.lang-de').forEach(el => el.style.display = isEn ? 'none' : 'inline');
+          submitBtn.querySelectorAll('.lang-en').forEach(el => el.style.display = isEn ? 'inline' : 'none');
+          alert(isEn ? 'Error sending message. Please try again.' : 'Fehler beim Senden. Bitte versuche es erneut.');
+        }
+      });
+
+      // Formular zurücksetzen wenn Modal geschlossen wird
+      const modal = document.getElementById('modal-kontakt');
+      if (modal) {
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.attributeName === 'class' && !modal.classList.contains('open')) {
+              // Modal wurde geschlossen - Formular zurücksetzen
+              setTimeout(() => {
+                form.reset();
+                form.style.display = 'flex';
+                successMsg.style.display = 'none';
+                const submitBtn = form.querySelector('.form-submit');
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<span class="lang-de">Absenden</span><span class="lang-en">Send</span>';
+              }, 300);
+            }
+          });
+        });
+        observer.observe(modal, { attributes: true });
+      }
     })();
   </script>
+
+  <!-- Content Loader: Lädt Inhalte aus Google Sheet -->
+  <script src="js/content-loader.js"></script>
+
+  <!-- GoatCounter Analytics (DSGVO-konform, keine Cookies) -->
+  <script data-goatcounter="https://kerstingeffert.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
 </body>
 </html>
