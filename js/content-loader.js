@@ -452,12 +452,17 @@
     const spreadImgLeft = document.getElementById('spread-img-left');
     const spreadImgRight = document.getElementById('spread-img-right');
     const spreadCloseBtn = spreadModal?.querySelector('.spread-modal-close');
+    const spreadZoomLink = document.getElementById('spread-zoom-link');
 
     function openSpreadModal(leftUrl, rightUrl) {
       if (!spreadModal || !spreadImgLeft || !spreadImgRight) return;
 
       spreadImgLeft.src = leftUrl;
       spreadImgRight.src = rightUrl;
+      // Zoom-Link auf das rechte Bild setzen (Innenseite)
+      if (spreadZoomLink) {
+        spreadZoomLink.href = rightUrl;
+      }
       spreadModal.classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -545,7 +550,13 @@
           galleryUrls = [item.dataset.full];
         }
 
-        // Lightbox mit allen Bildern öffnen (Start bei Cover, Pfeile für Navigation)
+        // Wenn genau 2 Bilder: Spread-Modal (Doppelseite, gleich große Seiten)
+        if (galleryUrls.length === 2) {
+          openSpreadModal(galleryUrls[0], galleryUrls[1]);
+          return;
+        }
+
+        // Bei 3+ Bildern: Normale Lightbox mit Navigation (Cover → Folgeseiten)
         openLightbox(galleryUrls, 0);
       });
     });
