@@ -203,8 +203,9 @@
     const popupLink = item.link || '';
     // Screenshot für Split-Modal (aus bild_url_2)
     const screenshotUrl = imageUrls.length > 1 ? imageUrls[1] : '';
-    // Medium für spezielle Behandlung (z.B. Seitenreihenfolge)
+    // Medium und Titel für spezielle Behandlung (z.B. Seitenreihenfolge)
     const medium = (item.medium || '').trim();
+    const titel = (item.titel_de || '').trim();
 
     return `
       <article class="tile tile-image" data-date="${item.datum || ''}">
@@ -214,6 +215,7 @@
                data-gallery='${allUrlsJson}'
                data-group="${groupId}"
                data-medium="${medium}"
+               data-titel="${titel}"
                ${popupLink ? `data-popup-link="${popupLink}"` : ''}
                ${screenshotUrl ? `data-screenshot="${screenshotUrl}"` : ''}>
             <img
@@ -538,10 +540,14 @@
     // Magazine, bei denen erst Cover, dann Spread gezeigt wird
     const COVER_FIRST_MAGAZINES = ['Maxi'];
 
-    // Hilfsfunktion: Prüft ob Medium in Liste enthalten ist (case-insensitive)
-    function mediumMatches(medium, list) {
-      const normalizedMedium = medium.toLowerCase().trim();
-      return list.some(m => normalizedMedium.includes(m.toLowerCase()));
+    // Hilfsfunktion: Prüft ob Medium ODER Titel in Liste enthalten ist (case-insensitive)
+    function magazineMatches(medium, titel, list) {
+      const normalizedMedium = (medium || '').toLowerCase().trim();
+      const normalizedTitel = (titel || '').toLowerCase().trim();
+      return list.some(m => {
+        const lowerM = m.toLowerCase();
+        return normalizedMedium.includes(lowerM) || normalizedTitel.includes(lowerM);
+      });
     }
 
     // Spezielle Lightbox für Maxi: Cover erst, dann Spread bei Pfeil-Klick
@@ -568,6 +574,10 @@
         const popupLink = item.dataset.popupLink;
         const screenshotUrl = item.dataset.screenshot;
         const medium = item.dataset.medium || '';
+        const titel = item.dataset.titel || '';
+
+        // Debug: Zeige Medium und Titel in der Konsole
+        console.log('Clicked:', { medium, titel, galleryLength: JSON.parse(item.dataset.gallery || '[]').length });
 
         // Wenn Link UND Screenshot vorhanden: Article-Split-Modal öffnen
         if (popupLink && screenshotUrl) {
@@ -597,18 +607,21 @@
         // Bei 2 Bildern: Spread-Modal (Doppelseite)
         if (galleryUrls.length === 2) {
           // Maxi: Erst Cover zeigen, bei Pfeil-Klick Spread
-          if (mediumMatches(medium, COVER_FIRST_MAGAZINES)) {
+          if (magazineMatches(medium, titel, COVER_FIRST_MAGAZINES)) {
+            console.log('→ Maxi-Modus: Cover erst, dann Spread');
             openMaxiLightbox(galleryUrls[0], galleryUrls[0], galleryUrls[1]);
             return;
           }
 
           // Freundin, Working Women: Seitenreihenfolge tauschen
-          if (mediumMatches(medium, SWAP_ORDER_MAGAZINES)) {
+          if (magazineMatches(medium, titel, SWAP_ORDER_MAGAZINES)) {
+            console.log('→ Swap-Modus: Seiten getauscht');
             openSpreadModal(galleryUrls[1], galleryUrls[0]);
             return;
           }
 
           // Standard (z.B. Uniqlo): galleryUrls[0] links, galleryUrls[1] rechts
+          console.log('→ Standard-Spread');
           openSpreadModal(galleryUrls[0], galleryUrls[1]);
           return;
         }
