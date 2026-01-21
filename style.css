@@ -1255,24 +1255,17 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
     /*
      * display: contents macht die Spalten-Container "unsichtbar" für Grid.
      * Die Tiles werden direkt zu Grid-Kindern von .page-layout.
-     * So können wir die Reihenfolge mit order steuern.
+     * order wird per inline --mobile-order Variable vom content-loader gesetzt.
      */
     .column-left,
     .column-right {
         display: contents;
     }
 
-    /* Mobile Reihenfolge: Linke Spalte Items bekommen ungerade order (1,3,5,7) */
-    .column-left .tile:nth-child(1) { order: 1; }
-    .column-left .tile:nth-child(2) { order: 3; }
-    .column-left .tile:nth-child(3) { order: 5; }
-    .column-left .tile:nth-child(4) { order: 7; }
-
-    /* Rechte Spalte Items bekommen gerade order (2,4,6,8) */
-    .column-right .tile:nth-child(1) { order: 2; }  /* Best Dressed = 2. Position */
-    .column-right .tile:nth-child(2) { order: 4; }
-    .column-right .tile:nth-child(3) { order: 6; }
-    .column-right .tile:nth-child(4) { order: 8; }
+    /* Mobile Reihenfolge: order aus CSS-Variable (vom content-loader gesetzt) */
+    .tile {
+        order: var(--mobile-order, 0);
+    }
 
     /* Header-Layout anpassen */
     .site-header {
