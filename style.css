@@ -705,7 +705,7 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
 
 .single-modal-content img {
     max-height: 85vh;
-    max-width: 47vw;
+    max-width: 60vw;
     width: auto;
     height: auto;
     object-fit: contain;

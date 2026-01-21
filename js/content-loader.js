@@ -558,11 +558,14 @@
     }
 
     if (singleNextBtn) {
-      singleNextBtn.addEventListener('click', () => {
+      singleNextBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         if (pendingSpread) {
+          const spread = { ...pendingSpread }; // Kopie speichern
           closeSingleModal();
           setTimeout(() => {
-            openSpreadModal(pendingSpread.left, pendingSpread.right);
+            openSpreadModal(spread.left, spread.right);
           }, 100);
         }
       });
@@ -682,9 +685,10 @@
 
       // Pfeil rechts für Single-Modal → öffnet Spread
       if (e.key === 'ArrowRight' && singleModal?.classList.contains('active') && pendingSpread) {
+        const spread = { ...pendingSpread }; // Kopie speichern
         closeSingleModal();
         setTimeout(() => {
-          openSpreadModal(pendingSpread.left, pendingSpread.right);
+          openSpreadModal(spread.left, spread.right);
         }, 100);
         return;
       }
