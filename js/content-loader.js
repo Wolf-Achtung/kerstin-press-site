@@ -203,6 +203,8 @@
     const popupLink = item.link || '';
     // Screenshot für Split-Modal (aus bild_url_2)
     const screenshotUrl = imageUrls.length > 1 ? imageUrls[1] : '';
+    // Anzeige-Modus: "spread" (Doppelseite) oder "galerie" (Einzelbilder mit Navigation)
+    const displayMode = (item.anzeige || '').toLowerCase().trim();
 
     return `
       <article class="tile tile-image" data-date="${item.datum || ''}">
@@ -211,6 +213,7 @@
                data-full="${mainImageUrl}"
                data-gallery='${allUrlsJson}'
                data-group="${groupId}"
+               data-display="${displayMode}"
                ${popupLink ? `data-popup-link="${popupLink}"` : ''}
                ${screenshotUrl ? `data-screenshot="${screenshotUrl}"` : ''}>
             <img
@@ -550,9 +553,20 @@
           galleryUrls = [item.dataset.full];
         }
 
-        // Wenn genau 2 Bilder: Spread-Modal (Doppelseite, gleich große Seiten)
+        // Anzeige-Modus aus data-Attribut (Sheet-Spalte "anzeige")
+        const displayMode = item.dataset.display || '';
+
+        // "galerie" = immer Lightbox mit Navigation (auch bei 2 Bildern)
+        if (displayMode === 'galerie') {
+          openLightbox(galleryUrls, 0);
+          return;
+        }
+
+        // "spread" oder Standard bei 2 Bildern: Doppelseite
+        // Reihenfolge: Bild 2 links (Cover), Bild 1 rechts (Inhalt) - für Magazine mit Cover+Innenseite
+        // Für reine Innenseiten-Spreads im Sheet die Reihenfolge anpassen
         if (galleryUrls.length === 2) {
-          openSpreadModal(galleryUrls[0], galleryUrls[1]);
+          openSpreadModal(galleryUrls[1], galleryUrls[0]);
           return;
         }
 
