@@ -442,19 +442,7 @@
       lightboxImg.src = '';
     }
 
-    // Variable für Maxi-Spezialverhalten (Cover erst, dann Spread)
-    let maxiSpreadUrls = null;
-
     function showNext() {
-      // Maxi-Spezialverhalten: Von Cover zu Spread wechseln
-      if (maxiSpreadUrls && currentIndex === 0 && currentGallery.length === 1) {
-        closeLightbox();
-        setTimeout(() => {
-          openSpreadModal(maxiSpreadUrls.left, maxiSpreadUrls.right);
-          maxiSpreadUrls = null;
-        }, 100);
-        return;
-      }
       showImage((currentIndex + 1) % currentGallery.length);
     }
 
@@ -539,21 +527,51 @@
     // Position 10 = Maxi → erst Cover, dann Spread
     const COVER_FIRST_POSITIONS = [10];
 
-    // Spezielle Lightbox für Maxi: Cover erst, dann Spread bei Pfeil-Klick
-    function openMaxiLightbox(coverUrl, spreadLeftUrl, spreadRightUrl) {
-      maxiSpreadUrls = { left: spreadLeftUrl, right: spreadRightUrl };
-      currentGallery = [coverUrl];
-      currentIndex = 0;
+    // Single Modal (für Maxi Cover in Spread-Größe)
+    const singleModal = document.getElementById('single-modal');
+    const singleImg = document.getElementById('single-img');
+    const singleCloseBtn = singleModal?.querySelector('.single-modal-close');
+    const singleNextBtn = singleModal?.querySelector('.single-modal-next');
 
-      lightboxImg.src = coverUrl;
-      if (lightboxLink) lightboxLink.href = coverUrl;
+    // Speichert URLs für den Spread nach dem Cover
+    let pendingSpread = null;
 
-      // Navigation anzeigen (Pfeil nach rechts für Spread)
-      if (prevBtn) prevBtn.style.display = 'none';
-      if (nextBtn) nextBtn.style.display = 'block';
+    function openSingleModal(coverUrl, spreadLeftUrl, spreadRightUrl) {
+      if (!singleModal || !singleImg) return;
 
-      lightbox.classList.add('active');
+      pendingSpread = { left: spreadLeftUrl, right: spreadRightUrl };
+      singleImg.src = coverUrl;
+      singleModal.classList.add('active');
       document.body.style.overflow = 'hidden';
+    }
+
+    function closeSingleModal() {
+      if (!singleModal) return;
+      singleModal.classList.remove('active');
+      singleImg.src = '';
+      document.body.style.overflow = '';
+      pendingSpread = null;
+    }
+
+    if (singleCloseBtn) {
+      singleCloseBtn.addEventListener('click', closeSingleModal);
+    }
+
+    if (singleNextBtn) {
+      singleNextBtn.addEventListener('click', () => {
+        if (pendingSpread) {
+          closeSingleModal();
+          setTimeout(() => {
+            openSpreadModal(pendingSpread.left, pendingSpread.right);
+          }, 100);
+        }
+      });
+    }
+
+    if (singleModal) {
+      singleModal.addEventListener('click', (e) => {
+        if (e.target === singleModal) closeSingleModal();
+      });
     }
 
     // Event-Listener für Bilder
@@ -594,10 +612,10 @@
 
         // Bei 2 Bildern: Spread-Modal (Doppelseite)
         if (galleryUrls.length === 2) {
-          // Maxi (Position 10): Erst Cover zeigen, bei Pfeil-Klick Spread
+          // Maxi (Position 10): Erst Cover in großem Format, bei Pfeil-Klick Spread
           if (COVER_FIRST_POSITIONS.includes(position)) {
             console.log('→ Maxi-Modus: Cover erst, dann Spread (Position', position, ')');
-            openMaxiLightbox(galleryUrls[0], galleryUrls[0], galleryUrls[1]);
+            openSingleModal(galleryUrls[0], galleryUrls[0], galleryUrls[1]);
             return;
           }
 
@@ -615,7 +633,6 @@
         }
 
         // Bei 3+ Bildern: Normale Lightbox mit Navigation (Cover → Folgeseiten)
-        maxiSpreadUrls = null; // Reset
         openLightbox(galleryUrls, 0);
       });
     });
@@ -648,6 +665,9 @@
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         // Alle Modals schließen
+        if (singleModal?.classList.contains('active')) {
+          closeSingleModal();
+        }
         if (spreadModal?.classList.contains('active')) {
           closeSpreadModal();
         }
@@ -657,6 +677,15 @@
         if (lightbox.classList.contains('active')) {
           closeLightbox();
         }
+        return;
+      }
+
+      // Pfeil rechts für Single-Modal → öffnet Spread
+      if (e.key === 'ArrowRight' && singleModal?.classList.contains('active') && pendingSpread) {
+        closeSingleModal();
+        setTimeout(() => {
+          openSpreadModal(pendingSpread.left, pendingSpread.right);
+        }, 100);
         return;
       }
 
