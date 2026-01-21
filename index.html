@@ -112,11 +112,11 @@
 
   <!-- MAIN: 2/3 – 1/3 GRID -->
   <main class="page-layout">
-    <!-- Einzel-Container mit allen Tiles (für korrektes Mobile-Reflow) -->
-    <div class="tiles-grid">
+    <!-- Linke Spalte (2/3) -->
+    <div class="column column-left" id="content-left">
 
-      <!-- Reihe 1: FAZ (links) + Stil-Inspiration (rechts) -->
-      <article class="tile tile-image tile-landscape tile-left" data-date="2023-01-01">
+      <!-- Kachel 1: Großes Querformat -->
+      <article class="tile tile-image tile-landscape" data-date="2023-01-01">
         <div class="tile-media">
           <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-53.webp">
             <img
@@ -138,29 +138,8 @@
         </div>
       </article>
 
-      <article class="tile tile-image tile-portrait tile-right" data-date="2025-07-12">
-        <div class="tile-media">
-          <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-54.webp">
-            <img
-              src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-54_cover.webp"
-              loading="lazy"
-              decoding="async"
-              alt="Stil-Inspiration: Kreative Looks"
-            />
-            <span class="zoom-hint lang-de">Klick zum Vergrößern</span>
-            <span class="zoom-hint lang-en">Click to enlarge</span>
-          </div>
-        </div>
-        <div class="tile-text">
-          <span class="tile-medium">Lifestyle Magazin</span>
-          <h3 class="tile-title lang-de">Stil-Inspiration: Kreative Looks</h3>
-          <h3 class="tile-title lang-en">Style Inspiration: Creative Looks</h3>
-          <p class="tile-date">12. Juli 2025</p>
-        </div>
-      </article>
-
-      <!-- Reihe 2: Quote Kerstin (links) + Quote Lifestyle (rechts) -->
-      <article class="tile tile-quote tile-left">
+      <!-- Quote-Block 1 -->
+      <article class="tile tile-quote">
         <blockquote class="lang-de">
           Mode ist mehr als Kleidung – sie ist Ausdruck von Haltung und Identität.
         </blockquote>
@@ -170,18 +149,8 @@
         <p class="quote-meta">– Kerstin Geffert</p>
       </article>
 
-      <article class="tile tile-quote tile-right">
-        <blockquote class="lang-de">
-          Mit ihrer einzigartigen Mischung aus Eleganz und Streetstyle definiert sie die Mode neu.
-        </blockquote>
-        <blockquote class="lang-en">
-          With her unique blend of elegance and streetstyle, she redefines fashion.
-        </blockquote>
-        <p class="quote-meta">– Lifestyle Magazin</p>
-      </article>
-
-      <!-- Reihe 3: Lifestyle Magazin (links) + Quote Placeholder (rechts) -->
-      <article class="tile tile-image tile-landscape tile-left" data-date="2025-07-12">
+      <!-- Kachel 3: Querformat -->
+      <article class="tile tile-image tile-landscape" data-date="2025-07-12">
         <div class="tile-media">
           <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-55.webp">
             <img
@@ -202,18 +171,8 @@
         </div>
       </article>
 
-      <article class="tile tile-quote tile-right">
-        <blockquote class="lang-de">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
-        </blockquote>
-        <blockquote class="lang-en">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
-        </blockquote>
-        <p class="quote-meta">– Platzhalter</p>
-      </article>
-
-      <!-- Reihe 4: Video Interview (links) + Video Runway (rechts) -->
-      <article class="tile tile-video tile-left">
+      <!-- Video-Kachel -->
+      <article class="tile tile-video">
         <div class="tile-media">
           <div class="video-wrapper">
             <iframe
@@ -233,7 +192,57 @@
         </div>
       </article>
 
-      <article class="tile tile-video tile-right">
+    </div>
+
+    <!-- Rechte Spalte (1/3) -->
+    <div class="column column-right" id="content-right">
+
+      <!-- Kachel 2: Schmales Hochformat -->
+      <article class="tile tile-image tile-portrait" data-date="2025-07-12">
+        <div class="tile-media">
+          <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-54.webp">
+            <img
+              src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-54_cover.webp"
+              loading="lazy"
+              decoding="async"
+              alt="Stil-Inspiration: Kreative Looks"
+            />
+            <span class="zoom-hint lang-de">Klick zum Vergrößern</span>
+            <span class="zoom-hint lang-en">Click to enlarge</span>
+          </div>
+        </div>
+        <div class="tile-text">
+          <span class="tile-medium">Lifestyle Magazin</span>
+          <h3 class="tile-title lang-de">Stil-Inspiration: Kreative Looks</h3>
+          <h3 class="tile-title lang-en">Style Inspiration: Creative Looks</h3>
+          <p class="tile-date">12. Juli 2025</p>
+        </div>
+      </article>
+
+      <!-- Quote-Block 2 -->
+      <article class="tile tile-quote">
+        <blockquote class="lang-de">
+          Mit ihrer einzigartigen Mischung aus Eleganz und Streetstyle definiert sie die Mode neu.
+        </blockquote>
+        <blockquote class="lang-en">
+          With her unique blend of elegance and streetstyle, she redefines fashion.
+        </blockquote>
+        <p class="quote-meta">– Lifestyle Magazin</p>
+      </article>
+
+      <!-- Quote-Block 3 (Blindtext) -->
+      <article class="tile tile-quote">
+        <blockquote class="lang-de">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+        </blockquote>
+        <blockquote class="lang-en">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
+        </blockquote>
+        <p class="quote-meta">– Platzhalter</p>
+      </article>
+
+      <!-- Video-Kachel 2 -->
+      <article class="tile tile-video">
         <div class="tile-media">
           <div class="video-wrapper">
             <iframe
