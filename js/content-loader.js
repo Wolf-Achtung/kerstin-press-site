@@ -338,15 +338,48 @@
       return html.replace('<article class="tile', `<article style="--mobile-order:${orderValue}" class="tile`);
     };
 
+    // Interleave items für Mobile-Reihenfolge erstellen
+    // und aufeinanderfolgende Zitate vermeiden
+    const maxLen = Math.max(leftItems.length, rightItems.length);
+    const interleavedItems = [];
+
+    for (let i = 0; i < maxLen; i++) {
+      if (leftItems[i]) {
+        interleavedItems.push({ html: leftItems[i], column: 'left' });
+      }
+      if (rightItems[i]) {
+        interleavedItems.push({ html: rightItems[i], column: 'right' });
+      }
+    }
+
+    // Aufeinanderfolgende Zitate erkennen und nach hinten verschieben
+    const isQuote = (html) => html.includes('tile-quote');
+    for (let i = 0; i < interleavedItems.length - 1; i++) {
+      if (isQuote(interleavedItems[i].html) && isQuote(interleavedItems[i + 1].html)) {
+        // Finde nächstes Nicht-Zitat zum Tauschen
+        for (let j = i + 2; j < interleavedItems.length; j++) {
+          if (!isQuote(interleavedItems[j].html)) {
+            // Tausche Position i+1 mit j
+            const temp = interleavedItems[i + 1];
+            interleavedItems[i + 1] = interleavedItems[j];
+            interleavedItems[j] = temp;
+            break;
+          }
+        }
+      }
+    }
+
+    // Order-Werte zuweisen und nach Spalten aufteilen
     let leftHtml = '';
     let rightHtml = '';
 
-    leftItems.forEach((html, i) => {
-      leftHtml += addMobileOrder(html, i * 2 + 1);  // 1, 3, 5, 7...
-    });
-
-    rightItems.forEach((html, i) => {
-      rightHtml += addMobileOrder(html, i * 2 + 2);  // 2, 4, 6, 8...
+    interleavedItems.forEach((item, i) => {
+      const orderedHtml = addMobileOrder(item.html, i + 1);
+      if (item.column === 'left') {
+        leftHtml += orderedHtml;
+      } else {
+        rightHtml += orderedHtml;
+      }
     });
 
     leftColumn.innerHTML = leftHtml;
