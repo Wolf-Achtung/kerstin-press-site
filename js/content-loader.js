@@ -203,6 +203,8 @@
     const popupLink = item.link || '';
     // Screenshot für Split-Modal (aus bild_url_2)
     const screenshotUrl = imageUrls.length > 1 ? imageUrls[1] : '';
+    // Medium für spezielle Behandlung (z.B. Seitenreihenfolge)
+    const medium = (item.medium || '').trim();
 
     return `
       <article class="tile tile-image" data-date="${item.datum || ''}">
@@ -211,6 +213,7 @@
                data-full="${mainImageUrl}"
                data-gallery='${allUrlsJson}'
                data-group="${groupId}"
+               data-medium="${medium}"
                ${popupLink ? `data-popup-link="${popupLink}"` : ''}
                ${screenshotUrl ? `data-screenshot="${screenshotUrl}"` : ''}>
             <img
@@ -439,7 +442,19 @@
       lightboxImg.src = '';
     }
 
+    // Variable für Maxi-Spezialverhalten (Cover erst, dann Spread)
+    let maxiSpreadUrls = null;
+
     function showNext() {
+      // Maxi-Spezialverhalten: Von Cover zu Spread wechseln
+      if (maxiSpreadUrls && currentIndex === 0 && currentGallery.length === 1) {
+        closeLightbox();
+        setTimeout(() => {
+          openSpreadModal(maxiSpreadUrls.left, maxiSpreadUrls.right);
+          maxiSpreadUrls = null;
+        }, 100);
+        return;
+      }
       showImage((currentIndex + 1) % currentGallery.length);
     }
 
@@ -518,12 +533,41 @@
       });
     }
 
+    // Magazine, bei denen die Seitenreihenfolge getauscht werden soll
+    const SWAP_ORDER_MAGAZINES = ['Freundin', 'Working Women'];
+    // Magazine, bei denen erst Cover, dann Spread gezeigt wird
+    const COVER_FIRST_MAGAZINES = ['Maxi'];
+
+    // Hilfsfunktion: Prüft ob Medium in Liste enthalten ist (case-insensitive)
+    function mediumMatches(medium, list) {
+      const normalizedMedium = medium.toLowerCase().trim();
+      return list.some(m => normalizedMedium.includes(m.toLowerCase()));
+    }
+
+    // Spezielle Lightbox für Maxi: Cover erst, dann Spread bei Pfeil-Klick
+    function openMaxiLightbox(coverUrl, spreadLeftUrl, spreadRightUrl) {
+      maxiSpreadUrls = { left: spreadLeftUrl, right: spreadRightUrl };
+      currentGallery = [coverUrl];
+      currentIndex = 0;
+
+      lightboxImg.src = coverUrl;
+      if (lightboxLink) lightboxLink.href = coverUrl;
+
+      // Navigation anzeigen (Pfeil nach rechts für Spread)
+      if (prevBtn) prevBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'block';
+
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
     // Event-Listener für Bilder
     imageItems.forEach((item) => {
       item.style.cursor = 'pointer';
       item.addEventListener('click', () => {
         const popupLink = item.dataset.popupLink;
         const screenshotUrl = item.dataset.screenshot;
+        const medium = item.dataset.medium || '';
 
         // Wenn Link UND Screenshot vorhanden: Article-Split-Modal öffnen
         if (popupLink && screenshotUrl) {
@@ -550,13 +594,27 @@
           galleryUrls = [item.dataset.full];
         }
 
-        // Wenn genau 2 Bilder: Spread-Modal (Doppelseite, gleich große Seiten)
+        // Bei 2 Bildern: Spread-Modal (Doppelseite)
         if (galleryUrls.length === 2) {
+          // Maxi: Erst Cover zeigen, bei Pfeil-Klick Spread
+          if (mediumMatches(medium, COVER_FIRST_MAGAZINES)) {
+            openMaxiLightbox(galleryUrls[0], galleryUrls[0], galleryUrls[1]);
+            return;
+          }
+
+          // Freundin, Working Women: Seitenreihenfolge tauschen
+          if (mediumMatches(medium, SWAP_ORDER_MAGAZINES)) {
+            openSpreadModal(galleryUrls[1], galleryUrls[0]);
+            return;
+          }
+
+          // Standard (z.B. Uniqlo): galleryUrls[0] links, galleryUrls[1] rechts
           openSpreadModal(galleryUrls[0], galleryUrls[1]);
           return;
         }
 
         // Bei 3+ Bildern: Normale Lightbox mit Navigation (Cover → Folgeseiten)
+        maxiSpreadUrls = null; // Reset
         openLightbox(galleryUrls, 0);
       });
     });
