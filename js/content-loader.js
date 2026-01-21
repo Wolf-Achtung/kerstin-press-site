@@ -615,13 +615,6 @@
 
         // Bei 2 Bildern: Spread-Modal (Doppelseite)
         if (galleryUrls.length === 2) {
-          // Maxi (Position 10): Erst Cover in großem Format, bei Pfeil-Klick Spread
-          if (COVER_FIRST_POSITIONS.includes(position)) {
-            console.log('→ Maxi-Modus: Cover erst, dann Spread (Position', position, ')');
-            openSingleModal(galleryUrls[0], galleryUrls[0], galleryUrls[1]);
-            return;
-          }
-
           // Freundin (13), Working Women (6): Seitenreihenfolge tauschen
           if (SWAP_ORDER_POSITIONS.includes(position)) {
             console.log('→ Swap-Modus: Seiten getauscht (Position', position, ')');
@@ -632,6 +625,14 @@
           // Standard: galleryUrls[0] links, galleryUrls[1] rechts
           console.log('→ Standard-Spread (Position', position, ')');
           openSpreadModal(galleryUrls[0], galleryUrls[1]);
+          return;
+        }
+
+        // Maxi (Position 10) mit 3 Bildern: Cover erst, dann Spread
+        // Bild 1 = Cover, Bild 2+3 = Spread
+        if (galleryUrls.length === 3 && COVER_FIRST_POSITIONS.includes(position)) {
+          console.log('→ Maxi-Modus (3 Bilder): Cover erst, dann Spread (Position', position, ')');
+          openSingleModal(galleryUrls[0], galleryUrls[1], galleryUrls[2]);
           return;
         }
 
