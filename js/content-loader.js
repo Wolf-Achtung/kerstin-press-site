@@ -317,18 +317,36 @@
       return;
     }
 
-    let leftHtml = '';
-    let rightHtml = '';
+    // Tiles nach Spalte trennen
+    const leftItems = [];
+    const rightItems = [];
 
     rows.forEach((item, index) => {
       const spalte = (item.spalte || '').toLowerCase().trim();
       const tileHtml = createTile(item, index);
 
       if (spalte === 'rechts' || spalte === 'right') {
-        rightHtml += tileHtml;
+        rightItems.push(tileHtml);
       } else {
-        leftHtml += tileHtml;
+        leftItems.push(tileHtml);
       }
+    });
+
+    // Mobile-Order berechnen: Links=ungerade (1,3,5...), Rechts=gerade (2,4,6...)
+    // CSS order wird inline gesetzt für korrektes Mobile-Reflow
+    const addMobileOrder = (html, orderValue) => {
+      return html.replace('<article class="tile', `<article style="--mobile-order:${orderValue}" class="tile`);
+    };
+
+    let leftHtml = '';
+    let rightHtml = '';
+
+    leftItems.forEach((html, i) => {
+      leftHtml += addMobileOrder(html, i * 2 + 1);  // 1, 3, 5, 7...
+    });
+
+    rightItems.forEach((html, i) => {
+      rightHtml += addMobileOrder(html, i * 2 + 2);  // 2, 4, 6, 8...
     });
 
     leftColumn.innerHTML = leftHtml;
