@@ -630,12 +630,12 @@
 
         // Bei 2 Bildern: Spread-Modal (Doppelseite)
         if (galleryUrls.length === 2) {
-          // Maxi (Position 10 oder Medium 'maxi'): Cover erst, dann Doppelseite
+          // Maxi (Position 10 oder Medium 'maxi'): Cover erst, dann Spread alleine
           // galleryUrls[0] = Spread, galleryUrls[1] = Cover
-          // → Erst Cover, dann Spread links + Cover rechts
+          // → Erst Cover, dann nur Spread (als Einzelbild in Lightbox)
           if (position === 10 || mediumMatches(medium, ['maxi'])) {
-            console.log('→ Maxi-Modus (2 Bilder):', medium, '- Cover erst, dann Doppelseite');
-            openSingleModal(galleryUrls[1], galleryUrls[0], galleryUrls[1]);
+            console.log('→ Maxi-Modus (2 Bilder):', medium, '- Cover erst, dann Spread alleine');
+            openSingleModal(galleryUrls[1], galleryUrls[0], galleryUrls[0]);
             return;
           }
 
