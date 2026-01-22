@@ -652,12 +652,12 @@
           return;
         }
 
-        // Magazine B / Uniqlo mit 3 Bildern: Cover erst, dann Spread (zwei Seiten nebeneinander)
-        // Bild 1 = Cover, Bild 2 = linke Seite, Bild 3 = rechte Seite
+        // Magazine B / Uniqlo mit 3 Bildern: Direkt Spread öffnen (Cover überspringen)
+        // Bild 1 = Cover (bereits auf Startseite), Bild 2 = linke Seite, Bild 3 = rechte Seite
         // Position 9 oder Medium enthält 'magazine'/'uniqlo'
         if (galleryUrls.length === 3 && (position === 9 || mediumMatches(medium, ['magazine', 'uniqlo']))) {
-          console.log('→ Magazine B/Uniqlo-Modus (3 Bilder):', medium, '- Cover erst, dann Doppelseite');
-          openSingleModal(galleryUrls[0], galleryUrls[1], galleryUrls[2]);
+          console.log('→ Magazine B/Uniqlo-Modus (3 Bilder):', medium, '- Spread direkt (Cover überspringen)');
+          openSpreadModal(galleryUrls[1], galleryUrls[2]);
           return;
         }
 
