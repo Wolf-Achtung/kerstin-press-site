@@ -516,13 +516,13 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
 
 .lightbox-content {
     position: relative;
-    max-width: 95vw;
-    max-height: 95vh;
+    max-width: 98vw;
+    max-height: 98vh;
 }
 
 .lightbox-content img {
-    max-width: 95vw;
-    max-height: 90vh;
+    max-width: 98vw;
+    max-height: 95vh;
     object-fit: contain;
     border-radius: 4px;
 }
@@ -703,8 +703,8 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
 }
 
 .single-modal-content img {
-    max-height: 90vh;
-    max-width: 95vw;
+    max-height: 95vh;
+    max-width: 98vw;
     width: auto;
     height: auto;
     object-fit: contain;
