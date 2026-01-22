@@ -634,25 +634,23 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
     display: flex;
     gap: 20px;
     max-width: 95%;
-    max-height: 90vh;
-    align-items: center;
+    height: 85vh;
+    align-items: stretch;
     justify-content: center;
 }
 
 .spread-modal-page {
-    flex: 0 1 auto;
-    max-height: 85vh;
+    flex: 0 0 auto;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
 
 .spread-modal-page img {
-    max-height: 85vh;
-    max-width: 45vw;
+    height: 100%;
     width: auto;
-    height: auto;
+    max-width: 45vw;
     object-fit: contain;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
