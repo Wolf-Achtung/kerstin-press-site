@@ -1454,18 +1454,20 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
 /* Kleine Smartphones */
 @media (max-width: 480px) {
     .site-title {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
         letter-spacing: 0.1em;
     }
 
     .header-controls {
         flex-direction: column;
         align-items: center;
-        gap: 0.5rem;
+        gap: 0.75rem;
     }
 
     .nav-toggle {
-        font-size: 0.85rem;
+        font-size: 0.9rem;
+        min-height: 44px;
+        padding: 0.5rem 0.75rem;
     }
 
     .nav-list {
@@ -1473,16 +1475,106 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
     }
 
     .tile-quote blockquote {
-        font-size: 0.95rem;
+        font-size: 1rem;
     }
 
     .lang-switch {
-        gap: 0.3rem;
+        gap: 0.5rem;
     }
 
     .lang-btn {
-        padding: 0.2rem 0.4rem;
-        font-size: 0.75rem;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .tile-medium {
+        font-size: 0.8rem;
+    }
+}
+
+/* ========================================
+   MOBILE TOUCH OPTIMIERUNG
+   Mindestens 44x44px Touch-Targets
+   ======================================== */
+
+@media (max-width: 768px) {
+    /* Größere Touch-Targets für Buttons */
+    .lang-btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .modal-close {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 0.5rem;
+        font-size: 2rem;
+    }
+
+    .lightbox-nav {
+        min-width: 44px;
+        min-height: 60px;
+        padding: 15px 12px;
+        font-size: 2rem;
+    }
+
+    .spread-modal-close,
+    .single-modal-close,
+    .article-modal-close {
+        min-width: 44px;
+        min-height: 44px;
+        font-size: 2.5rem;
+    }
+
+    .single-modal-next {
+        min-width: 50px;
+        min-height: 50px;
+    }
+
+    /* Bessere Lesbarkeit */
+    .tile-text {
+        padding: 0.75rem;
+    }
+
+    .tile-medium {
+        font-size: 0.85rem;
+    }
+
+    .tile-title {
+        font-size: 1rem;
+    }
+
+    /* Mehr Platz in Modals */
+    .modal-content {
+        padding: 1.5rem;
+    }
+
+    /* Formular-Labels besser lesbar */
+    .form-group label {
+        font-size: 0.85rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 16px; /* Verhindert Zoom auf iOS */
+        padding: 0.75rem;
+    }
+
+    /* Social Icons größer */
+    .social-icon {
+        padding: 0.5rem;
+        min-width: 44px;
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .social-icon svg {
+        width: 24px;
+        height: 24px;
     }
 }
 
