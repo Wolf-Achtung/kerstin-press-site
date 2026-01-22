@@ -563,13 +563,16 @@
         e.stopPropagation();
         if (pendingSpread) {
           const spread = { ...pendingSpread }; // Kopie speichern
+          console.log('Next-Button geklickt, pendingSpread:', spread);
           closeSingleModal();
           setTimeout(() => {
             // Wenn left === right, zeige einzelnes Bild (Maxi-Fall)
             if (spread.left === spread.right) {
+              console.log('→ Zeige Lightbox (Maxi: einzelnes Bild)');
               openLightbox([spread.left], 0);
             } else {
               // Sonst zeige Spread (Uniqlo-Fall)
+              console.log('→ Zeige Spread-Modal (Uniqlo: zwei Seiten)');
               openSpreadModal(spread.left, spread.right);
             }
           }, 100);
@@ -591,8 +594,9 @@
         const screenshotUrl = item.dataset.screenshot;
         const position = parseInt(item.dataset.position, 10) || 0;
 
-        // Debug: Zeige Position in der Konsole
-        console.log('Clicked:', { position, galleryLength: JSON.parse(item.dataset.gallery || '[]').length });
+        // Debug: Zeige Position und alle URLs in der Konsole
+        const debugGallery = JSON.parse(item.dataset.gallery || '[]');
+        console.log('Clicked:', { position, galleryLength: debugGallery.length, urls: debugGallery });
 
         // Wenn Link UND Screenshot vorhanden: Article-Split-Modal öffnen
         if (popupLink && screenshotUrl) {
@@ -651,6 +655,7 @@
         }
 
         // Bei 3+ Bildern: Normale Lightbox mit Navigation (Cover → Folgeseiten)
+        console.log('→ Standard-Lightbox (Position', position, ', Bilder:', galleryUrls.length, ')');
         openLightbox(galleryUrls, 0);
       });
     });
