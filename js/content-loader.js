@@ -666,12 +666,12 @@
         }
 
         // Magazine B / Uniqlo mit 3+ Bildern: Erst Cover, dann Doppelseite
-        // Bild 1 = Cover, Bild 2 = linke Seite, Bild 3 = rechte Seite
+        // Bild 1 = Cover, Bild 2 = rechte Seite, Bild 3 = linke Seite (getauscht!)
         // Erkennung: Position 9 ODER Medium enthält 'wardrobe'/'magazine'/'uniqlo'
         const isUniqloStyle = position === 9 || mediumMatches(medium, ['wardrobe', 'magazine b', 'uniqlo']);
         if (isUniqloStyle && galleryUrls.length >= 3) {
           console.log('→ Uniqlo-Modus:', medium, '(Position', position, ') - Cover erst, dann Doppelseite');
-          openSingleModal(galleryUrls[0], galleryUrls[1], galleryUrls[2]);
+          openSingleModal(galleryUrls[0], galleryUrls[2], galleryUrls[1]);
           return;
         }
 
