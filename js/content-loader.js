@@ -524,8 +524,8 @@
     // Positionen für Seitenreihenfolge (aus Google Sheet)
     // Position 6 = Working Women, Position 13 = Freundin → Seiten tauschen
     const SWAP_ORDER_POSITIONS = [6, 13];
-    // Position 10 = Maxi → erst Cover, dann Spread
-    const COVER_FIRST_POSITIONS = [10];
+    // Position 9 = Magazine B (Uniqlo), Position 10 = Maxi → erst Cover, dann Spread
+    const COVER_FIRST_POSITIONS = [9, 10];
 
     // Single Modal (für Maxi Cover in Spread-Größe)
     const singleModal = document.getElementById('single-modal');
