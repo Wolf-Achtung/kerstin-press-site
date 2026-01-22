@@ -630,11 +630,12 @@
 
         // Bei 2 Bildern: Spread-Modal (Doppelseite)
         if (galleryUrls.length === 2) {
-          // Maxi: Cover ist Bild 2, Spread ist Bild 1
-          // → Erst Cover (galleryUrls[1]), dann Spread-Bild alleine (galleryUrls[0])
-          if (mediumMatches(medium, ['maxi'])) {
-            console.log('→ Maxi-Modus (2 Bilder):', medium, '- Cover erst, dann Einzelbild');
-            openSingleModal(galleryUrls[1], galleryUrls[0], galleryUrls[0]);
+          // Maxi (Position 10 oder Medium 'maxi'): Cover erst, dann Doppelseite
+          // galleryUrls[0] = Spread, galleryUrls[1] = Cover
+          // → Erst Cover, dann Spread links + Cover rechts
+          if (position === 10 || mediumMatches(medium, ['maxi'])) {
+            console.log('→ Maxi-Modus (2 Bilder):', medium, '- Cover erst, dann Doppelseite');
+            openSingleModal(galleryUrls[1], galleryUrls[0], galleryUrls[1]);
             return;
           }
 
@@ -652,8 +653,9 @@
         }
 
         // Magazine B / Uniqlo mit 3 Bildern: Cover erst, dann Spread (zwei Seiten nebeneinander)
-        // Bild 1 = Cover, Bild 2+3 = Spread
-        if (galleryUrls.length === 3 && mediumMatches(medium, ['magazine', 'uniqlo'])) {
+        // Bild 1 = Cover, Bild 2 = linke Seite, Bild 3 = rechte Seite
+        // Position 9 oder Medium enthält 'magazine'/'uniqlo'
+        if (galleryUrls.length === 3 && (position === 9 || mediumMatches(medium, ['magazine', 'uniqlo']))) {
           console.log('→ Magazine B/Uniqlo-Modus (3 Bilder):', medium, '- Cover erst, dann Doppelseite');
           openSingleModal(galleryUrls[0], galleryUrls[1], galleryUrls[2]);
           return;
