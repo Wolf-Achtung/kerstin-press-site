@@ -652,7 +652,7 @@
           return;
         }
 
-        // Magazine B / Uniqlo mit 3 Bildern: Cover erst, dann Spread (zwei Seiten nebeneinander)
+        // Magazine B / Uniqlo mit 3 Bildern: Erst Cover, dann Doppelseite
         // Bild 1 = Cover, Bild 2 = linke Seite, Bild 3 = rechte Seite
         // Position 9 oder Medium enthält 'magazine'/'uniqlo'
         if (galleryUrls.length === 3 && (position === 9 || mediumMatches(medium, ['magazine', 'uniqlo']))) {
