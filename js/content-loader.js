@@ -525,11 +525,11 @@
     // Positionen für Seitenreihenfolge (aus Google Sheet)
     // Position 6 = Working Women, Position 13 = Freundin → Seiten tauschen
     const SWAP_ORDER_POSITIONS = [6, 13];
-    // Position 9 = Magazine B (Uniqlo), Position 10 = Maxi → erst Cover, dann Spread
-    const COVER_FIRST_POSITIONS = [9, 10];
-    // Medien-Namen für spezielle Behandlung (robuster als Positionen)
-    const COVER_SPREAD_MEDIUMS = ['magazine b', 'uniqlo'];
-    const COVER_SINGLE_MEDIUMS = ['maxi'];
+
+    // Hilfsfunktion: Prüft ob Medium-Name einen der Werte enthält
+    function mediumMatches(medium, patterns) {
+      return patterns.some(pattern => medium.includes(pattern));
+    }
 
     // Single Modal (für Maxi Cover in Spread-Größe)
     const singleModal = document.getElementById('single-modal');
@@ -632,8 +632,8 @@
         if (galleryUrls.length === 2) {
           // Maxi: Cover ist Bild 2, Spread ist Bild 1
           // → Erst Cover (galleryUrls[1]), dann Spread-Bild alleine (galleryUrls[0])
-          if (COVER_SINGLE_MEDIUMS.includes(medium)) {
-            console.log('→ Cover-Single-Modus (2 Bilder):', medium, '- Cover erst, dann Einzelbild');
+          if (mediumMatches(medium, ['maxi'])) {
+            console.log('→ Maxi-Modus (2 Bilder):', medium, '- Cover erst, dann Einzelbild');
             openSingleModal(galleryUrls[1], galleryUrls[0], galleryUrls[0]);
             return;
           }
@@ -653,8 +653,8 @@
 
         // Magazine B / Uniqlo mit 3 Bildern: Cover erst, dann Spread (zwei Seiten nebeneinander)
         // Bild 1 = Cover, Bild 2+3 = Spread
-        if (galleryUrls.length === 3 && COVER_SPREAD_MEDIUMS.includes(medium)) {
-          console.log('→ Cover-Spread-Modus (3 Bilder):', medium, '- Cover erst, dann Doppelseite');
+        if (galleryUrls.length === 3 && mediumMatches(medium, ['magazine', 'uniqlo'])) {
+          console.log('→ Magazine B/Uniqlo-Modus (3 Bilder):', medium, '- Cover erst, dann Doppelseite');
           openSingleModal(galleryUrls[0], galleryUrls[1], galleryUrls[2]);
           return;
         }
