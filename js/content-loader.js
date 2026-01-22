@@ -565,23 +565,36 @@
       singleNextBtn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        if (pendingSpread) {
-          const spread = { ...pendingSpread }; // Kopie speichern
-          console.log('Next-Button geklickt, pendingSpread:', spread);
-          closeSingleModal();
-          setTimeout(() => {
-            // Wenn left === right, zeige einzelnes Bild (Maxi-Fall)
-            if (spread.left === spread.right) {
-              console.log('→ Zeige Lightbox (Maxi: einzelnes Bild)');
-              openLightbox([spread.left], 0);
-            } else {
-              // Sonst zeige Spread (Uniqlo-Fall)
-              console.log('→ Zeige Spread-Modal (Uniqlo: zwei Seiten)');
-              openSpreadModal(spread.left, spread.right);
-            }
-          }, 100);
-        }
+        goToSpread();
       });
+    }
+
+    // Klick auf das Cover-Bild führt auch zur nächsten Ansicht
+    if (singleImg) {
+      singleImg.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        goToSpread();
+      });
+      singleImg.style.cursor = 'pointer';
+    }
+
+    // Hilfsfunktion: Geht zum Spread oder Lightbox
+    function goToSpread() {
+      if (pendingSpread) {
+        const spread = { ...pendingSpread };
+        console.log('Weiter geklickt, pendingSpread:', spread);
+        closeSingleModal();
+        setTimeout(() => {
+          if (spread.left === spread.right) {
+            console.log('→ Zeige Lightbox (einzelnes Bild)');
+            openLightbox([spread.left], 0);
+          } else {
+            console.log('→ Zeige Spread-Modal (Doppelseite)');
+            openSpreadModal(spread.left, spread.right);
+          }
+        }, 100);
+      }
     }
 
     if (singleModal) {
