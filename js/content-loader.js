@@ -565,7 +565,13 @@
           const spread = { ...pendingSpread }; // Kopie speichern
           closeSingleModal();
           setTimeout(() => {
-            openSpreadModal(spread.left, spread.right);
+            // Wenn left === right, zeige einzelnes Bild (Maxi-Fall)
+            if (spread.left === spread.right) {
+              openLightbox([spread.left], 0);
+            } else {
+              // Sonst zeige Spread (Uniqlo-Fall)
+              openSpreadModal(spread.left, spread.right);
+            }
           }, 100);
         }
       });
@@ -615,6 +621,14 @@
 
         // Bei 2 Bildern: Spread-Modal (Doppelseite)
         if (galleryUrls.length === 2) {
+          // Maxi (Position 10): Cover ist Bild 2, Spread ist Bild 1
+          // → Erst Cover (galleryUrls[1]), dann Spread-Bild alleine (galleryUrls[0])
+          if (position === 10) {
+            console.log('→ Maxi-Modus (2 Bilder): Cover erst, dann Spread (Position', position, ')');
+            openSingleModal(galleryUrls[1], galleryUrls[0], galleryUrls[0]);
+            return;
+          }
+
           // Freundin (13), Working Women (6): Seitenreihenfolge tauschen
           if (SWAP_ORDER_POSITIONS.includes(position)) {
             console.log('→ Swap-Modus: Seiten getauscht (Position', position, ')');
@@ -628,10 +642,10 @@
           return;
         }
 
-        // Maxi (Position 10) mit 3 Bildern: Cover erst, dann Spread
+        // Uniqlo (Position 9) mit 3 Bildern: Cover erst, dann Spread
         // Bild 1 = Cover, Bild 2+3 = Spread
-        if (galleryUrls.length === 3 && COVER_FIRST_POSITIONS.includes(position)) {
-          console.log('→ Maxi-Modus (3 Bilder): Cover erst, dann Spread (Position', position, ')');
+        if (galleryUrls.length === 3 && position === 9) {
+          console.log('→ Uniqlo-Modus (3 Bilder): Cover erst, dann Spread (Position', position, ')');
           openSingleModal(galleryUrls[0], galleryUrls[1], galleryUrls[2]);
           return;
         }
