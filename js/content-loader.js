@@ -214,6 +214,7 @@
                data-gallery='${allUrlsJson}'
                data-group="${groupId}"
                data-position="${position}"
+               data-medium="${item.medium || ''}"
                ${popupLink ? `data-popup-link="${popupLink}"` : ''}
                ${screenshotUrl ? `data-screenshot="${screenshotUrl}"` : ''}>
             <img
@@ -526,6 +527,9 @@
     const SWAP_ORDER_POSITIONS = [6, 13];
     // Position 9 = Magazine B (Uniqlo), Position 10 = Maxi → erst Cover, dann Spread
     const COVER_FIRST_POSITIONS = [9, 10];
+    // Medien-Namen für spezielle Behandlung (robuster als Positionen)
+    const COVER_SPREAD_MEDIUMS = ['magazine b', 'uniqlo'];
+    const COVER_SINGLE_MEDIUMS = ['maxi'];
 
     // Single Modal (für Maxi Cover in Spread-Größe)
     const singleModal = document.getElementById('single-modal');
@@ -593,10 +597,11 @@
         const popupLink = item.dataset.popupLink;
         const screenshotUrl = item.dataset.screenshot;
         const position = parseInt(item.dataset.position, 10) || 0;
+        const medium = (item.dataset.medium || '').toLowerCase().trim();
 
-        // Debug: Zeige Position und alle URLs in der Konsole
+        // Debug: Zeige Position, Medium und alle URLs in der Konsole
         const debugGallery = JSON.parse(item.dataset.gallery || '[]');
-        console.log('Clicked:', { position, galleryLength: debugGallery.length, urls: debugGallery });
+        console.log('Clicked:', { position, medium, galleryLength: debugGallery.length, urls: debugGallery });
 
         // Wenn Link UND Screenshot vorhanden: Article-Split-Modal öffnen
         if (popupLink && screenshotUrl) {
@@ -625,10 +630,10 @@
 
         // Bei 2 Bildern: Spread-Modal (Doppelseite)
         if (galleryUrls.length === 2) {
-          // Maxi (Position 10): Cover ist Bild 2, Spread ist Bild 1
+          // Maxi: Cover ist Bild 2, Spread ist Bild 1
           // → Erst Cover (galleryUrls[1]), dann Spread-Bild alleine (galleryUrls[0])
-          if (position === 10) {
-            console.log('→ Maxi-Modus (2 Bilder): Cover erst, dann Spread (Position', position, ')');
+          if (COVER_SINGLE_MEDIUMS.includes(medium)) {
+            console.log('→ Cover-Single-Modus (2 Bilder):', medium, '- Cover erst, dann Einzelbild');
             openSingleModal(galleryUrls[1], galleryUrls[0], galleryUrls[0]);
             return;
           }
@@ -646,10 +651,10 @@
           return;
         }
 
-        // Uniqlo (Position 9) mit 3 Bildern: Cover erst, dann Spread
+        // Magazine B / Uniqlo mit 3 Bildern: Cover erst, dann Spread (zwei Seiten nebeneinander)
         // Bild 1 = Cover, Bild 2+3 = Spread
-        if (galleryUrls.length === 3 && position === 9) {
-          console.log('→ Uniqlo-Modus (3 Bilder): Cover erst, dann Spread (Position', position, ')');
+        if (galleryUrls.length === 3 && COVER_SPREAD_MEDIUMS.includes(medium)) {
+          console.log('→ Cover-Spread-Modus (3 Bilder):', medium, '- Cover erst, dann Doppelseite');
           openSingleModal(galleryUrls[0], galleryUrls[1], galleryUrls[2]);
           return;
         }
