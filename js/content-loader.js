@@ -132,6 +132,17 @@
   // HTML GENERIERUNG
   // ============================================
 
+  // Escaped Sheet-Werte für die Verwendung in HTML/Attributen –
+  // verhindert kaputtes Markup und Script-Injection über Sheet-Inhalte
+  function esc(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function convertDriveUrl(url) {
     if (!url) return '';
 
@@ -200,31 +211,31 @@
     const position = item.position || '';
 
     return `
-      <article class="tile tile-image" data-date="${item.datum || ''}">
+      <article class="tile tile-image" data-date="${esc(item.datum || '')}">
         <div class="tile-media">
           <div class="press-image-wrapper"
-               data-full="${mainImageUrl}"
-               data-gallery='${allUrlsJson}'
-               data-group="${groupId}"
-               data-position="${position}"
-               data-medium="${item.medium || ''}"
-               ${popupLink ? `data-popup-link="${popupLink}"` : ''}
-               ${screenshotUrl ? `data-screenshot="${screenshotUrl}"` : ''}>
+               data-full="${esc(mainImageUrl)}"
+               data-gallery="${esc(allUrlsJson)}"
+               data-group="${esc(groupId)}"
+               data-position="${esc(position)}"
+               data-medium="${esc(item.medium || '')}"
+               ${popupLink ? `data-popup-link="${esc(popupLink)}"` : ''}
+               ${screenshotUrl ? `data-screenshot="${esc(screenshotUrl)}"` : ''}>
             <img
-              src="${mainImageUrl}"
+              src="${esc(mainImageUrl)}"
               loading="lazy"
               decoding="async"
-              alt="${item.titel_de || ''}"
+              alt="${esc(item.titel_de || '')}"
             />
             <span class="zoom-hint lang-de">${popupLink ? 'Klick für mehr Info' : 'Klick zum Vergrößern'}</span>
             <span class="zoom-hint lang-en">${popupLink ? 'Click for more info' : 'Click to enlarge'}</span>
           </div>
         </div>
         <div class="tile-text">
-          ${item.medium ? `<span class="tile-medium">${item.medium}</span>` : ''}
-          ${item.titel_de ? `<h3 class="tile-title lang-de">${item.titel_de}</h3>` : ''}
-          ${item.titel_en ? `<h3 class="tile-title lang-en">${item.titel_en}</h3>` : ''}
-          ${item.datum ? `<p class="tile-date">${formatDate(item.datum)}</p>` : ''}
+          ${item.medium ? `<span class="tile-medium">${esc(item.medium)}</span>` : ''}
+          ${item.titel_de ? `<h3 class="tile-title lang-de">${esc(item.titel_de)}</h3>` : ''}
+          ${item.titel_en ? `<h3 class="tile-title lang-en">${esc(item.titel_en)}</h3>` : ''}
+          ${item.datum ? `<p class="tile-date">${esc(formatDate(item.datum))}</p>` : ''}
         </div>
       </article>
     `;
@@ -233,9 +244,9 @@
   function createQuoteTile(item) {
     return `
       <article class="tile tile-quote">
-        ${item.zitat_de ? `<blockquote class="lang-de">${item.zitat_de}</blockquote>` : ''}
-        ${item.zitat_en ? `<blockquote class="lang-en">${item.zitat_en}</blockquote>` : ''}
-        ${item.medium ? `<p class="quote-meta">– ${item.medium}</p>` : '<p class="quote-meta">– Kerstin Geffert</p>'}
+        ${item.zitat_de ? `<blockquote class="lang-de">${esc(item.zitat_de)}</blockquote>` : ''}
+        ${item.zitat_en ? `<blockquote class="lang-en">${esc(item.zitat_en)}</blockquote>` : ''}
+        ${item.medium ? `<p class="quote-meta">– ${esc(item.medium)}</p>` : '<p class="quote-meta">– Kerstin Geffert</p>'}
       </article>
     `;
   }
@@ -247,7 +258,7 @@
     // (Handler ist delegiert in index.html registriert)
     const mediaHtml = videoId
       ? `
-            <button type="button" class="video-consent" data-video-id="${videoId}" data-video-title="${item.titel_de || 'Video'}">
+            <button type="button" class="video-consent" data-video-id="${esc(videoId)}" data-video-title="${esc(item.titel_de || 'Video')}">
               <svg class="video-consent-icon" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                 <path d="M8 5v14l11-7z"/>
               </svg>
@@ -258,8 +269,8 @@
             </button>`
       : `
             <iframe
-              src="${item.link || ''}"
-              title="${item.titel_de || 'Video'}"
+              src="${esc(item.link || '')}"
+              title="${esc(item.titel_de || 'Video')}"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>`;
@@ -271,10 +282,10 @@
           </div>
         </div>
         <div class="tile-text">
-          ${item.medium ? `<span class="tile-medium">${item.medium}</span>` : ''}
-          ${item.titel_de ? `<h3 class="tile-title lang-de">${item.titel_de}</h3>` : ''}
-          ${item.titel_en ? `<h3 class="tile-title lang-en">${item.titel_en}</h3>` : ''}
-          ${item.datum ? `<p class="tile-date">${formatDate(item.datum)}</p>` : ''}
+          ${item.medium ? `<span class="tile-medium">${esc(item.medium)}</span>` : ''}
+          ${item.titel_de ? `<h3 class="tile-title lang-de">${esc(item.titel_de)}</h3>` : ''}
+          ${item.titel_en ? `<h3 class="tile-title lang-en">${esc(item.titel_en)}</h3>` : ''}
+          ${item.datum ? `<p class="tile-date">${esc(formatDate(item.datum))}</p>` : ''}
         </div>
       </article>
     `;
