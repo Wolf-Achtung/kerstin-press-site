@@ -535,6 +535,49 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
     left: 0;
     width: 100%;
     height: 100%;
+    border: 0;
+}
+
+/* Zwei-Klick-Lösung: Platzhalter-Button, lädt YouTube erst nach Klick */
+.video-consent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: #111;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 1rem;
+    transition: background 0.2s ease;
+}
+
+.video-consent:hover {
+    background: #1e1e1e;
+}
+
+.video-consent-icon {
+    opacity: 0.9;
+}
+
+.video-consent-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.video-consent-note {
+    font-size: 0.75rem;
+    color: #aaa;
+    max-width: 36ch;
+    text-align: center;
+    line-height: 1.4;
 }
 
 /* ========================================

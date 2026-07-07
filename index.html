@@ -169,13 +169,15 @@
       <article class="tile tile-video">
         <div class="tile-media">
           <div class="video-wrapper">
-            <iframe
-              src="https://www.youtube.com/embed/fcazOZz7VrY"
-              title="Video 1"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
+            <button type="button" class="video-consent" data-video-id="fcazOZz7VrY" data-video-title="Exklusiv-Interview">
+              <svg class="video-consent-icon" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <span class="video-consent-label lang-de">Video laden</span>
+              <span class="video-consent-label lang-en">Load video</span>
+              <span class="video-consent-note lang-de">Beim Laden werden Daten an YouTube übertragen.</span>
+              <span class="video-consent-note lang-en">Loading transfers data to YouTube.</span>
+            </button>
           </div>
         </div>
         <div class="tile-text">
@@ -239,13 +241,15 @@
       <article class="tile tile-video">
         <div class="tile-media">
           <div class="video-wrapper">
-            <iframe
-              src="https://www.youtube.com/embed/pVP-3thby_M"
-              title="Video 2"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
+            <button type="button" class="video-consent" data-video-id="pVP-3thby_M" data-video-title="Runway-Rückblick">
+              <svg class="video-consent-icon" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <span class="video-consent-label lang-de">Video laden</span>
+              <span class="video-consent-label lang-en">Load video</span>
+              <span class="video-consent-note lang-de">Beim Laden werden Daten an YouTube übertragen.</span>
+              <span class="video-consent-note lang-en">Loading transfers data to YouTube.</span>
+            </button>
           </div>
         </div>
         <div class="tile-text">
@@ -701,6 +705,29 @@
         setLanguage('en');
       }
       // Sonst bleibt Default (lang-de aus HTML)
+    })();
+
+    // =============================================
+    // YOUTUBE ZWEI-KLICK (DSGVO)
+    // Iframe wird erst nach Klick geladen (youtube-nocookie.com).
+    // Delegiert, damit es auch für Sheet-Kacheln funktioniert.
+    // =============================================
+    (function () {
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.video-consent');
+        if (!btn) return;
+        const videoId = btn.dataset.videoId;
+        if (!videoId) return;
+
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(videoId) + '?autoplay=1';
+        iframe.title = btn.dataset.videoTitle || 'Video';
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', '');
+
+        const wrapper = btn.closest('.video-wrapper');
+        if (wrapper) wrapper.replaceChildren(iframe);
+      });
     })();
 
     // =============================================

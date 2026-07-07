@@ -146,27 +146,20 @@
     return url;
   }
 
-  function convertYoutubeUrl(url) {
+  // Extrahiert die YouTube-Video-ID aus Watch-, Kurz- oder Embed-Links
+  function getYoutubeId(url) {
     if (!url) return '';
 
-    // YouTube Watch-Link zu Embed umwandeln
-    let videoId = '';
-
     const watchMatch = url.match(/[?&]v=([a-zA-Z0-9_-]+)/);
-    if (watchMatch) {
-      videoId = watchMatch[1];
-    }
+    if (watchMatch) return watchMatch[1];
 
     const shortMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
-    if (shortMatch) {
-      videoId = shortMatch[1];
-    }
+    if (shortMatch) return shortMatch[1];
 
-    if (videoId) {
-      return `https://www.youtube.com/embed/${videoId}`;
-    }
+    const embedMatch = url.match(/\/embed\/([a-zA-Z0-9_-]+)/);
+    if (embedMatch) return embedMatch[1];
 
-    return url;
+    return '';
   }
 
   // Sammle alle Bild-URLs aus einem Item (Bild-URL, Bild-URL-2, Bild-URL-3, etc.)
@@ -248,19 +241,33 @@
   }
 
   function createVideoTile(item) {
-    const embedUrl = convertYoutubeUrl(item.link);
+    const videoId = getYoutubeId(item.link);
+
+    // Zwei-Klick-Lösung: YouTube-iframe wird erst nach Klick geladen
+    // (Handler ist delegiert in index.html registriert)
+    const mediaHtml = videoId
+      ? `
+            <button type="button" class="video-consent" data-video-id="${videoId}" data-video-title="${item.titel_de || 'Video'}">
+              <svg class="video-consent-icon" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <span class="video-consent-label lang-de">Video laden</span>
+              <span class="video-consent-label lang-en">Load video</span>
+              <span class="video-consent-note lang-de">Beim Laden werden Daten an YouTube übertragen.</span>
+              <span class="video-consent-note lang-en">Loading transfers data to YouTube.</span>
+            </button>`
+      : `
+            <iframe
+              src="${item.link || ''}"
+              title="${item.titel_de || 'Video'}"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>`;
 
     return `
       <article class="tile tile-video">
         <div class="tile-media">
-          <div class="video-wrapper">
-            <iframe
-              src="${embedUrl}"
-              title="${item.titel_de || 'Video'}"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
+          <div class="video-wrapper">${mediaHtml}
           </div>
         </div>
         <div class="tile-text">
