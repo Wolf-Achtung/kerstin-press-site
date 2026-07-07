@@ -29,6 +29,22 @@ Die Tabelle hat diese Spalten:
 | **link** | YouTube-Link (bei Videos) |
 | **zitat_de** | Deutsches Zitat (bei Zitaten) |
 | **zitat_en** | Englisches Zitat (bei Zitaten) |
+| **anzeige_modus** | Wie mehrere Bilder gezeigt werden (optional, siehe unten) |
+
+---
+
+## Anzeige-Modus (bei Kacheln mit mehreren Bildern)
+
+Wenn eine Kachel mehrere Bilder hat (bild_url, bild_url_2, bild_url_3 …), steuert die Spalte **anzeige_modus**, wie sie beim Klick gezeigt werden:
+
+| Wert | Was passiert | Bild-Reihenfolge |
+|------|--------------|------------------|
+| *(leer)* oder `standard` | 2 Bilder: Doppelseite nebeneinander. 1 oder 3+ Bilder: Galerie zum Durchblättern | Bild 1 = links, Bild 2 = rechts |
+| `seiten-tauschen` | Doppelseite, aber Reihenfolge getauscht | Bild 1 = rechts, Bild 2 = links |
+| `cover-dann-einzelseite` | Erst das Cover, „Weiter" zeigt die Seite groß | Bild 1 = Seite, Bild 2 = Cover |
+| `cover-dann-doppelseite` | Erst das Cover, „Weiter" zeigt die Doppelseite | Bild 1 = Cover, Bild 2 = rechte Seite, Bild 3 = linke Seite |
+
+**Tipp:** Wenn die Spalte leer bleibt, funktioniert alles wie bisher – die bisherigen Sonderfälle (Maxi, Uniqlo, Freundin, Working Women) werden weiterhin automatisch erkannt. Mit einem Eintrag in `anzeige_modus` bist du aber unabhängig von der Zeilen-Position und kannst die Tabelle beliebig umsortieren.
 
 ---
 

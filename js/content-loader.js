@@ -218,6 +218,7 @@
                data-gallery="${esc(allUrlsJson)}"
                data-group="${esc(groupId)}"
                data-position="${esc(position)}"
+               data-anzeige-modus="${esc(item.anzeige_modus || '')}"
                data-medium="${esc(item.medium || '')}"
                ${popupLink ? `data-popup-link="${esc(popupLink)}"` : ''}
                ${screenshotUrl ? `data-screenshot="${esc(screenshotUrl)}"` : ''}>
@@ -554,13 +555,35 @@
       }, { signal });
     }
 
-    // Positionen für Seitenreihenfolge (aus Google Sheet)
-    // Position 6 = Working Women, Position 13 = Freundin → Seiten tauschen
-    const SWAP_ORDER_POSITIONS = [6, 13];
-
     // Hilfsfunktion: Prüft ob Medium-Name einen der Werte enthält
     function mediumMatches(medium, patterns) {
       return patterns.some(pattern => medium.includes(pattern));
+    }
+
+    // Bestimmt den Anzeige-Modus einer Bild-Kachel.
+    // Bevorzugt die Sheet-Spalte "anzeige_modus" (standard,
+    // seiten-tauschen, cover-dann-einzelseite, cover-dann-doppelseite).
+    // Ohne expliziten Wert greifen die alten Heuristiken über
+    // Position/Medium, damit bestehende Sheet-Zeilen weiter
+    // funktionieren.
+    function resolveAnzeigeModus(explicitModus, position, medium, imageCount) {
+      const modus = (explicitModus || '').toLowerCase().trim();
+      if (modus) return modus;
+
+      // Legacy: Maxi (Position 10) → Cover erst, dann Einzelseite
+      if (imageCount === 2 && (position === 10 || mediumMatches(medium, ['maxi']))) {
+        return 'cover-dann-einzelseite';
+      }
+      // Legacy: Working Women (6), Freundin (13) → Seiten tauschen
+      if (imageCount === 2 && [6, 13].includes(position)) {
+        return 'seiten-tauschen';
+      }
+      // Legacy: Uniqlo/Magazine B (Position 9) → Cover, dann Doppelseite
+      if (imageCount >= 3 && (position === 9 || mediumMatches(medium, ['wardrobe', 'magazine b', 'uniqlo']))) {
+        return 'cover-dann-doppelseite';
+      }
+
+      return 'standard';
     }
 
     // Single Modal (für Maxi Cover in Spread-Größe)
@@ -644,10 +667,6 @@
         const position = parseInt(item.dataset.position, 10) || 0;
         const medium = (item.dataset.medium || '').toLowerCase().trim();
 
-        // Debug: Zeige Position, Medium und alle URLs in der Konsole
-        const debugGallery = JSON.parse(item.dataset.gallery || '[]');
-        console.log('Clicked:', { position, medium, galleryLength: debugGallery.length, urls: debugGallery });
-
         // Wenn Link UND Screenshot vorhanden: Article-Split-Modal öffnen
         if (popupLink && screenshotUrl) {
           openArticleModal(popupLink, screenshotUrl);
@@ -673,42 +692,46 @@
           galleryUrls = [item.dataset.full];
         }
 
-        // Bei 2 Bildern: Spread-Modal (Doppelseite)
+        // Anzeige-Modus bestimmen: explizite Sheet-Spalte hat Vorrang,
+        // sonst greifen die Legacy-Heuristiken (Position/Medium)
+        const modus = resolveAnzeigeModus(item.dataset.anzeigeModus, position, medium, galleryUrls.length);
+
+        switch (modus) {
+          // Erst Cover zeigen, "Weiter" öffnet die Seite als Einzelbild
+          // (Bild 1 = Seite, Bild 2 = Cover)
+          case 'cover-dann-einzelseite':
+            if (galleryUrls.length >= 2) {
+              openSingleModal(galleryUrls[1], galleryUrls[0], galleryUrls[0]);
+              return;
+            }
+            break;
+
+          // Erst Cover zeigen, "Weiter" öffnet die Doppelseite
+          // (Bild 1 = Cover, Bild 2 = rechte Seite, Bild 3 = linke Seite)
+          case 'cover-dann-doppelseite':
+            if (galleryUrls.length >= 3) {
+              openSingleModal(galleryUrls[0], galleryUrls[2], galleryUrls[1]);
+              return;
+            }
+            break;
+
+          // Doppelseite mit getauschter Reihenfolge
+          // (Bild 1 = rechte Seite, Bild 2 = linke Seite)
+          case 'seiten-tauschen':
+            if (galleryUrls.length >= 2) {
+              openSpreadModal(galleryUrls[1], galleryUrls[0]);
+              return;
+            }
+            break;
+        }
+
+        // Standard: 2 Bilder als Doppelseite nebeneinander
         if (galleryUrls.length === 2) {
-          // Maxi (Position 10 oder Medium 'maxi'): Cover erst, dann Spread alleine
-          // galleryUrls[0] = Spread, galleryUrls[1] = Cover
-          // → Erst Cover, dann nur Spread (als Einzelbild in Lightbox)
-          if (position === 10 || mediumMatches(medium, ['maxi'])) {
-            console.log('→ Maxi-Modus (2 Bilder):', medium, '- Cover erst, dann Spread alleine');
-            openSingleModal(galleryUrls[1], galleryUrls[0], galleryUrls[0]);
-            return;
-          }
-
-          // Freundin (13), Working Women (6): Seitenreihenfolge tauschen
-          if (SWAP_ORDER_POSITIONS.includes(position)) {
-            console.log('→ Swap-Modus: Seiten getauscht (Position', position, ')');
-            openSpreadModal(galleryUrls[1], galleryUrls[0]);
-            return;
-          }
-
-          // Standard: galleryUrls[0] links, galleryUrls[1] rechts
-          console.log('→ Standard-Spread (Position', position, ')');
           openSpreadModal(galleryUrls[0], galleryUrls[1]);
           return;
         }
 
-        // Magazine B / Uniqlo mit 3+ Bildern: Erst Cover, dann Doppelseite
-        // Bild 1 = Cover, Bild 2 = rechte Seite, Bild 3 = linke Seite (getauscht!)
-        // Erkennung: Position 9 ODER Medium enthält 'wardrobe'/'magazine'/'uniqlo'
-        const isUniqloStyle = position === 9 || mediumMatches(medium, ['wardrobe', 'magazine b', 'uniqlo']);
-        if (isUniqloStyle && galleryUrls.length >= 3) {
-          console.log('→ Uniqlo-Modus:', medium, '(Position', position, ') - Cover erst, dann Doppelseite');
-          openSingleModal(galleryUrls[0], galleryUrls[2], galleryUrls[1]);
-          return;
-        }
-
-        // Bei 3+ Bildern: Normale Lightbox mit Navigation (Cover → Folgeseiten)
-        console.log('→ Standard-Lightbox (Position', position, ', Bilder:', galleryUrls.length, ')');
+        // Standard: 1 Bild oder 3+ Bilder als Lightbox mit Navigation
         openLightbox(galleryUrls, 0);
       }, { signal });
     });

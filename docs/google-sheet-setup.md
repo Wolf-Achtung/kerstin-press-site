@@ -52,6 +52,7 @@ Die Sheet-ID muss in `index.html` eingetragen werden (einmalig).
 | **link** | Video-URL oder Artikel-Link | YouTube Link |
 | **zitat_de** | Deutsches Zitat | `"Mode ist..."` |
 | **zitat_en** | Englisches Zitat | `"Fashion is..."` |
+| **anzeige_modus** | Darstellung bei mehreren Bildern (optional) | `standard`, `seiten-tauschen`, `cover-dann-einzelseite`, `cover-dann-doppelseite` |
 
 ---
 
