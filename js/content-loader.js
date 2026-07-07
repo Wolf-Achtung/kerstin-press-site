@@ -33,7 +33,6 @@
     // Cache prüfen
     const cached = getCachedData();
     if (cached) {
-      console.log('Content aus Cache geladen');
       return cached;
     }
 
@@ -132,6 +131,17 @@
   // HTML GENERIERUNG
   // ============================================
 
+  // Escaped Sheet-Werte für die Verwendung in HTML/Attributen –
+  // verhindert kaputtes Markup und Script-Injection über Sheet-Inhalte
+  function esc(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
   function convertDriveUrl(url) {
     if (!url) return '';
 
@@ -146,27 +156,20 @@
     return url;
   }
 
-  function convertYoutubeUrl(url) {
+  // Extrahiert die YouTube-Video-ID aus Watch-, Kurz- oder Embed-Links
+  function getYoutubeId(url) {
     if (!url) return '';
 
-    // YouTube Watch-Link zu Embed umwandeln
-    let videoId = '';
-
     const watchMatch = url.match(/[?&]v=([a-zA-Z0-9_-]+)/);
-    if (watchMatch) {
-      videoId = watchMatch[1];
-    }
+    if (watchMatch) return watchMatch[1];
 
     const shortMatch = url.match(/youtu\.be\/([a-zA-Z0-9_-]+)/);
-    if (shortMatch) {
-      videoId = shortMatch[1];
-    }
+    if (shortMatch) return shortMatch[1];
 
-    if (videoId) {
-      return `https://www.youtube.com/embed/${videoId}`;
-    }
+    const embedMatch = url.match(/\/embed\/([a-zA-Z0-9_-]+)/);
+    if (embedMatch) return embedMatch[1];
 
-    return url;
+    return '';
   }
 
   // Sammle alle Bild-URLs aus einem Item (Bild-URL, Bild-URL-2, Bild-URL-3, etc.)
@@ -207,31 +210,32 @@
     const position = item.position || '';
 
     return `
-      <article class="tile tile-image" data-date="${item.datum || ''}">
+      <article class="tile tile-image" data-date="${esc(item.datum || '')}">
         <div class="tile-media">
           <div class="press-image-wrapper"
-               data-full="${mainImageUrl}"
-               data-gallery='${allUrlsJson}'
-               data-group="${groupId}"
-               data-position="${position}"
-               data-medium="${item.medium || ''}"
-               ${popupLink ? `data-popup-link="${popupLink}"` : ''}
-               ${screenshotUrl ? `data-screenshot="${screenshotUrl}"` : ''}>
+               data-full="${esc(mainImageUrl)}"
+               data-gallery="${esc(allUrlsJson)}"
+               data-group="${esc(groupId)}"
+               data-position="${esc(position)}"
+               data-anzeige-modus="${esc(item.anzeige_modus || '')}"
+               data-medium="${esc(item.medium || '')}"
+               ${popupLink ? `data-popup-link="${esc(popupLink)}"` : ''}
+               ${screenshotUrl ? `data-screenshot="${esc(screenshotUrl)}"` : ''}>
             <img
-              src="${mainImageUrl}"
+              src="${esc(mainImageUrl)}"
               loading="lazy"
               decoding="async"
-              alt="${item.titel_de || ''}"
+              alt="${esc(item.titel_de || '')}"
             />
             <span class="zoom-hint lang-de">${popupLink ? 'Klick für mehr Info' : 'Klick zum Vergrößern'}</span>
             <span class="zoom-hint lang-en">${popupLink ? 'Click for more info' : 'Click to enlarge'}</span>
           </div>
         </div>
         <div class="tile-text">
-          ${item.medium ? `<span class="tile-medium">${item.medium}</span>` : ''}
-          ${item.titel_de ? `<h3 class="tile-title lang-de">${item.titel_de}</h3>` : ''}
-          ${item.titel_en ? `<h3 class="tile-title lang-en">${item.titel_en}</h3>` : ''}
-          ${item.datum ? `<p class="tile-date">${formatDate(item.datum)}</p>` : ''}
+          ${item.medium ? `<span class="tile-medium">${esc(item.medium)}</span>` : ''}
+          ${item.titel_de ? `<h3 class="tile-title lang-de">${esc(item.titel_de)}</h3>` : ''}
+          ${item.titel_en ? `<h3 class="tile-title lang-en">${esc(item.titel_en)}</h3>` : ''}
+          ${item.datum ? `<p class="tile-date">${esc(formatDate(item.datum))}</p>` : ''}
         </div>
       </article>
     `;
@@ -240,34 +244,48 @@
   function createQuoteTile(item) {
     return `
       <article class="tile tile-quote">
-        ${item.zitat_de ? `<blockquote class="lang-de">${item.zitat_de}</blockquote>` : ''}
-        ${item.zitat_en ? `<blockquote class="lang-en">${item.zitat_en}</blockquote>` : ''}
-        ${item.medium ? `<p class="quote-meta">– ${item.medium}</p>` : '<p class="quote-meta">– Kerstin Geffert</p>'}
+        ${item.zitat_de ? `<blockquote class="lang-de">${esc(item.zitat_de)}</blockquote>` : ''}
+        ${item.zitat_en ? `<blockquote class="lang-en">${esc(item.zitat_en)}</blockquote>` : ''}
+        ${item.medium ? `<p class="quote-meta">– ${esc(item.medium)}</p>` : '<p class="quote-meta">– Kerstin Geffert</p>'}
       </article>
     `;
   }
 
   function createVideoTile(item) {
-    const embedUrl = convertYoutubeUrl(item.link);
+    const videoId = getYoutubeId(item.link);
+
+    // Zwei-Klick-Lösung: YouTube-iframe wird erst nach Klick geladen
+    // (Handler ist delegiert in index.html registriert)
+    const mediaHtml = videoId
+      ? `
+            <button type="button" class="video-consent" data-video-id="${esc(videoId)}" data-video-title="${esc(item.titel_de || 'Video')}">
+              <svg class="video-consent-icon" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <span class="video-consent-label lang-de">Video laden</span>
+              <span class="video-consent-label lang-en">Load video</span>
+              <span class="video-consent-note lang-de">Beim Laden werden Daten an YouTube übertragen.</span>
+              <span class="video-consent-note lang-en">Loading transfers data to YouTube.</span>
+            </button>`
+      : `
+            <iframe
+              src="${esc(item.link || '')}"
+              title="${esc(item.titel_de || 'Video')}"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>`;
 
     return `
       <article class="tile tile-video">
         <div class="tile-media">
-          <div class="video-wrapper">
-            <iframe
-              src="${embedUrl}"
-              title="${item.titel_de || 'Video'}"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
+          <div class="video-wrapper">${mediaHtml}
           </div>
         </div>
         <div class="tile-text">
-          ${item.medium ? `<span class="tile-medium">${item.medium}</span>` : ''}
-          ${item.titel_de ? `<h3 class="tile-title lang-de">${item.titel_de}</h3>` : ''}
-          ${item.titel_en ? `<h3 class="tile-title lang-en">${item.titel_en}</h3>` : ''}
-          ${item.datum ? `<p class="tile-date">${formatDate(item.datum)}</p>` : ''}
+          ${item.medium ? `<span class="tile-medium">${esc(item.medium)}</span>` : ''}
+          ${item.titel_de ? `<h3 class="tile-title lang-de">${esc(item.titel_de)}</h3>` : ''}
+          ${item.titel_en ? `<h3 class="tile-title lang-en">${esc(item.titel_en)}</h3>` : ''}
+          ${item.datum ? `<p class="tile-date">${esc(formatDate(item.datum))}</p>` : ''}
         </div>
       </article>
     `;
@@ -389,6 +407,12 @@
     leftColumn.innerHTML = leftHtml;
     rightColumn.innerHTML = rightHtml;
 
+    // Statische Fallback-Lightbox abmelden, damit nicht zwei
+    // Implementierungen auf dieselben Buttons/Tasten reagieren
+    if (typeof window.__staticLightboxDestroy === 'function') {
+      window.__staticLightboxDestroy();
+    }
+
     // Lightbox neu initialisieren mit Galerie-Support
     initGalleryLightbox();
 
@@ -400,7 +424,15 @@
   // LIGHTBOX MIT GALERIE-SUPPORT
   // ============================================
 
+  // Verhindert gestapelte Listener, wenn initGalleryLightbox mehrfach
+  // läuft (z. B. über window.reloadContent)
+  let galleryController = null;
+
   function initGalleryLightbox() {
+    if (galleryController) galleryController.abort();
+    galleryController = new AbortController();
+    const signal = galleryController.signal;
+
     const imageItems = document.querySelectorAll('.press-image-wrapper');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
@@ -480,13 +512,13 @@
     }
 
     if (spreadCloseBtn) {
-      spreadCloseBtn.addEventListener('click', closeSpreadModal);
+      spreadCloseBtn.addEventListener('click', closeSpreadModal, { signal });
     }
 
     if (spreadModal) {
       spreadModal.addEventListener('click', (e) => {
         if (e.target === spreadModal) closeSpreadModal();
-      });
+      }, { signal });
     }
 
     // Article Split Modal (iframe + Screenshot)
@@ -513,22 +545,44 @@
     }
 
     if (articleCloseBtn) {
-      articleCloseBtn.addEventListener('click', closeArticleModal);
+      articleCloseBtn.addEventListener('click', closeArticleModal, { signal });
     }
 
     if (articleModal) {
       articleModal.addEventListener('click', (e) => {
         if (e.target === articleModal) closeArticleModal();
-      });
+      }, { signal });
     }
-
-    // Positionen für Seitenreihenfolge (aus Google Sheet)
-    // Position 6 = Working Women, Position 13 = Freundin → Seiten tauschen
-    const SWAP_ORDER_POSITIONS = [6, 13];
 
     // Hilfsfunktion: Prüft ob Medium-Name einen der Werte enthält
     function mediumMatches(medium, patterns) {
       return patterns.some(pattern => medium.includes(pattern));
+    }
+
+    // Bestimmt den Anzeige-Modus einer Bild-Kachel.
+    // Bevorzugt die Sheet-Spalte "anzeige_modus" (standard,
+    // seiten-tauschen, cover-dann-einzelseite, cover-dann-doppelseite).
+    // Ohne expliziten Wert greifen die alten Heuristiken über
+    // Position/Medium, damit bestehende Sheet-Zeilen weiter
+    // funktionieren.
+    function resolveAnzeigeModus(explicitModus, position, medium, imageCount) {
+      const modus = (explicitModus || '').toLowerCase().trim();
+      if (modus) return modus;
+
+      // Legacy: Maxi (Position 10) → Cover erst, dann Einzelseite
+      if (imageCount === 2 && (position === 10 || mediumMatches(medium, ['maxi']))) {
+        return 'cover-dann-einzelseite';
+      }
+      // Legacy: Working Women (6), Freundin (13) → Seiten tauschen
+      if (imageCount === 2 && [6, 13].includes(position)) {
+        return 'seiten-tauschen';
+      }
+      // Legacy: Uniqlo/Magazine B (Position 9) → Cover, dann Doppelseite
+      if (imageCount >= 3 && (position === 9 || mediumMatches(medium, ['wardrobe', 'magazine b', 'uniqlo']))) {
+        return 'cover-dann-doppelseite';
+      }
+
+      return 'standard';
     }
 
     // Single Modal (für Maxi Cover in Spread-Größe)
@@ -558,7 +612,7 @@
     }
 
     if (singleCloseBtn) {
-      singleCloseBtn.addEventListener('click', closeSingleModal);
+      singleCloseBtn.addEventListener('click', closeSingleModal, { signal });
     }
 
     if (singleNextBtn) {
@@ -566,7 +620,7 @@
         e.preventDefault();
         e.stopPropagation();
         goToSpread();
-      });
+      }, { signal });
     }
 
     // Klick auf das Cover-Bild führt auch zur nächsten Ansicht
@@ -575,7 +629,7 @@
         e.preventDefault();
         e.stopPropagation();
         goToSpread();
-      });
+      }, { signal });
       singleImg.style.cursor = 'pointer';
     }
 
@@ -583,14 +637,11 @@
     function goToSpread() {
       if (pendingSpread) {
         const spread = { ...pendingSpread };
-        console.log('Weiter geklickt, pendingSpread:', spread);
         closeSingleModal();
         setTimeout(() => {
           if (spread.left === spread.right) {
-            console.log('→ Zeige Lightbox (einzelnes Bild)');
             openLightbox([spread.left], 0);
           } else {
-            console.log('→ Zeige Spread-Modal (Doppelseite)');
             openSpreadModal(spread.left, spread.right);
           }
         }, 100);
@@ -600,7 +651,7 @@
     if (singleModal) {
       singleModal.addEventListener('click', (e) => {
         if (e.target === singleModal) closeSingleModal();
-      });
+      }, { signal });
     }
 
     // Event-Listener für Bilder
@@ -611,10 +662,6 @@
         const screenshotUrl = item.dataset.screenshot;
         const position = parseInt(item.dataset.position, 10) || 0;
         const medium = (item.dataset.medium || '').toLowerCase().trim();
-
-        // Debug: Zeige Position, Medium und alle URLs in der Konsole
-        const debugGallery = JSON.parse(item.dataset.gallery || '[]');
-        console.log('Clicked:', { position, medium, galleryLength: debugGallery.length, urls: debugGallery });
 
         // Wenn Link UND Screenshot vorhanden: Article-Split-Modal öffnen
         if (popupLink && screenshotUrl) {
@@ -641,69 +688,73 @@
           galleryUrls = [item.dataset.full];
         }
 
-        // Bei 2 Bildern: Spread-Modal (Doppelseite)
+        // Anzeige-Modus bestimmen: explizite Sheet-Spalte hat Vorrang,
+        // sonst greifen die Legacy-Heuristiken (Position/Medium)
+        const modus = resolveAnzeigeModus(item.dataset.anzeigeModus, position, medium, galleryUrls.length);
+
+        switch (modus) {
+          // Erst Cover zeigen, "Weiter" öffnet die Seite als Einzelbild
+          // (Bild 1 = Seite, Bild 2 = Cover)
+          case 'cover-dann-einzelseite':
+            if (galleryUrls.length >= 2) {
+              openSingleModal(galleryUrls[1], galleryUrls[0], galleryUrls[0]);
+              return;
+            }
+            break;
+
+          // Erst Cover zeigen, "Weiter" öffnet die Doppelseite
+          // (Bild 1 = Cover, Bild 2 = rechte Seite, Bild 3 = linke Seite)
+          case 'cover-dann-doppelseite':
+            if (galleryUrls.length >= 3) {
+              openSingleModal(galleryUrls[0], galleryUrls[2], galleryUrls[1]);
+              return;
+            }
+            break;
+
+          // Doppelseite mit getauschter Reihenfolge
+          // (Bild 1 = rechte Seite, Bild 2 = linke Seite)
+          case 'seiten-tauschen':
+            if (galleryUrls.length >= 2) {
+              openSpreadModal(galleryUrls[1], galleryUrls[0]);
+              return;
+            }
+            break;
+        }
+
+        // Standard: 2 Bilder als Doppelseite nebeneinander
         if (galleryUrls.length === 2) {
-          // Maxi (Position 10 oder Medium 'maxi'): Cover erst, dann Spread alleine
-          // galleryUrls[0] = Spread, galleryUrls[1] = Cover
-          // → Erst Cover, dann nur Spread (als Einzelbild in Lightbox)
-          if (position === 10 || mediumMatches(medium, ['maxi'])) {
-            console.log('→ Maxi-Modus (2 Bilder):', medium, '- Cover erst, dann Spread alleine');
-            openSingleModal(galleryUrls[1], galleryUrls[0], galleryUrls[0]);
-            return;
-          }
-
-          // Freundin (13), Working Women (6): Seitenreihenfolge tauschen
-          if (SWAP_ORDER_POSITIONS.includes(position)) {
-            console.log('→ Swap-Modus: Seiten getauscht (Position', position, ')');
-            openSpreadModal(galleryUrls[1], galleryUrls[0]);
-            return;
-          }
-
-          // Standard: galleryUrls[0] links, galleryUrls[1] rechts
-          console.log('→ Standard-Spread (Position', position, ')');
           openSpreadModal(galleryUrls[0], galleryUrls[1]);
           return;
         }
 
-        // Magazine B / Uniqlo mit 3+ Bildern: Erst Cover, dann Doppelseite
-        // Bild 1 = Cover, Bild 2 = rechte Seite, Bild 3 = linke Seite (getauscht!)
-        // Erkennung: Position 9 ODER Medium enthält 'wardrobe'/'magazine'/'uniqlo'
-        const isUniqloStyle = position === 9 || mediumMatches(medium, ['wardrobe', 'magazine b', 'uniqlo']);
-        if (isUniqloStyle && galleryUrls.length >= 3) {
-          console.log('→ Uniqlo-Modus:', medium, '(Position', position, ') - Cover erst, dann Doppelseite');
-          openSingleModal(galleryUrls[0], galleryUrls[2], galleryUrls[1]);
-          return;
-        }
-
-        // Bei 3+ Bildern: Normale Lightbox mit Navigation (Cover → Folgeseiten)
-        console.log('→ Standard-Lightbox (Position', position, ', Bilder:', galleryUrls.length, ')');
+        // Standard: 1 Bild oder 3+ Bilder als Lightbox mit Navigation
         openLightbox(galleryUrls, 0);
-      });
+      }, { signal });
     });
 
     // Event-Listener für Navigation
     if (closeBtn) {
-      closeBtn.addEventListener('click', closeLightbox);
+      closeBtn.addEventListener('click', closeLightbox, { signal });
     }
 
     if (prevBtn) {
       prevBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         showPrev();
-      });
+      }, { signal });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         showNext();
-      });
+      }, { signal });
     }
 
     // Schließen bei Klick auf Backdrop
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) closeLightbox();
-    });
+    }, { signal });
 
     // Tastaturnavigation
     document.addEventListener('keydown', (e) => {
@@ -745,7 +796,7 @@
           showPrev();
           break;
       }
-    });
+    }, { signal });
   }
 
   function applyCurrentLanguage() {
@@ -761,19 +812,14 @@
   async function init() {
     // Prüfen ob Sheet-ID konfiguriert ist
     if (CONFIG.SHEET_ID === 'HIER_SHEET_ID_EINTRAGEN') {
-      console.log('Google Sheet noch nicht konfiguriert - zeige statischen Content');
       return;
     }
-
-    console.log('Lade Content aus Google Sheet...');
 
     const rows = await fetchSheetData();
 
     if (rows && rows.length > 0) {
       renderContent(rows);
-      console.log(`${rows.length} Einträge geladen`);
     } else {
-      console.log('Keine Daten gefunden - zeige statischen Content');
     }
   }
 

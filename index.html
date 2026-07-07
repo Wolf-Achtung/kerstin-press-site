@@ -50,6 +50,8 @@
   </script>
 
   <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="preload" href="fonts/inter-v20-latin-300.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="fonts/inter-v20-latin-regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body class="lang-de">
@@ -88,13 +90,13 @@
         </div>
 
         <nav class="site-nav" aria-label="Hauptnavigation">
-          <div class="nav-toggle">
+          <button type="button" class="nav-toggle" aria-expanded="false">
             <span class="lang-de">Menü</span>
             <span class="lang-en">Menu</span>
-            <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg class="nav-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
-          </div>
+          </button>
           <ul class="nav-list">
             <li><a href="#" data-nav="ueber" class="lang-de">Über</a><a href="#" data-nav="ueber" class="lang-en">About</a></li>
             <li><a href="#" data-nav="kontakt" class="lang-de">Kontakt</a><a href="#" data-nav="kontakt" class="lang-en">Contact</a></li>
@@ -115,7 +117,10 @@
           <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-53.webp">
             <img
               src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-53_cover.webp"
-              loading="lazy"
+              width="1200"
+              height="675"
+              loading="eager"
+              fetchpriority="high"
               decoding="async"
               alt="FAZ Titelstory: Kerstin Geffert"
             />
@@ -149,6 +154,8 @@
           <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-55.webp">
             <img
               src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-55_cover.webp"
+              width="1200"
+              height="675"
               loading="lazy"
               decoding="async"
               alt="Nachhaltige Mode mit Persönlichkeit"
@@ -169,13 +176,15 @@
       <article class="tile tile-video">
         <div class="tile-media">
           <div class="video-wrapper">
-            <iframe
-              src="https://www.youtube.com/embed/fcazOZz7VrY"
-              title="Video 1"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
+            <button type="button" class="video-consent" data-video-id="fcazOZz7VrY" data-video-title="Exklusiv-Interview">
+              <svg class="video-consent-icon" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <span class="video-consent-label lang-de">Video laden</span>
+              <span class="video-consent-label lang-en">Load video</span>
+              <span class="video-consent-note lang-de">Beim Laden werden Daten an YouTube übertragen.</span>
+              <span class="video-consent-note lang-en">Loading transfers data to YouTube.</span>
+            </button>
           </div>
         </div>
         <div class="tile-text">
@@ -197,6 +206,8 @@
           <div class="press-image-wrapper" data-full="images/full/220905_Cyte_10_Issue_Layout_ss_hh-54.webp">
             <img
               src="images/cover/220905_Cyte_10_Issue_Layout_ss_hh-54_cover.webp"
+              width="1200"
+              height="675"
               loading="lazy"
               decoding="async"
               alt="Stil-Inspiration: Kreative Looks"
@@ -224,28 +235,19 @@
         <p class="quote-meta">– Lifestyle Magazin</p>
       </article>
 
-      <!-- Quote-Block 3 (Blindtext) -->
-      <article class="tile tile-quote">
-        <blockquote class="lang-de">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
-        </blockquote>
-        <blockquote class="lang-en">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt.
-        </blockquote>
-        <p class="quote-meta">– Platzhalter</p>
-      </article>
-
       <!-- Video-Kachel 2 -->
       <article class="tile tile-video">
         <div class="tile-media">
           <div class="video-wrapper">
-            <iframe
-              src="https://www.youtube.com/embed/pVP-3thby_M"
-              title="Video 2"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
+            <button type="button" class="video-consent" data-video-id="pVP-3thby_M" data-video-title="Runway-Rückblick">
+              <svg class="video-consent-icon" width="48" height="48" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+              <span class="video-consent-label lang-de">Video laden</span>
+              <span class="video-consent-label lang-en">Load video</span>
+              <span class="video-consent-note lang-de">Beim Laden werden Daten an YouTube übertragen.</span>
+              <span class="video-consent-note lang-en">Loading transfers data to YouTube.</span>
+            </button>
           </div>
         </div>
         <div class="tile-text">
@@ -267,7 +269,7 @@
       <button class="modal-close" data-modal-close>&times;</button>
       <div class="about-layout">
         <div class="about-image">
-          <img src="images/about.jpg" alt="Kerstin Geffert" />
+          <img src="images/about.jpg" width="976" height="1468" loading="lazy" alt="Kerstin Geffert" />
           <p class="photo-credit">(Photo: Marie Manoc)</p>
         </div>
         <div class="about-text">
@@ -305,20 +307,17 @@
         <p style="display:none;"><label>Nicht ausfüllen: <input name="bot-field"></label></p>
 
         <div class="form-group">
-          <label for="contact-name" class="lang-de">Name</label>
-          <label for="contact-name" class="lang-en">Name</label>
+          <label for="contact-name"><span class="lang-de">Name</span><span class="lang-en">Name</span></label>
           <input type="text" id="contact-name" name="name" required>
         </div>
 
         <div class="form-group">
-          <label for="contact-email" class="lang-de">E-Mail</label>
-          <label for="contact-email" class="lang-en">Email</label>
+          <label for="contact-email"><span class="lang-de">E-Mail</span><span class="lang-en">Email</span></label>
           <input type="email" id="contact-email" name="email" required>
         </div>
 
         <div class="form-group">
-          <label for="contact-message" class="lang-de">Nachricht</label>
-          <label for="contact-message" class="lang-en">Message</label>
+          <label for="contact-message"><span class="lang-de">Nachricht</span><span class="lang-en">Message</span></label>
           <textarea id="contact-message" name="message" rows="4" required></textarea>
         </div>
 
@@ -418,32 +417,38 @@
         </ul>
         <p>Diese Daten dienen der technischen Bereitstellung, Sicherheit und Stabilität der Website.</p>
         <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO<br>
-        Datenübermittlung in die USA: Google ist nach dem EU-US Data Privacy Framework zertifiziert.</p>
+        Datenübermittlung in die USA: Netlify ist nach dem EU-US Data Privacy Framework zertifiziert.</p>
 
         <h3>4. Schriftarten</h3>
         <p>Diese Website verwendet lokal eingebundene Schriftarten (Self-Hosted Fonts). Es werden keine externen Dienste wie Google Fonts eingebunden. Beim Laden der Schriftarten findet keine Datenübertragung an Dritte statt.</p>
 
         <h3>5. Kontaktaufnahme</h3>
-        <p>Wenn du mich per E-Mail kontaktierst, werden deine Angaben zur Bearbeitung der Anfrage gespeichert.</p>
+        <p>Wenn du mich über das Kontaktformular oder per E-Mail kontaktierst, werden deine Angaben (Name, E-Mail-Adresse, Nachricht) zur Bearbeitung der Anfrage gespeichert. Das Kontaktformular wird technisch über Netlify Forms abgewickelt; die übermittelten Daten werden dabei auf Servern von Netlify verarbeitet.</p>
         <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO</p>
         <p>Die Daten werden gelöscht, sobald sie nicht mehr erforderlich sind.</p>
 
-        <h3>6. Cookies</h3>
-        <p>Diese Website verwendet ausschließlich technisch notwendige Cookies, die für den Betrieb der Website erforderlich sind.</p>
-        <p>Es erfolgt kein Tracking und keine Analyse des Nutzerverhaltens.</p>
+        <h3>6. Cookies & lokaler Speicher</h3>
+        <p>Diese Website setzt keine Cookies zu Tracking- oder Werbezwecken ein.</p>
+        <p>Im lokalen Speicher deines Browsers (localStorage) werden lediglich technisch notwendige Einstellungen abgelegt: die gewählte Sprache sowie ein kurzlebiger Zwischenspeicher der Seiteninhalte.</p>
         <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO</p>
 
-        <h3>7. Social Media & eingebettete Inhalte</h3>
-        <p>Auf dieser Website können Inhalte von Drittanbietern eingebettet sein (z. B. Instagram, TikTok, YouTube).</p>
-        <p>Beim Aufruf solcher Inhalte können personenbezogene Daten (z. B. IP-Adresse) an den jeweiligen Anbieter übertragen werden.</p>
-        <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung)</p>
+        <h3>7. Eingebettete Inhalte & Drittanbieter</h3>
+        <p><strong>Google Sheets / Google Drive:</strong> Die Presse-Inhalte dieser Website (Texte und Bilder) werden beim Seitenaufruf aus einem Google-Sheet bzw. von Google Drive geladen. Dabei wird deine IP-Adresse an Google übertragen. Google ist nach dem EU-US Data Privacy Framework zertifiziert.<br>
+        Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der Bereitstellung der Inhalte)</p>
+        <p><strong>YouTube:</strong> Videos werden erst geladen, wenn du aktiv auf „Video laden" klickst (Zwei-Klick-Lösung, erweiterter Datenschutzmodus über youtube-nocookie.com). Erst mit diesem Klick werden Daten (z. B. IP-Adresse) an YouTube bzw. Google übertragen.<br>
+        Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung)</p>
+        <p><strong>Social-Media-Links:</strong> Links zu Instagram und TikTok sind reine Verlinkungen. Beim bloßen Besuch dieser Website werden keine Daten an diese Anbieter übertragen.</p>
 
         <h3>8. Affiliate-Links & Kooperationen</h3>
         <p>Diese Website kann Affiliate-Links enthalten. Beim Klick auf einen solchen Link können Tracking-Informationen durch den jeweiligen Anbieter gespeichert werden.</p>
         <p>Für dich entstehen keine Nachteile oder Mehrkosten.</p>
         <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO</p>
 
-        <h3>9. Deine Rechte</h3>
+        <h3>9. Webanalyse (GoatCounter)</h3>
+        <p>Diese Website nutzt den datenschutzfreundlichen Analysedienst GoatCounter (goatcounter.com) zur anonymen Reichweitenmessung. GoatCounter setzt keine Cookies und erstellt keine Nutzerprofile. Erfasst werden u. a. die aufgerufene Seite, Referrer, Browsertyp und Bildschirmgröße; IP-Adressen werden nicht gespeichert.</p>
+        <p>Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an der statistischen Auswertung der Websitenutzung)</p>
+
+        <h3>10. Deine Rechte</h3>
         <p>Du hast jederzeit das Recht auf:</p>
         <ul>
           <li>Auskunft (Art. 15 DSGVO)</li>
@@ -455,7 +460,7 @@
         </ul>
         <p>Zudem besteht ein Beschwerderecht bei der zuständigen Datenschutzaufsichtsbehörde.</p>
 
-        <h3>10. Aktualität</h3>
+        <h3>11. Aktualität</h3>
         <p>Diese Datenschutzerklärung wird bei Bedarf an rechtliche oder technische Änderungen angepasst.</p>
       </div>
 
@@ -482,32 +487,38 @@
         </ul>
         <p>This data is used for technical provision, security, and stability of the website.</p>
         <p>Legal basis: Art. 6 (1) (f) GDPR<br>
-        Data transfer to the USA: Google is certified under the EU-US Data Privacy Framework.</p>
+        Data transfer to the USA: Netlify is certified under the EU-US Data Privacy Framework.</p>
 
         <h3>4. Fonts</h3>
         <p>This website uses locally hosted fonts (self-hosted). No external services such as Google Fonts are used. Loading the fonts does not involve any data transfer to third parties.</p>
 
         <h3>5. Contact</h3>
-        <p>If you contact me by email, your information will be stored for processing the inquiry.</p>
+        <p>If you contact me via the contact form or by email, your information (name, email address, message) will be stored for processing the inquiry. The contact form is technically handled by Netlify Forms; the submitted data is processed on Netlify's servers.</p>
         <p>Legal basis: Art. 6 (1) (b) GDPR</p>
         <p>The data will be deleted as soon as it is no longer required.</p>
 
-        <h3>6. Cookies</h3>
-        <p>This website only uses technically necessary cookies that are required for the operation of the website.</p>
-        <p>There is no tracking or analysis of user behavior.</p>
+        <h3>6. Cookies & Local Storage</h3>
+        <p>This website does not use cookies for tracking or advertising purposes.</p>
+        <p>Only technically necessary settings are stored in your browser's local storage (localStorage): the selected language and a short-lived cache of the page content.</p>
         <p>Legal basis: Art. 6 (1) (f) GDPR</p>
 
-        <h3>7. Social Media & Embedded Content</h3>
-        <p>This website may contain embedded content from third-party providers (e.g., Instagram, TikTok, YouTube).</p>
-        <p>When accessing such content, personal data (e.g., IP address) may be transmitted to the respective provider.</p>
-        <p>Legal basis: Art. 6 (1) (a) GDPR (consent)</p>
+        <h3>7. Embedded Content & Third-Party Providers</h3>
+        <p><strong>Google Sheets / Google Drive:</strong> The press content of this website (texts and images) is loaded from a Google Sheet and Google Drive when the page is accessed. Your IP address is transmitted to Google in the process. Google is certified under the EU-US Data Privacy Framework.<br>
+        Legal basis: Art. 6 (1) (f) GDPR (legitimate interest in providing the content)</p>
+        <p><strong>YouTube:</strong> Videos are only loaded once you actively click "Load video" (two-click solution, enhanced privacy mode via youtube-nocookie.com). Only with this click is data (e.g., IP address) transmitted to YouTube or Google.<br>
+        Legal basis: Art. 6 (1) (a) GDPR (consent)</p>
+        <p><strong>Social media links:</strong> Links to Instagram and TikTok are plain links. Simply visiting this website does not transmit any data to these providers.</p>
 
         <h3>8. Affiliate Links & Cooperations</h3>
         <p>This website may contain affiliate links. When clicking on such a link, tracking information may be stored by the respective provider.</p>
         <p>This does not result in any disadvantages or additional costs for you.</p>
         <p>Legal basis: Art. 6 (1) (a) GDPR</p>
 
-        <h3>9. Your Rights</h3>
+        <h3>9. Web Analytics (GoatCounter)</h3>
+        <p>This website uses the privacy-friendly analytics service GoatCounter (goatcounter.com) for anonymous reach measurement. GoatCounter does not set cookies and does not create user profiles. Data collected includes the page visited, referrer, browser type, and screen size; IP addresses are not stored.</p>
+        <p>Legal basis: Art. 6 (1) (f) GDPR (legitimate interest in the statistical analysis of website usage)</p>
+
+        <h3>10. Your Rights</h3>
         <p>You have the right at any time to:</p>
         <ul>
           <li>Information (Art. 15 GDPR)</li>
@@ -519,31 +530,9 @@
         </ul>
         <p>You also have the right to lodge a complaint with the competent data protection supervisory authority.</p>
 
-        <h3>10. Updates</h3>
+        <h3>11. Updates</h3>
         <p>This privacy policy will be updated as necessary to reflect legal or technical changes.</p>
       </div>
-    </div>
-  </div>
-
-  <!-- Archiv Modal -->
-  <div class="modal" id="modal-archiv" aria-hidden="true">
-    <div class="modal-content">
-      <button class="modal-close" data-modal-close>&times;</button>
-      <h2 class="lang-de">Presse-Archiv</h2>
-      <h2 class="lang-en">Press Archive</h2>
-      <input
-        type="search"
-        id="archiv-search"
-        class="lang-de"
-        placeholder="Stichwort, Medium oder Jahr eingeben"
-      />
-      <input
-        type="search"
-        id="archiv-search-en"
-        class="lang-en"
-        placeholder="Enter keyword, publication or year"
-      />
-      <ul id="archiv-list"></ul>
     </div>
   </div>
 
@@ -692,6 +681,29 @@
     })();
 
     // =============================================
+    // YOUTUBE ZWEI-KLICK (DSGVO)
+    // Iframe wird erst nach Klick geladen (youtube-nocookie.com).
+    // Delegiert, damit es auch für Sheet-Kacheln funktioniert.
+    // =============================================
+    (function () {
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('.video-consent');
+        if (!btn) return;
+        const videoId = btn.dataset.videoId;
+        if (!videoId) return;
+
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + encodeURIComponent(videoId) + '?autoplay=1';
+        iframe.title = btn.dataset.videoTitle || 'Video';
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', '');
+
+        const wrapper = btn.closest('.video-wrapper');
+        if (wrapper) wrapper.replaceChildren(iframe);
+      });
+    })();
+
+    // =============================================
     // MOBILE MENÜ TOGGLE
     // =============================================
     (function () {
@@ -699,32 +711,37 @@
       const navList = document.querySelector('.nav-list');
 
       if (navToggle && navList) {
+        const closeNav = () => {
+          navList.classList.remove('nav-open');
+          navToggle.classList.remove('nav-active');
+          navToggle.setAttribute('aria-expanded', 'false');
+        };
+
         navToggle.addEventListener('click', (e) => {
           e.stopPropagation();
-          navList.classList.toggle('nav-open');
-          navToggle.classList.toggle('nav-active');
+          const isOpen = navList.classList.toggle('nav-open');
+          navToggle.classList.toggle('nav-active', isOpen);
+          navToggle.setAttribute('aria-expanded', String(isOpen));
         });
 
         // Schließen beim Klick außerhalb
         document.addEventListener('click', (e) => {
-          if (!e.target.closest('.site-nav')) {
-            navList.classList.remove('nav-open');
-            navToggle.classList.remove('nav-active');
-          }
+          if (!e.target.closest('.site-nav')) closeNav();
         });
 
         // Schließen beim Klick auf einen Link
         navList.querySelectorAll('a').forEach(link => {
-          link.addEventListener('click', () => {
-            navList.classList.remove('nav-open');
-            navToggle.classList.remove('nav-active');
-          });
+          link.addEventListener('click', closeNav);
         });
       }
     })();
 
     // =============================================
-    // LIGHTBOX
+    // LIGHTBOX (nur für die statischen Fallback-Kacheln)
+    // Sobald der Content-Loader die Sheet-Inhalte rendert, meldet er
+    // diese Listener über window.__staticLightboxDestroy() wieder ab –
+    // sonst reagieren zwei Lightbox-Implementierungen auf dieselben
+    // Buttons und Tasten.
     // =============================================
     (function () {
       const lightbox = document.getElementById('lightbox');
@@ -733,6 +750,14 @@
       const closeBtn = lightbox.querySelector('.lightbox-close');
       const prevBtn = lightbox.querySelector('.lightbox-prev');
       const nextBtn = lightbox.querySelector('.lightbox-next');
+
+      const controller = new AbortController();
+      const signal = controller.signal;
+
+      window.__staticLightboxDestroy = () => {
+        controller.abort();
+        delete window.__staticLightboxDestroy;
+      };
 
       const imageItems = Array.from(document.querySelectorAll('.press-image-wrapper'));
       let currentIndex = 0;
@@ -775,30 +800,30 @@
 
       imageItems.forEach((item, index) => {
         item.style.cursor = 'pointer';
-        item.addEventListener('click', () => openLightbox(index));
+        item.addEventListener('click', () => openLightbox(index), { signal });
       });
 
-      closeBtn.addEventListener('click', closeLightbox);
+      closeBtn.addEventListener('click', closeLightbox, { signal });
       lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) closeLightbox();
-      });
+      }, { signal });
 
       prevBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         showPrev();
-      });
+      }, { signal });
 
       nextBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         showNext();
-      });
+      }, { signal });
 
       document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('active')) return;
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowRight') showNext();
         if (e.key === 'ArrowLeft') showPrev();
-      });
+      }, { signal });
     })();
 
     // =============================================
@@ -832,9 +857,6 @@
           switch (target) {
             case 'ueber':
               openModal('modal-ueber');
-              break;
-            case 'archiv':
-              openModal('modal-archiv');
               break;
             case 'kontakt':
               openModal('modal-kontakt');
@@ -891,94 +913,6 @@
           setTimeout(() => {
             openModal('modal-kontakt');
           }, 200);
-        });
-      });
-    })();
-
-    // =============================================
-    // ARCHIV-SUCHE
-    // =============================================
-    (function () {
-      const searchInputDE = document.getElementById('archiv-search');
-      const searchInputEN = document.getElementById('archiv-search-en');
-      const list = document.getElementById('archiv-list');
-      const tiles = Array.from(document.querySelectorAll('.tile-image'));
-
-      if (!list || tiles.length === 0) return;
-
-      const dataset = tiles.map((tile) => {
-        const title = tile.querySelector('.tile-title.lang-de')?.textContent ||
-                      tile.querySelector('.tile-title')?.textContent || '';
-        const titleEn = tile.querySelector('.tile-title.lang-en')?.textContent || title;
-        const medium = tile.querySelector('.tile-medium')?.textContent || '';
-        const dateText = tile.querySelector('.tile-date')?.textContent || '';
-        const iso = tile.getAttribute('data-date') || '';
-        return { title, titleEn, medium, dateText, iso, el: tile };
-      });
-
-      function render(items, isEnglish) {
-        list.innerHTML = '';
-        if (!items.length) {
-          const li = document.createElement('li');
-          li.textContent = isEnglish ? 'No results.' : 'Keine Treffer.';
-          list.appendChild(li);
-          return;
-        }
-        items.forEach((item) => {
-          const li = document.createElement('li');
-          const dateLabel = item.dateText || item.iso;
-          const displayTitle = isEnglish ? item.titleEn : item.title;
-          li.innerHTML = `<strong>${displayTitle}</strong><span>${item.medium} · ${dateLabel}</span>`;
-          li.addEventListener('click', () => {
-            const modal = document.getElementById('modal-archiv');
-            if (modal) {
-              modal.classList.remove('open');
-              modal.setAttribute('aria-hidden', 'true');
-            }
-            document.body.style.overflow = '';
-            item.el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          });
-          list.appendChild(li);
-        });
-      }
-
-      function filter(searchInput) {
-        const isEnglish = document.body.classList.contains('lang-en');
-        const q = (searchInput.value || '').toLowerCase().trim();
-        if (!q) {
-          render(dataset, isEnglish);
-          return;
-        }
-        const result = dataset.filter((item) => {
-          return (
-            item.title.toLowerCase().includes(q) ||
-            item.titleEn.toLowerCase().includes(q) ||
-            item.medium.toLowerCase().includes(q) ||
-            item.dateText.toLowerCase().includes(q) ||
-            item.iso.toLowerCase().includes(q)
-          );
-        });
-        render(result, isEnglish);
-      }
-
-      if (searchInputDE) {
-        searchInputDE.addEventListener('input', () => filter(searchInputDE));
-      }
-      if (searchInputEN) {
-        searchInputEN.addEventListener('input', () => filter(searchInputEN));
-      }
-
-      // Initial render
-      render(dataset, false);
-
-      // Update on language change
-      document.querySelectorAll('[data-lang]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          setTimeout(() => {
-            const isEnglish = document.body.classList.contains('lang-en');
-            const activeInput = isEnglish ? searchInputEN : searchInputDE;
-            if (activeInput) filter(activeInput);
-          }, 50);
         });
       });
     })();
@@ -1059,6 +993,6 @@
 
   <!-- GoatCounter Analytics (DSGVO-konform, keine Cookies) -->
   <script data-goatcounter="https://kerstingeffert.goatcounter.com/count"
-          async src="//gc.zgo.at/count.js"></script>
+          async src="https://gc.zgo.at/count.js"></script>
 </body>
 </html>

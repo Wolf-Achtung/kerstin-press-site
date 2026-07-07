@@ -1,3 +1,4 @@
 node_modules/
-.DS_Store
-*.log
+
+# Original-Scans (Quelle für npm run images:build) nicht deployen/committen
+images/src/
