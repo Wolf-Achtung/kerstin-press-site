@@ -741,7 +741,11 @@
     })();
 
     // =============================================
-    // LIGHTBOX
+    // LIGHTBOX (nur für die statischen Fallback-Kacheln)
+    // Sobald der Content-Loader die Sheet-Inhalte rendert, meldet er
+    // diese Listener über window.__staticLightboxDestroy() wieder ab –
+    // sonst reagieren zwei Lightbox-Implementierungen auf dieselben
+    // Buttons und Tasten.
     // =============================================
     (function () {
       const lightbox = document.getElementById('lightbox');
@@ -750,6 +754,14 @@
       const closeBtn = lightbox.querySelector('.lightbox-close');
       const prevBtn = lightbox.querySelector('.lightbox-prev');
       const nextBtn = lightbox.querySelector('.lightbox-next');
+
+      const controller = new AbortController();
+      const signal = controller.signal;
+
+      window.__staticLightboxDestroy = () => {
+        controller.abort();
+        delete window.__staticLightboxDestroy;
+      };
 
       const imageItems = Array.from(document.querySelectorAll('.press-image-wrapper'));
       let currentIndex = 0;
@@ -792,30 +804,30 @@
 
       imageItems.forEach((item, index) => {
         item.style.cursor = 'pointer';
-        item.addEventListener('click', () => openLightbox(index));
+        item.addEventListener('click', () => openLightbox(index), { signal });
       });
 
-      closeBtn.addEventListener('click', closeLightbox);
+      closeBtn.addEventListener('click', closeLightbox, { signal });
       lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox) closeLightbox();
-      });
+      }, { signal });
 
       prevBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         showPrev();
-      });
+      }, { signal });
 
       nextBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         showNext();
-      });
+      }, { signal });
 
       document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('active')) return;
         if (e.key === 'Escape') closeLightbox();
         if (e.key === 'ArrowRight') showNext();
         if (e.key === 'ArrowLeft') showPrev();
-      });
+      }, { signal });
     })();
 
     // =============================================

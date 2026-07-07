@@ -396,6 +396,12 @@
     leftColumn.innerHTML = leftHtml;
     rightColumn.innerHTML = rightHtml;
 
+    // Statische Fallback-Lightbox abmelden, damit nicht zwei
+    // Implementierungen auf dieselben Buttons/Tasten reagieren
+    if (typeof window.__staticLightboxDestroy === 'function') {
+      window.__staticLightboxDestroy();
+    }
+
     // Lightbox neu initialisieren mit Galerie-Support
     initGalleryLightbox();
 
@@ -407,7 +413,15 @@
   // LIGHTBOX MIT GALERIE-SUPPORT
   // ============================================
 
+  // Verhindert gestapelte Listener, wenn initGalleryLightbox mehrfach
+  // läuft (z. B. über window.reloadContent)
+  let galleryController = null;
+
   function initGalleryLightbox() {
+    if (galleryController) galleryController.abort();
+    galleryController = new AbortController();
+    const signal = galleryController.signal;
+
     const imageItems = document.querySelectorAll('.press-image-wrapper');
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightbox-img');
@@ -487,13 +501,13 @@
     }
 
     if (spreadCloseBtn) {
-      spreadCloseBtn.addEventListener('click', closeSpreadModal);
+      spreadCloseBtn.addEventListener('click', closeSpreadModal, { signal });
     }
 
     if (spreadModal) {
       spreadModal.addEventListener('click', (e) => {
         if (e.target === spreadModal) closeSpreadModal();
-      });
+      }, { signal });
     }
 
     // Article Split Modal (iframe + Screenshot)
@@ -520,13 +534,13 @@
     }
 
     if (articleCloseBtn) {
-      articleCloseBtn.addEventListener('click', closeArticleModal);
+      articleCloseBtn.addEventListener('click', closeArticleModal, { signal });
     }
 
     if (articleModal) {
       articleModal.addEventListener('click', (e) => {
         if (e.target === articleModal) closeArticleModal();
-      });
+      }, { signal });
     }
 
     // Positionen für Seitenreihenfolge (aus Google Sheet)
@@ -565,7 +579,7 @@
     }
 
     if (singleCloseBtn) {
-      singleCloseBtn.addEventListener('click', closeSingleModal);
+      singleCloseBtn.addEventListener('click', closeSingleModal, { signal });
     }
 
     if (singleNextBtn) {
@@ -573,7 +587,7 @@
         e.preventDefault();
         e.stopPropagation();
         goToSpread();
-      });
+      }, { signal });
     }
 
     // Klick auf das Cover-Bild führt auch zur nächsten Ansicht
@@ -582,7 +596,7 @@
         e.preventDefault();
         e.stopPropagation();
         goToSpread();
-      });
+      }, { signal });
       singleImg.style.cursor = 'pointer';
     }
 
@@ -607,7 +621,7 @@
     if (singleModal) {
       singleModal.addEventListener('click', (e) => {
         if (e.target === singleModal) closeSingleModal();
-      });
+      }, { signal });
     }
 
     // Event-Listener für Bilder
@@ -685,32 +699,32 @@
         // Bei 3+ Bildern: Normale Lightbox mit Navigation (Cover → Folgeseiten)
         console.log('→ Standard-Lightbox (Position', position, ', Bilder:', galleryUrls.length, ')');
         openLightbox(galleryUrls, 0);
-      });
+      }, { signal });
     });
 
     // Event-Listener für Navigation
     if (closeBtn) {
-      closeBtn.addEventListener('click', closeLightbox);
+      closeBtn.addEventListener('click', closeLightbox, { signal });
     }
 
     if (prevBtn) {
       prevBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         showPrev();
-      });
+      }, { signal });
     }
 
     if (nextBtn) {
       nextBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         showNext();
-      });
+      }, { signal });
     }
 
     // Schließen bei Klick auf Backdrop
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) closeLightbox();
-    });
+    }, { signal });
 
     // Tastaturnavigation
     document.addEventListener('keydown', (e) => {
@@ -752,7 +766,7 @@
           showPrev();
           break;
       }
-    });
+    }, { signal });
   }
 
   function applyCurrentLanguage() {
