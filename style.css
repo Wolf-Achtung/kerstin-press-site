@@ -1290,57 +1290,6 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
     color: #fff;
 }
 
-/* Archiv-Suche */
-#archiv-search,
-#archiv-search-en {
-    width: 100%;
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-    font-family: inherit;
-    border: 1px solid var(--border-color);
-    border-radius: 6px;
-    margin: 0.5rem 0 1rem;
-    outline: none;
-    transition: border-color 0.2s ease;
-}
-
-#archiv-search:focus,
-#archiv-search-en:focus {
-    border-color: var(--text-primary);
-}
-
-#archiv-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 300px;
-    overflow-y: auto;
-    border-top: 1px solid var(--border-light);
-}
-
-#archiv-list li {
-    padding: 0.75rem 0;
-    border-bottom: 1px solid var(--border-light);
-    cursor: pointer;
-    transition: background-color 0.15s ease;
-}
-
-#archiv-list li:hover {
-    background-color: var(--bg-page);
-}
-
-#archiv-list li strong {
-    display: block;
-    font-size: 0.95rem;
-    color: var(--text-primary);
-    margin-bottom: 0.2rem;
-}
-
-#archiv-list li span {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-}
-
 /* ========================================
    FOOTER
    ======================================== */

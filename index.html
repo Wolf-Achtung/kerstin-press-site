@@ -541,28 +541,6 @@
     </div>
   </div>
 
-  <!-- Archiv Modal -->
-  <div class="modal" id="modal-archiv" aria-hidden="true">
-    <div class="modal-content">
-      <button class="modal-close" data-modal-close>&times;</button>
-      <h2 class="lang-de">Presse-Archiv</h2>
-      <h2 class="lang-en">Press Archive</h2>
-      <input
-        type="search"
-        id="archiv-search"
-        class="lang-de"
-        placeholder="Stichwort, Medium oder Jahr eingeben"
-      />
-      <input
-        type="search"
-        id="archiv-search-en"
-        class="lang-en"
-        placeholder="Enter keyword, publication or year"
-      />
-      <ul id="archiv-list"></ul>
-    </div>
-  </div>
-
   <!-- SPREAD MODAL (Zwei Seiten nebeneinander) -->
   <div id="spread-modal" class="spread-modal" role="dialog" aria-modal="true">
     <button class="spread-modal-close" aria-label="Schließen">&times;</button>
@@ -872,9 +850,6 @@
             case 'ueber':
               openModal('modal-ueber');
               break;
-            case 'archiv':
-              openModal('modal-archiv');
-              break;
             case 'kontakt':
               openModal('modal-kontakt');
               break;
@@ -930,94 +905,6 @@
           setTimeout(() => {
             openModal('modal-kontakt');
           }, 200);
-        });
-      });
-    })();
-
-    // =============================================
-    // ARCHIV-SUCHE
-    // =============================================
-    (function () {
-      const searchInputDE = document.getElementById('archiv-search');
-      const searchInputEN = document.getElementById('archiv-search-en');
-      const list = document.getElementById('archiv-list');
-      const tiles = Array.from(document.querySelectorAll('.tile-image'));
-
-      if (!list || tiles.length === 0) return;
-
-      const dataset = tiles.map((tile) => {
-        const title = tile.querySelector('.tile-title.lang-de')?.textContent ||
-                      tile.querySelector('.tile-title')?.textContent || '';
-        const titleEn = tile.querySelector('.tile-title.lang-en')?.textContent || title;
-        const medium = tile.querySelector('.tile-medium')?.textContent || '';
-        const dateText = tile.querySelector('.tile-date')?.textContent || '';
-        const iso = tile.getAttribute('data-date') || '';
-        return { title, titleEn, medium, dateText, iso, el: tile };
-      });
-
-      function render(items, isEnglish) {
-        list.innerHTML = '';
-        if (!items.length) {
-          const li = document.createElement('li');
-          li.textContent = isEnglish ? 'No results.' : 'Keine Treffer.';
-          list.appendChild(li);
-          return;
-        }
-        items.forEach((item) => {
-          const li = document.createElement('li');
-          const dateLabel = item.dateText || item.iso;
-          const displayTitle = isEnglish ? item.titleEn : item.title;
-          li.innerHTML = `<strong>${displayTitle}</strong><span>${item.medium} · ${dateLabel}</span>`;
-          li.addEventListener('click', () => {
-            const modal = document.getElementById('modal-archiv');
-            if (modal) {
-              modal.classList.remove('open');
-              modal.setAttribute('aria-hidden', 'true');
-            }
-            document.body.style.overflow = '';
-            item.el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          });
-          list.appendChild(li);
-        });
-      }
-
-      function filter(searchInput) {
-        const isEnglish = document.body.classList.contains('lang-en');
-        const q = (searchInput.value || '').toLowerCase().trim();
-        if (!q) {
-          render(dataset, isEnglish);
-          return;
-        }
-        const result = dataset.filter((item) => {
-          return (
-            item.title.toLowerCase().includes(q) ||
-            item.titleEn.toLowerCase().includes(q) ||
-            item.medium.toLowerCase().includes(q) ||
-            item.dateText.toLowerCase().includes(q) ||
-            item.iso.toLowerCase().includes(q)
-          );
-        });
-        render(result, isEnglish);
-      }
-
-      if (searchInputDE) {
-        searchInputDE.addEventListener('input', () => filter(searchInputDE));
-      }
-      if (searchInputEN) {
-        searchInputEN.addEventListener('input', () => filter(searchInputEN));
-      }
-
-      // Initial render
-      render(dataset, false);
-
-      // Update on language change
-      document.querySelectorAll('[data-lang]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          setTimeout(() => {
-            const isEnglish = document.body.classList.contains('lang-en');
-            const activeInput = isEnglish ? searchInputEN : searchInputDE;
-            if (activeInput) filter(activeInput);
-          }, 50);
         });
       });
     })();
