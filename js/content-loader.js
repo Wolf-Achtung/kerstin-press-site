@@ -33,7 +33,6 @@
     // Cache prüfen
     const cached = getCachedData();
     if (cached) {
-      console.log('Content aus Cache geladen');
       return cached;
     }
 
@@ -638,14 +637,11 @@
     function goToSpread() {
       if (pendingSpread) {
         const spread = { ...pendingSpread };
-        console.log('Weiter geklickt, pendingSpread:', spread);
         closeSingleModal();
         setTimeout(() => {
           if (spread.left === spread.right) {
-            console.log('→ Zeige Lightbox (einzelnes Bild)');
             openLightbox([spread.left], 0);
           } else {
-            console.log('→ Zeige Spread-Modal (Doppelseite)');
             openSpreadModal(spread.left, spread.right);
           }
         }, 100);
@@ -816,19 +812,14 @@
   async function init() {
     // Prüfen ob Sheet-ID konfiguriert ist
     if (CONFIG.SHEET_ID === 'HIER_SHEET_ID_EINTRAGEN') {
-      console.log('Google Sheet noch nicht konfiguriert - zeige statischen Content');
       return;
     }
-
-    console.log('Lade Content aus Google Sheet...');
 
     const rows = await fetchSheetData();
 
     if (rows && rows.length > 0) {
       renderContent(rows);
-      console.log(`${rows.length} Einträge geladen`);
     } else {
-      console.log('Keine Daten gefunden - zeige statischen Content');
     }
   }
 

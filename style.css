@@ -294,8 +294,11 @@ body:not(.lang-de):not(.lang-en) a.lang-de {
     cursor: pointer;
     font-size: 0.9rem;
     font-weight: 500;
+    font-family: inherit;
     color: var(--text-primary);
     padding: 0.5rem 0;
+    background: none;
+    border: 0;
     transition: color 0.2s ease;
 }
 
