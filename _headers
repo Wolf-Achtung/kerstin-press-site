@@ -1,0 +1,21 @@
+# Netlify Security-Header für kerstingeffert.de
+# Doku: https://docs.netlify.com/routing/headers/
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=31536000
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://gc.zgo.at; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://lh3.googleusercontent.com https://kerstingeffert.goatcounter.com; font-src 'self'; connect-src 'self' https://docs.google.com https://kerstingeffert.goatcounter.com; frame-src https:; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'
+
+# Fonts ändern sich nie – aggressiv cachen
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Optimierte Bilder (Cover/Full) ebenfalls lange cachen
+/images/cover/*
+  Cache-Control: public, max-age=2592000
+
+/images/full/*
+  Cache-Control: public, max-age=2592000
